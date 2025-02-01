@@ -1,0 +1,16 @@
+name: Update Exchange Rates
+
+on:
+  schedule:
+    - cron: "0 3 * * *" # Todos los dias 03:00 UTC (00:00 UTC-3)
+  workflow_dispatch:
+
+jobs:
+  update-exchange-rates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Update Exchange Rates
+        run: |
+          curl -X GET "https://ocean-wallet.vercel.app/api/update-exchange-rates" \
+          -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
