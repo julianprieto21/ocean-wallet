@@ -17,42 +17,69 @@ export async function GET(req: Request) {
       `SELECT currency_id, currency_type FROM currencies;`
     );
     const exchangeRates = await Promise.all(
-      currencies.map(async ({ currency_id, currency_type }) => {
-        const response = await fetch(
-          `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${currency_id}.json`
-        );
-        return response.ok
-          ? {
-              from: currency_id,
-              type: currency_type,
-              data: await response.json(),
-            }
-          : null;
-      })
+      currencies.map(
+        async ({
+          currency_id,
+          currency_type,
+        }: {
+          currency_id: string;
+          currency_type: string;
+        }) => {
+          const response = await fetch(
+            `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${currency_id}.json`
+          );
+          return response.ok
+            ? {
+                from: currency_id,
+                type: currency_type,
+                data: await response.json(),
+              }
+            : null;
+        }
+      )
     );
     const validRates = exchangeRates.filter((rate) => rate !== null);
 
-    const values: any[] = [];
-    validRates.forEach(({ from, type, data }) => {
-      // Si es fiat, insertar tipos de camio entre fiats
-      if (type == "fiat") {
-        currencies.forEach(({ currency_id: to, currency_type }) => {
-          if (currency_type == "fiat") {
-            const exchange = data[from][to];
-            console.log(from, to, exchange);
-            if (exchange) {
-              values.push(`('${from}', '${to}', ${exchange}, '${data.date}')`);
+    const values: string[] = [];
+    validRates.forEach(
+      ({
+        from,
+        type,
+        data,
+      }: {
+        from: string;
+        type: string;
+        data: { [key: string]: { [key: string]: string } };
+      }) => {
+        // Si es fiat, insertar tipos de camio entre fiats
+        if (type == "fiat") {
+          currencies.forEach(
+            ({
+              currency_id: to,
+              currency_type,
+            }: {
+              currency_id: string;
+              currency_type: string;
+            }) => {
+              if (currency_type == "fiat") {
+                const exchange = data[from][to];
+                if (exchange) {
+                  values.push(
+                    `('${from}', '${to}', ${exchange}, '${data.date}')`
+                  );
+                }
+              }
             }
+          );
+          // Si es crypto, insertar tipo de cambio de crypto a USD
+        } else {
+          const exchange = data[from]["usd"];
+          if (exchange) {
+            values.push(`('${from}', 'usd', ${exchange}, '${data.date}')`);
           }
-        });
-        // Si es crypto, insertar tipo de cambio de crypto a USD
-      } else {
-        const exchange = data[from]["usd"];
-        if (exchange) {
-          values.push(`('${from}', 'usd', ${exchange}, '${data.date}')`);
         }
       }
-    });
+    );
 
     // Insertar en la base de datos en una sola consulta
     if (values.length > 0) {
