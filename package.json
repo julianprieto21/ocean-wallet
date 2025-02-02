@@ -9,12 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@vercel/postgres": "^0.10.0",
+    "@neondatabase/serverless": "^0.10.4",
     "next": "15.1.6",
     "next-auth": "5.0.0-beta.25",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
+    "recharts": "^2.15.1",
     "use-debounce": "^10.0.4"
   },
   "devDependencies": {

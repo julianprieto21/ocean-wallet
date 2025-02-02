@@ -1,6 +1,10 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
-import { db } from "@vercel/postgres";
+import { Pool } from "@neondatabase/serverless";
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
@@ -10,7 +14,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ user, account, profile }) {
       const { name, email, image } = user;
-      await db.query(
+      await pool.query(
         `INSERT INTO users (username, email, image_url, created_at, preference_currency) VALUES ($1, $2, $3, NOW(), $4) ON CONFLICT (email) DO UPDATE SET username = $1, email = $2, image_url = $3, preference_currency = $4;`,
         [name, email, image, "usd"]
       );
@@ -21,7 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (trigger === "update") return { ...token, ...session };
 
       if (token.email) {
-        const { rows } = await db.query(
+        const { rows } = await pool.query(
           `SELECT user_id::text FROM users WHERE email = $1;`,
           [token.email]
         );

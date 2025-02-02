@@ -1,4 +1,8 @@
-import { db } from "@vercel/postgres";
+import { Pool } from "@neondatabase/serverless";
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
 
 export async function GET(req: Request) {
   // Verificar que se incluya la cabecera de autorización
@@ -13,7 +17,7 @@ export async function GET(req: Request) {
   }
 
   try {
-    const { rows: currencies } = await db.query(
+    const { rows: currencies } = await pool.query(
       `SELECT currency_id, currency_type FROM currencies;`
     );
     const exchangeRates = await Promise.all(
@@ -83,7 +87,7 @@ export async function GET(req: Request) {
 
     // Insertar en la base de datos en una sola consulta
     if (values.length > 0) {
-      await db.query(`
+      await pool.query(`
         INSERT INTO currency_exchange_rates (from_curr, to_curr, exchange_rate, last_update)
         VALUES ${values.join(", ")}
         ON CONFLICT (from_curr, to_curr) 
