@@ -12,5 +12,4 @@ jobs:
     steps:
       - name: Update Exchange Rates
         run: |
-          curl -X GET "https://ocean-wallet.vercel.app/api/update-exchange-rates" \
-          -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
+          curl -X GET "https://ocean-wallet.vercel.app/api/update-exchange-rates" -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
