@@ -18,7 +18,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         `INSERT INTO users (username, email, image_url, created_at, preference_currency) VALUES ($1, $2, $3, NOW(), $4) ON CONFLICT (email) DO UPDATE SET username = $1, email = $2, image_url = $3, preference_currency = $4;`,
         [name, email, image, "usd"]
       );
-
       return true;
     },
     async jwt({ token, trigger, session }) {
@@ -33,7 +32,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return token;
     },
-    async session({ session, token }) {
+    session({ session, token }) {
       if (token.userId) {
         session.user = {
           ...session.user,
@@ -41,6 +40,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         };
       }
       return session;
+    },
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+      const isOnHome = nextUrl.pathname.startsWith("/");
+      if (isOnHome) {
+        if (isLoggedIn) return true;
+        return false;
+      } else if (isLoggedIn) {
+        return Response.redirect(new URL("/", nextUrl));
+      }
+      return true;
+    },
+    redirect({ url, baseUrl }) {
+      return baseUrl;
     },
   },
 });
