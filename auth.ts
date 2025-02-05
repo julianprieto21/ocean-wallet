@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import { Pool } from "@neondatabase/serverless";
-import { routing } from "./navigation";
+import { routing } from "./i18n/routing";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,

@@ -23,7 +23,7 @@
       "@/components/*": ["./app/[lang]/(main)/components/*"],
       "@/lib/*": ["./lib/*"],
       "@/auth": ["./auth.ts"],
-      "@/navigation": ["./navigation.ts"]
+      "@/i18n": ["./i18n/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

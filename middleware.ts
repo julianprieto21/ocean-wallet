@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import createMiddleware from "next-intl/middleware";
-import { routing } from "./navigation";
+import { routing } from "./i18n/routing";
 import { NextRequest, NextResponse } from "next/server";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";

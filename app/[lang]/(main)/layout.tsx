@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import "../globals.css";
 import Provider from "@/components/Provider";
-import { Locale } from "@/navigation";
+import { Locale } from "@/i18n/routing";
+import { NextIntlClientProvider } from "next-intl";
 
 const kanit = Kanit({
   variable: "--font-kanit",
@@ -27,11 +28,13 @@ export default async function RootLayout({
   return (
     <html lang={lang}>
       <body className={`${kanit.className} antialiased`}>
-        <Provider>
-          <main className="size-full flex flex-row gap-8 relative">
-            {children}
-          </main>
-        </Provider>
+        <NextIntlClientProvider locale={lang}>
+          <Provider>
+            <main className="size-full flex flex-row gap-8 relative">
+              {children}
+            </main>
+          </Provider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
