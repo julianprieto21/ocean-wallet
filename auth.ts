@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import { Pool } from "@neondatabase/serverless";
+import { routing } from "./navigation";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -41,19 +42,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return session;
     },
-    authorized({ auth, request: { nextUrl } }) {
-      const isLoggedIn = !!auth?.user;
-      const isOnHome = nextUrl.pathname.startsWith("/");
-      if (isOnHome) {
-        if (isLoggedIn) return true;
-        return false;
-      } else if (isLoggedIn) {
-        return Response.redirect(new URL("/", nextUrl));
-      }
-      return true;
-    },
-    redirect({ url, baseUrl }) {
-      return baseUrl;
+    async redirect({ url, baseUrl }) {
+      const locale = url.split("/")[3];
+      const isValidLocale = routing.locales.includes(locale);
+      return isValidLocale ? url : `${baseUrl}/${routing.defaultLocale}`;
     },
   },
 });
