@@ -16,6 +16,12 @@ export async function GET(req: Request) {
     });
   }
 
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const lastUpdate = `${year}.${month}.${day}`;
+
   try {
     const { rows: currencies } = await pool.query(
       `SELECT currency_id, currency_type FROM currencies;`
@@ -30,7 +36,7 @@ export async function GET(req: Request) {
           currency_type: string;
         }) => {
           const response = await fetch(
-            `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${currency_id}.json`
+            `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${lastUpdate}/v1/currencies/${currency_id}.json`
           );
           return response.ok
             ? {
@@ -69,7 +75,7 @@ export async function GET(req: Request) {
                 const exchange = data[from][to];
                 if (exchange) {
                   values.push(
-                    `('${from}', '${to}', ${exchange}, '${data.date}')`
+                    `('${from}', '${to}', ${exchange}, '${lastUpdate}')`
                   );
                 }
               }
@@ -79,7 +85,7 @@ export async function GET(req: Request) {
         } else {
           const exchange = data[from]["usd"];
           if (exchange) {
-            values.push(`('${from}', 'usd', ${exchange}, '${data.date}')`);
+            values.push(`('${from}', 'usd', ${exchange}, '${lastUpdate}')`);
           }
         }
       }
