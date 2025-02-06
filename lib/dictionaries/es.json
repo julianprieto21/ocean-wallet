@@ -1,3 +1,52 @@
 {
-  "hello": "Hola"
+  "navigation": {
+    "search": "Buscar",
+    "home": "Inicio",
+    "transactions": "Transacciones",
+    "accounts": "Cuentas",
+    "details": "Detalles"
+  },
+  "common_fields": {
+    "name": "Nombre",
+    "image_url": "URL de la Imagen",
+    "created_at": "Fecha de Creación",
+    "currency": "Moneda",
+    "amount": "Monto",
+    "type": "Tipo"
+  },
+  "users": {
+    "users": "Usuarios",
+    "user": "Usuario",
+    "email": "Correo Electrónico",
+    "preference_currency": "Moneda de Preferencia"
+  },
+  "accounts": {
+    "accounts": "Cuentas",
+    "account": "Cuenta",
+    "general": "Billeteras",
+    "crypto": "Criptomonedas"
+  },
+  "transactions": {
+    "transactions": "Transacciones",
+    "transaction": "Transacción",
+    "description": "Descripción",
+    "category": "Categoría",
+    "subcategory": "Subcategoría"
+  },
+  "quotas": {
+    "quotas": "Cuotas",
+    "quota": "Cuota",
+    "quota_quantity": "Cantidad de Cuotas",
+    "current_quantity": "Cantidad de Cuotas Pagadas",
+    "next_payment_date": "Fecha de Siguiente Pago"
+  },
+  "currencies": {
+    "currencies": "Monedas",
+    "currency": "Moneda"
+  },
+  "greetings": {
+    "morning": "Buenos días",
+    "afternoon": "Buenas tardes",
+    "evening": "Buenas noches"
+  }
 }

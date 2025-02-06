@@ -1,3 +1,52 @@
 {
-  "hello": "Hello"
+  "navigation": {
+    "search": "Search",
+    "home": "Home",
+    "transactions": "Transactions",
+    "accounts": "Accounts",
+    "details": "Details"
+  },
+  "common_fields": {
+    "name": "Name",
+    "image_url": "Image URL",
+    "created_at": "Created At",
+    "currency": "Currency",
+    "amount": "Amount",
+    "type": "Type"
+  },
+  "users": {
+    "users": "Users",
+    "user": "User",
+    "email": "Email",
+    "preference_currency": "Preference Currency"
+  },
+  "accounts": {
+    "accounts": "Accounts",
+    "account": "Account",
+    "general": "General",
+    "crypto": "Crypto"
+  },
+  "transactions": {
+    "transactions": "Transactions",
+    "transaction": "Transaction",
+    "description": "Description",
+    "category": "Category",
+    "subcategory": "Subcategory"
+  },
+  "quotas": {
+    "quotas": "Quotas",
+    "quota": "Quota",
+    "quota_quantity": "Quota Quantity",
+    "current_quantity": "Current Quantity",
+    "next_payment_date": "Next Payment Date"
+  },
+  "currencies": {
+    "currencies": "Currencies",
+    "currency": "Currency"
+  },
+  "greetings": {
+    "morning": "Good Morning",
+    "afternoon": "Good Afternoon",
+    "evening": "Good Evening"
+  }
 }
