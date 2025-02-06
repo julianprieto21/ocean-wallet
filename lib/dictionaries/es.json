@@ -1,4 +1,7 @@
 {
+  "balance": "Balance",
+  "income": "Ingresos",
+  "expenses": "Gastos",
   "navigation": {
     "search": "Buscar",
     "home": "Inicio",
@@ -48,5 +51,31 @@
     "morning": "Buenos días",
     "afternoon": "Buenas tardes",
     "evening": "Buenas noches"
+  },
+  "categories": {
+    "house": "Vivienda",
+    "transport": "Transporte",
+    "food": "Alimentación",
+    "health_beauty": "Salud y Bienestar",
+    "entertainment_leisure": "Entretenimiento y Ocio",
+    "savings_investments": "Ahorro e Inversion"
+  },
+  "sub_categories": {},
+  "actions": {
+    "create_account": "Crear Cuenta",
+    "add_account": "Añadir Cuenta",
+    "edit_account": "Editar Cuenta",
+    "new_account": "Nueva Cuenta",
+    "delete_account": "Eliminar Cuenta",
+    "create_transaction": "Crear Transacción",
+    "add_transaction": "Añadir Transacción",
+    "edit_transaction": "Editar Transacción",
+    "new_transaction": "Nueva Transacción",
+    "delete_transaction": "Eliminar Transacción",
+    "create_quota": "Crear Cuota",
+    "add_quota": "Añadir Cuota",
+    "edit_quota": "Editar Cuota",
+    "new_quota": "Nueva Cuota",
+    "delete_quota": "Eliminar Cuota"
   }
 }

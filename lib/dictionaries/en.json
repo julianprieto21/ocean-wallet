@@ -1,4 +1,7 @@
 {
+  "balance": "Balance",
+  "income": "Income",
+  "expenses": "Expenses",
   "navigation": {
     "search": "Search",
     "home": "Home",
@@ -48,5 +51,30 @@
     "morning": "Good Morning",
     "afternoon": "Good Afternoon",
     "evening": "Good Evening"
+  },
+  "categories": {
+    "house": "House",
+    "transport": "Transport",
+    "food": "Food",
+    "health_beauty": "Health and Beauty",
+    "entertainment_leisure": "Entertainment and Leisure",
+    "savings_investments": "Savings and Investments"
+  },
+  "sub_categories": {},
+  "actions": {
+    "create_account": "Create Account",
+    "add_account": "Add Account",
+    "edit_account": "Edit Account",
+    "new_account": "New Account",
+    "delete_account": "Delete Account",
+    "create_transaction": "Create Transaction",
+    "add_transaction": "Add Transaction",
+    "edit_transaction": "Edit Transaction",
+    "new_transaction": "New Transaction",
+    "delete_transaction": "Delete Transaction",
+    "create_quota": "Create Quota",
+    "add_quota": "Add Quota",
+    "edit_quota": "Edit Quota",
+    "new_quota": "New Quota"
   }
 }
