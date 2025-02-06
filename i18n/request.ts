@@ -8,7 +8,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
   if (!locale || !locales.includes(locale as any)) {
     locale = defaultLocale;
   }
-  console.log("locale", locale);
   return {
     locale,
   };
