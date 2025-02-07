@@ -2,7 +2,7 @@ name: Update Exchange Rates
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Todos los dias 00:00 GMT (03:00 UTC)
+    - cron: "0 3 * * *" # Todos los dias a las 3:00 UTC
   workflow_dispatch:
 
 jobs:
