@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import "../globals.css";
+import Sidebar from "@/app/[locale]/(main)/components/Sidebar";
 import Provider from "@/app/[locale]/(main)/components/Provider";
 import { Locale } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
@@ -33,6 +34,7 @@ export default async function RootLayout({
           <Provider>
             <UserLoader />
             <main className="size-full flex flex-row gap-8 relative">
+              <Sidebar locale={locale} />
               {children}
             </main>
           </Provider>
