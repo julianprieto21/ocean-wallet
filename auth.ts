@@ -26,10 +26,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       if (token.email) {
         const { rows } = await pool.query(
-          `SELECT user_id::text FROM users WHERE email = $1;`,
+          `SELECT user_id::text, preference_currency::text FROM users WHERE email = $1`,
           [token.email]
         );
-        if (rows.length > 0) token.userId = rows[0].user_id as string;
+        if (rows.length > 0) {
+          token.userId = rows[0].user_id as string;
+          token.preferenceCurrency = rows[0].preference_currency as string;
+        }
       }
       return token;
     },
@@ -38,6 +41,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user = {
           ...session.user,
           id: token.userId as string,
+          preferenceCurrency: token.preferenceCurrency as string,
         };
       }
       return session;
