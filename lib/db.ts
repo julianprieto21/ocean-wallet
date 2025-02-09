@@ -122,7 +122,7 @@ export async function getCryptoAccountDetails() {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
-    SELECT tx.currency_id, cu.currency_name, cu.image_url, SUM(tx.amount)::float orig, SUM(tx.amount * ex.exchange_rate)::float conv
+    SELECT cu.currency_name name, cu.image_url, tx.currency_id, SUM(tx.amount)::float orig, SUM(tx.amount * ex.exchange_rate)::float conv
     FROM transactions AS tx
     JOIN accounts AS ac ON ac.account_id = tx.account_id AND ac.account_type = 'crypto'
     JOIN users AS us ON us.user_id = $1
