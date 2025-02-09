@@ -95,21 +95,33 @@ function WalletDetail({ details }: { details: WalletDetailProps }) {
     color: string;
     balance: { currency: string; amount: number }[];
   }[] = Object.values(
-    details.reduce((acc: any, item: WalletDetailProps[0]) => {
-      const { name, hex_code, currency_id, orig } = item;
+    details.reduce(
+      (
+        acc: {
+          [key: string]: {
+            name: string;
+            color: string;
+            balance: { currency: string; amount: number }[];
+          };
+        },
+        item: WalletDetailProps[0]
+      ) => {
+        const { name, hex_code, currency_id, orig } = item;
 
-      if (!acc[name]) {
-        acc[name] = {
-          name,
-          color: hex_code,
-          balance: [],
-        };
-      }
+        if (!acc[name]) {
+          acc[name] = {
+            name,
+            color: hex_code,
+            balance: [],
+          };
+        }
 
-      acc[name].balance.push({ currency: currency_id, amount: orig });
+        acc[name].balance.push({ currency: currency_id, amount: orig });
 
-      return acc;
-    }, {})
+        return acc;
+      },
+      {}
+    )
   );
   return (
     <div className="w-full flex flex-col gap-1">
@@ -153,5 +165,63 @@ function WalletDetail({ details }: { details: WalletDetailProps }) {
 }
 
 function CryptoDetail({ details }: { details: CryptoDetailProps }) {
-  return <></>;
+  const locale = useLocale();
+  const preference_currency = useUserStore(
+    (state) => state.preference_currency
+  );
+  return (
+    <div className="w-full flex flex-col gap-1">
+      {details.map((crypto) => {
+        const {
+          prefix: prefixOrig,
+          integer: integerOrig,
+          decimal: decimalOrig,
+        } = formatBalance({
+          amount: crypto.orig,
+          currency: crypto.currency_id,
+          locale: locale,
+          fractionDigits: 8,
+        });
+        const {
+          prefix: prefixConv,
+          integer: integerConv,
+          decimal: decimalConv,
+        } = formatBalance({
+          amount: crypto.conv,
+          currency: preference_currency,
+          locale: locale,
+          fractionDigits: 8,
+        });
+        return (
+          <div
+            key={crypto.name}
+            className="flex flex-row items-start gap-2 text-xl text-primary-300 p-3 rounded-2xl mx-4 transition-colors duration-75"
+          >
+            <img
+              src={crypto.image_url}
+              alt=""
+              className="size-7 rounded-full"
+            />
+            <div className="flex flex-row w-full justify-between items-start">
+              <button type="button" className="hover:underline">
+                {crypto.name}
+              </button>
+              <span className="flex flex-col items-end">
+                <span className="pl-2">
+                  {integerOrig}
+                  {decimalOrig}
+                  {prefixOrig}
+                </span>
+                <span className="pl-2">
+                  {integerConv}
+                  {decimalConv}
+                  {prefixConv}
+                </span>
+              </span>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
