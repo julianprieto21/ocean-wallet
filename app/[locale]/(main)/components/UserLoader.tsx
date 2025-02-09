@@ -14,6 +14,6 @@ export const UserLoader = () => {
     setEmail(session.user.email);
     setImage(session.user.image);
     setPreferenceCurrency(session.user.preferenceCurrency);
-  }, [session]);
+  }, [session, setUsername, setEmail, setImage, setPreferenceCurrency]);
   return <></>;
 };
