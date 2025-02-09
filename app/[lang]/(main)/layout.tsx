@@ -4,6 +4,7 @@ import "../globals.css";
 import Provider from "@/components/Provider";
 import { Locale } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
+import { UserLoader } from "./components/UserLoader";
 
 const kanit = Kanit({
   variable: "--font-kanit",
@@ -30,6 +31,7 @@ export default async function RootLayout({
       <body className={`${kanit.className} antialiased`}>
         <NextIntlClientProvider locale={lang}>
           <Provider>
+            <UserLoader />
             <main className="size-full flex flex-row gap-8 relative">
               {children}
             </main>
