@@ -1,4 +1,4 @@
-export type AccountType = "general" | "crypto";
+export type AccountType = "wallet" | "crypto";
 
 export type Account = {
   account_id: string;

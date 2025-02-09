@@ -26,8 +26,8 @@
   "accounts": {
     "accounts": "Accounts",
     "account": "Account",
-    "general": "General",
-    "crypto": "Crypto"
+    "wallet": "Wallets",
+    "crypto": "Cryptos"
   },
   "transactions": {
     "transactions": "Transactions",

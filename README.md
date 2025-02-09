@@ -57,7 +57,7 @@ Aplicación web para gestionar las finanzas personales.
 | account_id   | UUID      | ID de la cuenta                              |
 | user_id      | UUID      | Referencia al ID del usuario                 |
 | name         | string    | Nombre de la cuenta                          |
-| account_type | decimal   | Tipo de cuenta (general, crypto, etc.)       |
+| account_type | decimal   | Tipo de cuenta (wallet, crypto, etc.)        |
 | created_at   | timestamp | Fecha de creación de la cuenta               |
 | hex_code     | string    | Código de color hexagonal único de la cuenta |
 
