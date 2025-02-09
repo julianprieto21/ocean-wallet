@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import "../globals.css";
-import Provider from "@/components/Provider";
+import Provider from "@/app/[locale]/(main)/components/Provider";
 import { Locale } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
 import { UserLoader } from "./components/UserLoader";
@@ -23,13 +23,13 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ locale: Locale }>;
 }>) {
-  const { lang } = await params;
+  const { locale } = await params;
   return (
-    <html lang={lang}>
+    <html lang={locale}>
       <body className={`${kanit.className} antialiased`}>
-        <NextIntlClientProvider locale={lang}>
+        <NextIntlClientProvider locale={locale}>
           <Provider>
             <UserLoader />
             <main className="size-full flex flex-row gap-8 relative">

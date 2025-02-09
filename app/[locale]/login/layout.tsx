@@ -13,11 +13,11 @@ export default async function LoginLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ locale: Locale }>;
 }>) {
-  const { lang } = await params;
+  const { locale } = await params;
   return (
-    <html lang={lang}>
+    <html lang={locale}>
       <body className={`${kanit.className} antialiased`}>
         <main className="size-full flex flex-row gap-8 relative">
           {children}
