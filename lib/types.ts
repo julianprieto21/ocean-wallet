@@ -43,7 +43,7 @@ export interface Dict {
   currencies: CurrenciesDict;
   greetings: GreetingsDict;
   categories: CategoriesDict;
-  sub_categories: SubCategoriesDict;
+  sub_categories: "";
   actions: ActionsDict;
 }
 
@@ -114,7 +114,7 @@ export interface CategoriesDict {
   savings_investments: string;
 }
 
-export interface SubCategoriesDict {}
+// export interface SubCategoriesDict {}
 
 export interface ActionsDict {
   create_account: string;
