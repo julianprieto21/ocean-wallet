@@ -81,7 +81,7 @@ export async function getBalances() {
     JOIN accounts AS ac ON ac.account_id = tx.account_id
     JOIN users AS us ON us.user_id = $1
     JOIN currency_exchange_rates as ex ON tx.currency_id = ex.from_curr
-    WHERE ac.account_type = 'general' AND ex.to_curr = us.preference_currency`,
+    WHERE ac.account_type = 'wallet' AND ex.to_curr = us.preference_currency`,
     [user.id]
   );
   return rows[0];
@@ -91,9 +91,9 @@ export async function getDailyBalances() {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
-    SELECT DATE(tx.created_at), SUM(tx.amount * ex.exchange_rate)
+    SELECT DATE(tx.created_at), SUM(tx.amount * ex.exchange_rate)::float balance
     FROM transactions AS tx
-    JOIN accounts AS ac ON ac.accouts_id = tx.account_id AND ac.account_type = 'general'
+    JOIN accounts AS ac ON ac.accouts_id = tx.account_id AND ac.account_type = 'wallet'
     JOIN users AS us ON us.user_id = $1
     JOIN currency_exchange_rates as ex ON tx.currency_id = ex.from_curr AND ex.to_curr = us.preference_currency
     GROUP BY DATE(tx.created_at)
@@ -103,13 +103,13 @@ export async function getDailyBalances() {
   return rows;
 }
 
-export async function getGeneralAccountDetails() {
+export async function getWalletAccountDetails() {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
-    SELECT ac.name, ac.hex_code, tx.currency_id, SUM(tx.amount) orig, SUM(tx.amount * ex.exchange_rate) conv
+    SELECT ac.name, ac.hex_code, tx.currency_id, SUM(tx.amount)::float orig, SUM(tx.amount * ex.exchange_rate)::float conv
     FROM transactions AS tx
-    JOIN accounts AS ac ON ac.accounts_id = tx.account_id AND ac.account_type = 'general'
+    JOIN accounts AS ac ON ac.account_id = tx.account_id AND ac.account_type = 'wallet'
     JOIN users AS us ON us.user_id = $1
     JOIN currency_exchange_rates AS ex ON ex.from_curr = tx.currency_id AND ex.to_curr = us.preference_currency
     GROUP BY ac.name, ac.hex_code, tx.currency_id`,
@@ -122,9 +122,9 @@ export async function getCryptoAccountDetails() {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
-    SELECT tx.currency_id, cu.currency_name, cu.image_url, SUM(tx.amount) orig, SUM(tx.amount * ex.exchange_rate) conv
+    SELECT tx.currency_id, cu.currency_name, cu.image_url, SUM(tx.amount)::float orig, SUM(tx.amount * ex.exchange_rate)::float conv
     FROM transactions AS tx
-    JOIN accounts AS ac ON ac.accounts_id = tx.account_id AND ac.account_type = 'crypto'
+    JOIN accounts AS ac ON ac.account_id = tx.account_id AND ac.account_type = 'crypto'
     JOIN users AS us ON us.user_id = $1
     JOIN currency_exchange_rates AS ex ON ex.from_curr = tx.currency_id AND ex.to_curr = 'usd'
     JOIN currencies AS cu ON cu.currency_id = tx.currency_id
@@ -138,10 +138,11 @@ export async function getQuotaDetails() {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
-    SELECT qu.quota_name, qu.quota_type, qu.quota_quantity, qu.current_quantity, qu.quota_currency, qu.created_at, qu.next_payment_date, qu.amount orig, qu.amount * ex.exchange_rate conv
-    FROM quotas AS qu ON qu.status IN ('active', 'paused')
+    SELECT qu.quota_name, qu.quota_type, qu.quota_quantity, qu.current_quantity, qu.quota_currency currency, qu.created_at, qu.next_payment_date, qu.amount orig, (qu.amount * ex.exchange_rate) conv
+    FROM quotas AS qu
     JOIN users AS us ON us.user_id = $1
     JOIN currency_exchange_rates AS ex ON ex.from_curr = qu.quota_currency AND ex.to_curr = us.preference_currency
+    WHERE qu.status IN ('active', 'paused')
     ORDER BY qu.created_at`,
     [user.id]
   );
@@ -152,15 +153,15 @@ export async function getBalancePerAccount() {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
-    SELECT ac.name, ac.hex_code, SUM((tx.amount * ex.exchange_rate) / total.total * 100) percent
+    SELECT ac.name, ac.hex_code, SUM((tx.amount * ex.exchange_rate) / total.total * 100)::float percent
     FROM transactions AS tx
-    JOIN accounts AS ac ON ac.account_id = tx.account_id AND ac.account_type = 'general'
+    JOIN accounts AS ac ON ac.account_id = tx.account_id AND ac.account_type = 'wallet'
     JOIN users AS us ON us.user_id = $1
     JOIN currency_exchange_rates AS ex ON ex.from_curr = tx.currency_id AND ex.to_curr = us.preference_currency
     JOIN (
       SELECT ac.name, SUM(tx.amount * ex.exchange_rate) total
       FROM transactions AS tx
-      JOIN accounts AS ac ON ac.account = tx.account_id AND ac.account_type = 'general'
+      JOIN accounts AS ac ON ac.account = tx.account_id AND ac.account_type = 'wallet'
       JOIN users AS us ON us.user_id = $1
       JOIN currency_exchange_rates as ex ON ex.from_curr = tx.currency_id AND ex.to_curr = us.preference_currency
       GROUP BY ac.name
