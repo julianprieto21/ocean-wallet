@@ -1,7 +1,6 @@
 import { signIn } from "@/auth";
 
-export default async function SignIn({ params }: { params: any }) {
-  const { locale } = await params;
+export default async function SignIn() {
   return (
     <div className="grid place-content-center size-full">
       <form
