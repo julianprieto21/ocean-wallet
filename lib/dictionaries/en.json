@@ -39,7 +39,7 @@
   "quotas": {
     "quotas": "Quotas",
     "quota": "Quota",
-    "quota_quantity": "Quota Quantity",
+    "quantity": "Quota Quantity",
     "current_quantity": "Current Quantity",
     "next_payment_date": "Next Payment Date"
   },

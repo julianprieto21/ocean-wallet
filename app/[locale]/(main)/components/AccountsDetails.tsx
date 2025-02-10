@@ -24,7 +24,7 @@ export function CreateAccount({ dict }: { dict: ActionsDict }) {
 
 type WalletDetailProps = {
   name: string;
-  hex_code: string;
+  provider: string;
   currency_id: string;
   orig: number;
   conv: number;
@@ -92,7 +92,7 @@ function WalletDetail({ details }: { details: WalletDetailProps }) {
   const locale = useLocale();
   const accounts: {
     name: string;
-    color: string;
+    provider: string;
     balance: { currency: string; amount: number }[];
   }[] = Object.values(
     details.reduce(
@@ -100,18 +100,18 @@ function WalletDetail({ details }: { details: WalletDetailProps }) {
         acc: {
           [key: string]: {
             name: string;
-            color: string;
+            provider: string;
             balance: { currency: string; amount: number }[];
           };
         },
         item: WalletDetailProps[0]
       ) => {
-        const { name, hex_code, currency_id, orig } = item;
+        const { name, provider, currency_id, orig } = item;
 
         if (!acc[name]) {
           acc[name] = {
             name,
-            color: hex_code,
+            provider: provider,
             balance: [],
           };
         }
@@ -131,10 +131,11 @@ function WalletDetail({ details }: { details: WalletDetailProps }) {
             key={account.name}
             className="flex flex-row items-start gap-2 text-xl text-primary-300 p-3 rounded-2xl mx-4 transition-colors duration-75"
           >
-            <span
-              className="rounded-full size-7 flex-shrink-0"
-              style={{ backgroundColor: account.color }}
-            ></span>
+            <img
+              src={`/icons/wallet/${account.provider}.svg`}
+              alt=""
+              className="size-7 rounded-full"
+            />
             <div className="flex flex-row w-full justify-between items-start">
               <button type="button" className="hover:underline">
                 {account.name}
@@ -198,7 +199,7 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
             className="flex flex-row items-start gap-2 text-xl text-primary-300 p-3 rounded-2xl mx-4 transition-colors duration-75"
           >
             <img
-              src={crypto.image_url}
+              src={`/icons/crypto/${crypto.currency_id}.svg`}
               alt=""
               className="size-7 rounded-full"
             />

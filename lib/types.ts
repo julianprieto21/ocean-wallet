@@ -2,9 +2,9 @@ export type AccountType = "wallet" | "crypto";
 
 export type Account = {
   account_id: string;
-  account_type: AccountType;
+  type: AccountType;
   name: string;
-  hex_code: string;
+  provider: string;
 };
 
 export type Category =
@@ -19,10 +19,10 @@ export type TransactionType = "income" | "expense";
 
 export type Transaction = {
   transaction_id: string;
-  transaction_description: string;
-  transaction_category: Category;
-  transaction_subcategory: string;
-  transaction_type: TransactionType;
+  description: string;
+  category: Category;
+  subcategory: string;
+  type: TransactionType;
   created_at: string;
   amount: number;
   currency_id: string;
@@ -89,7 +89,7 @@ export interface TransactionsDict {
 export interface QuotasDict {
   quotas: string;
   quota: string;
-  quota_quantity: string;
+  quantity: string;
   current_quantity: string;
   next_payment_date: string;
 }

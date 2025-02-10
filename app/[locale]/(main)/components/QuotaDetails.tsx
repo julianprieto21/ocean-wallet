@@ -23,9 +23,9 @@ function PayQuota() {
 }
 
 type DetailProps = {
-  quota_name: string;
-  quota_type: string;
-  quota_quantity: number;
+  name: string;
+  type: string;
+  quantity: number;
   current_quantity: number;
   currency: string;
   created_at: string;
@@ -91,13 +91,13 @@ function Detail({ details }: { details: DetailProps }) {
         });
         return (
           <div
-            key={quota.quota_name}
+            key={quota.name}
             className="flex flex-row items-start gap-2 text-xl text-primary-300 p-3 rounded-2xl mx-4 transition-colors duration-75"
           >
             <PayQuota />
             <div className="flex flex-row w-full justify-between items-start">
               <button type="button" className="hover:underline">
-                {quota.quota_name}
+                {quota.name}
               </button>
               <span className="flex flex-col items-end">
                 <span className="pl-2">

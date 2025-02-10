@@ -39,7 +39,7 @@
   "quotas": {
     "quotas": "Cuotas",
     "quota": "Cuota",
-    "quota_quantity": "Cantidad de Cuotas",
+    "quantity": "Cantidad de Cuotas",
     "current_quantity": "Cantidad de Cuotas Pagadas",
     "next_payment_date": "Fecha de Siguiente Pago"
   },
