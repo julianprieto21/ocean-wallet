@@ -27,7 +27,10 @@
     "accounts": "Cuentas",
     "account": "Cuenta",
     "wallet": "Billeteras",
-    "crypto": "Criptomonedas"
+    "crypto": "Criptomonedas",
+    "provider": "Proveedor",
+    "generic": "Genérica",
+    "cash": "Efectivo"
   },
   "transactions": {
     "transactions": "Transacciones",

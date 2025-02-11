@@ -76,6 +76,9 @@ export interface AccountsDict {
   account: string;
   wallet: string;
   crypto: string;
+  provider: string;
+  generic: string;
+  cash: string;
 }
 
 export interface TransactionsDict {
