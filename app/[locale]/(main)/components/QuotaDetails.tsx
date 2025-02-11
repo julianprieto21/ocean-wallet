@@ -5,7 +5,7 @@ import {
   FiPlus as PlusIcon,
   FiChevronRight as ChevronRightIcon,
 } from "react-icons/fi";
-import { formatBalance } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import { useUserStore } from "@/lib/store/userStore";
 import { useLocale } from "next-intl";
 import { QuotasDict } from "@/lib/types";
@@ -48,7 +48,7 @@ export default function QuotaDetails({ dict, details }: QuotaDetailsProps) {
     (acc: number, curr: { orig: number; conv: number }) => acc + curr.conv,
     0
   );
-  const { prefix, integer, decimal } = formatBalance({
+  const { prefix, integer, decimal } = formatCurrency({
     amount: quotaAmount,
     currency: preferenceCurrency,
     locale: locale,
@@ -85,7 +85,7 @@ function Detail({ details }: { details: DetailProps }) {
   return (
     <div className="w-full flex flex-col gap-1">
       {details.map((quota: DetailProps[0]) => {
-        const { prefix, integer, decimal } = formatBalance({
+        const { prefix, integer, decimal } = formatCurrency({
           amount: quota.orig,
           currency: quota.currency,
         });

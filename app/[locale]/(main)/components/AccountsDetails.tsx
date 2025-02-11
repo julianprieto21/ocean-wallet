@@ -2,7 +2,7 @@
 
 import React from "react";
 import { FiChevronRight as ChevronRightIcon } from "react-icons/fi";
-import { formatBalance } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import { useUserStore } from "@/lib/store/userStore";
 import { useLocale } from "next-intl";
 import { AccountsDict, AccountType, ActionsDict } from "@/lib/types";
@@ -39,7 +39,7 @@ export function AccountDetails({ type, details, dict }: AccountDetailsProps) {
     (acc: number, curr: { orig: number; conv: number }) => acc + curr.conv,
     0
   );
-  const { prefix, integer, decimal } = formatBalance({
+  const { prefix, integer, decimal } = formatCurrency({
     amount: totalBalance,
     currency: preference_currency,
     locale: locale,
@@ -127,7 +127,7 @@ function WalletDetail({ details }: { details: WalletDetailProps }) {
               </button>
               <span className="flex flex-col items-end">
                 {account.balance.map((balance) => {
-                  const { prefix, integer, decimal } = formatBalance({
+                  const { prefix, integer, decimal } = formatCurrency({
                     amount: balance.amount,
                     currency: balance.currency,
                     fractionDigits: 8,
@@ -162,7 +162,7 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
           prefix: prefixOrig,
           integer: integerOrig,
           decimal: decimalOrig,
-        } = formatBalance({
+        } = formatCurrency({
           amount: crypto.orig,
           currency: crypto.currency_id,
           locale: locale,
@@ -172,7 +172,7 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
           prefix: prefixConv,
           integer: integerConv,
           decimal: decimalConv,
-        } = formatBalance({
+        } = formatCurrency({
           amount: crypto.conv,
           currency: preference_currency,
           locale: locale,

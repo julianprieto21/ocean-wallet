@@ -1,12 +1,4 @@
-export function formatBalance({
-  amount,
-  currency,
-  locale = "es",
-  currencyDisplay = "code",
-  signDisplay = "auto",
-  notation = "standard",
-  fractionDigits = 2,
-}: {
+type FormatBalanceProps = {
   amount: number;
   currency: string;
   locale?: string;
@@ -14,7 +6,17 @@ export function formatBalance({
   signDisplay?: "never" | "always" | "auto" | "exceptZero";
   notation?: "compact" | "standard" | "scientific" | "engineering";
   fractionDigits?: number;
-}) {
+};
+
+export function formatCurrency({
+  amount,
+  currency,
+  locale = "es",
+  currencyDisplay = "code",
+  signDisplay = "auto",
+  notation = "standard",
+  fractionDigits = 2,
+}: FormatBalanceProps) {
   const parts = new Intl.NumberFormat(locale, {
     style: "currency",
     currency: currency,
@@ -58,4 +60,23 @@ export function formatBalance({
     decimal = decimal.slice(0, fractionDigits + 1);
   }
   return { prefix, integer, decimal };
+}
+
+type FormatDateProps = {
+  date: Date;
+  locale?: string;
+  dateStyle?: "full" | "long" | "medium" | "short";
+  timeStyle?: "full" | "long" | "medium" | "short";
+};
+
+export function formatDate({
+  date,
+  locale = "es",
+  dateStyle = "medium",
+  timeStyle = "short",
+}: FormatDateProps) {
+  return new Intl.DateTimeFormat(locale, {
+    dateStyle: dateStyle,
+    timeStyle: timeStyle,
+  }).format(date);
 }
