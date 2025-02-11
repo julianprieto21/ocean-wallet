@@ -1,7 +1,8 @@
 import { FiUser } from "react-icons/fi";
 import SearchBar from "./SearchBar";
 import NavLinks from "./NavLinks";
-import { AccountDetails, CreateAccount } from "./AccountsDetails";
+import { AccountDetails } from "./AccountsDetails";
+import { CreateAccount } from "./buttons";
 import QuotaDetails from "./QuotaDetails";
 import { auth } from "@/auth";
 import { getDictionary } from "@/lib/dictionaries";

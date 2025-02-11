@@ -1,26 +1,11 @@
 "use client";
 
 import React from "react";
-import {
-  FiPlus as PlusIcon,
-  FiChevronRight as ChevronRightIcon,
-} from "react-icons/fi";
+import { FiChevronRight as ChevronRightIcon } from "react-icons/fi";
 import { formatBalance } from "@/lib/utils";
 import { useUserStore } from "@/lib/store/userStore";
 import { useLocale } from "next-intl";
 import { AccountsDict, AccountType, ActionsDict } from "@/lib/types";
-
-export function CreateAccount({ dict }: { dict: ActionsDict }) {
-  return (
-    <button
-      type="button"
-      className="flex flex-row items-center gap-2 text-xl text-primary-300 p-3 rounded-2xl mx-4 hover:bg-primary-250 hover:text-primary-400 transition-colors duration-75"
-    >
-      <PlusIcon className="size-7 flex-shrink-0" />
-      <span className="">{dict.new_account}</span>
-    </button>
-  );
-}
 
 type WalletDetailProps = {
   name: string;
