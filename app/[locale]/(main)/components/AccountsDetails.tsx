@@ -5,7 +5,7 @@ import { ChevronRight } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useUserStore } from "@/lib/store/userStore";
 import { useLocale } from "next-intl";
-import { AccountsDict, AccountType, ActionsDict } from "@/lib/types";
+import { AccountsDict, AccountType } from "@/lib/types";
 
 type WalletDetailProps = {
   name: string;
