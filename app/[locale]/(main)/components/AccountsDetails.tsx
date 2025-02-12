@@ -155,11 +155,7 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
   return (
     <div className="w-full flex flex-col gap-1">
       {details.map((crypto) => {
-        const {
-          prefix: _,
-          integer: integerOrig,
-          decimal: decimalOrig,
-        } = formatCurrency({
+        const { integer: integerOrig, decimal: decimalOrig } = formatCurrency({
           amount: crypto.orig,
           currency: preferenceCurrency, // Moneda por defecto, no se muestra realmente.
           locale: locale,
