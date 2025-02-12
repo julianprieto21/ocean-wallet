@@ -24,7 +24,7 @@ type CryptoDetailProps = {
 }[];
 
 type AccountDetailsProps = {
-  type: AccountType;
+  type: "transactional" | "crypto" | "stock";
   details: WalletDetailProps & CryptoDetailProps;
   dict: AccountsDict;
 };
@@ -42,7 +42,7 @@ export function AccountDetails({ type, details, dict }: AccountDetailsProps) {
     currency: preferenceCurrency,
     locale: locale,
   });
-  const Detail = type === "wallet" ? WalletDetail : CryptoDetail;
+  const Detail = type === "transactional" ? TransactionalDetail : CryptoDetail;
   return (
     <>
       <button
@@ -71,7 +71,7 @@ export function AccountDetails({ type, details, dict }: AccountDetailsProps) {
   );
 }
 
-function WalletDetail({ details }: { details: WalletDetailProps }) {
+function TransactionalDetail({ details }: { details: WalletDetailProps }) {
   const locale = useLocale();
   const preferenceCurrency = useUserStore((state) => state.preferenceCurrency);
   const accounts: {

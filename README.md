@@ -52,14 +52,14 @@ Aplicación web para gestionar las finanzas personales.
 
 ### Table `Accounts`
 
-| Column Name | Type      | Description                             |
-| ----------- | --------- | --------------------------------------- |
-| account_id  | UUID      | ID de la cuenta                         |
-| user_id     | UUID      | Referencia al ID del usuario            |
-| name        | string    | Nombre de la cuenta                     |
-| type        | decimal   | Tipo de cuenta (cash, investment, etc.) |
-| created_at  | timestamp | Fecha de creación de la cuenta          |
-| provider    | string    | Proveedor de la cuenta                  |
+| Column Name | Type      | Description                                      |
+| ----------- | --------- | ------------------------------------------------ |
+| account_id  | UUID      | ID de la cuenta                                  |
+| user_id     | UUID      | Referencia al ID del usuario                     |
+| name        | string    | Nombre de la cuenta                              |
+| type        | decimal   | Tipo de cuenta (transactional, investment, etc.) |
+| created_at  | timestamp | Fecha de creación de la cuenta                   |
+| provider    | string    | Proveedor de la cuenta                           |
 
 ### Table `Transactions`
 

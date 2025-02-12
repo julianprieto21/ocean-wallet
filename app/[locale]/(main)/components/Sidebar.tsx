@@ -51,7 +51,7 @@ export default async function Sidebar({ locale }: { locale: Locale }) {
           </h2>
           <CreateAccount dict={dict.actions} />
           <AccountDetails
-            type="wallet"
+            type="transactional"
             details={walletAccounts}
             dict={dict.accounts}
           />

@@ -26,8 +26,10 @@
   "accounts": {
     "accounts": "Accounts",
     "account": "Account",
-    "wallet": "Wallets",
+    "transactional": "Transactional",
+    "investment": "Investments",
     "crypto": "Cryptos",
+    "stock": "Stocks",
     "provider": "Provider",
     "generic": "Generic",
     "cash": "Cash"

@@ -1,4 +1,4 @@
-export type AccountType = "wallet" | "crypto";
+export type AccountType = "transactional" | "investment";
 
 export type Account = {
   account_id: string;
@@ -74,8 +74,10 @@ export interface UsersDict {
 export interface AccountsDict {
   accounts: string;
   account: string;
-  wallet: string;
+  transactional: string;
+  investment: string;
   crypto: string;
+  stock: string;
   provider: string;
   generic: string;
   cash: string;
