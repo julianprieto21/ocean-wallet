@@ -80,3 +80,54 @@ export function formatDate({
     timeStyle: timeStyle,
   }).format(date);
 }
+
+type FillMissingDailyBalancesProps = {
+  data: {
+    date: Date;
+    balance: number;
+  }[];
+  offset: number;
+};
+export function fillMissingDailyBalances({
+  data,
+  offset,
+}: FillMissingDailyBalancesProps) {
+  const result: { date: string; balance: number }[] = [];
+  const lastDate = data[data.length - 1].date;
+  const firstDate = new Date(lastDate.getTime() - offset * 24 * 60 * 60 * 1000);
+  const balanceMap = new Map(
+    data.map((item) => [item.date.toDateString(), item.balance])
+  );
+  const prevBalance = data.reduce((acc, curr) => {
+    if (curr.date < firstDate) {
+      return acc + curr.balance;
+    }
+    return acc;
+  }, 0);
+  const dates = [];
+  const currentDate = new Date(firstDate);
+  while (currentDate <= lastDate) {
+    dates.push(currentDate.toDateString());
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+  for (const date of dates) {
+    const balance = balanceMap.get(date);
+    if (balance === undefined) {
+      const prevDateBalance =
+        result.length > 0 ? result[result.length - 1].balance : prevBalance;
+      result.push({ date, balance: prevDateBalance });
+    } else {
+      result.push({ date, balance: Number(balance) });
+    }
+  }
+  return result;
+}
+
+export function getGrowPercentage(dailyBalances: number[]) {
+  const lastBalance = dailyBalances[dailyBalances.length - 1];
+  const firstBalance = dailyBalances[0];
+  if (firstBalance === 0) {
+    return 0;
+  }
+  return ((lastBalance - firstBalance) / firstBalance) * 100;
+}
