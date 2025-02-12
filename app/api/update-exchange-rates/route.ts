@@ -5,7 +5,6 @@ const pool = new Pool({
 });
 
 export async function GET(req: Request) {
-  // Verificar que se incluya la cabecera de autorización
   const authHeader = req.headers.get("authorization");
   const expectedToken = `Bearer ${process.env.CRON_SECRET}`;
 
@@ -21,10 +20,9 @@ export async function GET(req: Request) {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   const lastUpdate = `${year}-${month}-${day}`;
-
   try {
     const { rows: currencies } = await pool.query(
-      `SELECT currency_id, currency_type FROM currencies;`
+      `SELECT currency_id, type FROM currencies;`
     );
     const exchangeRates = await Promise.all(
       currencies.map(
