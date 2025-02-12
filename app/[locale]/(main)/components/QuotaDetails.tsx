@@ -45,7 +45,7 @@ export default function QuotaDetails({ dict, details }: QuotaDetailsProps) {
     (acc: number, curr: { orig: number; conv: number }) => acc + curr.conv,
     0
   );
-  const { prefix, integer, decimal } = formatCurrency({
+  const quota = formatCurrency({
     amount: quotaAmount,
     currency: preferenceCurrency,
     locale: locale,
@@ -67,9 +67,9 @@ export default function QuotaDetails({ dict, details }: QuotaDetailsProps) {
         <div className="w-full flex flex-row justify-between items-center">
           <span>{dict.quotas}</span>
           <span>
-            {integer}
-            {decimal}
-            {prefix}
+            {quota.integer}
+            {quota.decimal}
+            {quota.prefix}
           </span>
         </div>
       </button>

@@ -37,7 +37,7 @@ export function AccountDetails({ type, details, dict }: AccountDetailsProps) {
     (acc: number, curr: { orig: number; conv: number }) => acc + curr.conv,
     0
   );
-  const { prefix, integer, decimal } = formatCurrency({
+  const total = formatCurrency({
     amount: totalBalance,
     currency: preferenceCurrency,
     locale: locale,
@@ -60,9 +60,9 @@ export function AccountDetails({ type, details, dict }: AccountDetailsProps) {
         <div className="w-full flex flex-row justify-between items-center">
           <span>{dict[type]}</span>
           <span>
-            {integer}
-            {decimal}
-            {prefix}
+            {total.integer}
+            {total.decimal}
+            {total.prefix}
           </span>
         </div>
       </button>
@@ -126,7 +126,7 @@ function WalletDetail({ details }: { details: WalletDetailProps }) {
               </button>
               <span className="flex flex-col items-end">
                 {account.balance.map((balance) => {
-                  const { prefix, integer, decimal } = formatCurrency({
+                  const bal = formatCurrency({
                     amount: balance.amount,
                     currency: balance.currency ?? preferenceCurrency,
                     fractionDigits: 8,
@@ -134,9 +134,9 @@ function WalletDetail({ details }: { details: WalletDetailProps }) {
                   });
                   return (
                     <span key={balance.currency} className="pl-2">
-                      {integer}
-                      {decimal}
-                      {prefix}
+                      {bal.integer}
+                      {bal.decimal}
+                      {bal.prefix}
                     </span>
                   );
                 })}
@@ -155,17 +155,13 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
   return (
     <div className="w-full flex flex-col gap-1">
       {details.map((crypto) => {
-        const { integer: integerOrig, decimal: decimalOrig } = formatCurrency({
+        const orig = formatCurrency({
           amount: crypto.orig,
           currency: preferenceCurrency, // Moneda por defecto, no se muestra realmente.
           locale: locale,
           fractionDigits: 8,
         });
-        const {
-          prefix: prefixConv,
-          integer: integerConv,
-          decimal: decimalConv,
-        } = formatCurrency({
+        const conv = formatCurrency({
           amount: crypto.conv,
           currency: preferenceCurrency,
           locale: locale,
@@ -187,13 +183,13 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
               </button>
               <span className="flex flex-col items-end">
                 <span className="pl-2">
-                  {integerOrig}
-                  {decimalOrig} {crypto.currency_id.toUpperCase()}
+                  {orig.integer}
+                  {orig.decimal} {crypto.currency_id.toUpperCase()}
                 </span>
                 <span className="pl-2">
-                  {integerConv}
-                  {decimalConv}
-                  {prefixConv}
+                  {conv.integer}
+                  {conv.decimal}
+                  {conv.prefix}
                 </span>
               </span>
             </div>
