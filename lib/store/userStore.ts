@@ -5,7 +5,7 @@ type UserStore = {
   username: string;
   email: string;
   image: string;
-  preference_currency: string;
+  preferenceCurrency: string;
   setUsername: (username: string) => void;
   setEmail: (email: string) => void;
   setImage: (image: string) => void;
@@ -18,12 +18,12 @@ export const useUserStore = create<UserStore>()(
       username: "",
       email: "",
       image: "",
-      preference_currency: "usd",
+      preferenceCurrency: "usd",
       setUsername: (username: string) => set({ username }),
       setEmail: (email: string) => set({ email }),
       setImage: (image: string) => set({ image }),
       setPreferenceCurrency: (currency: string) =>
-        set({ preference_currency: currency }),
+        set({ preferenceCurrency: currency }),
     }),
     { name: "user-store" }
   )

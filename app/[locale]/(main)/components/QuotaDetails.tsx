@@ -39,7 +39,7 @@ type QuotaDetailsProps = {
 export default function QuotaDetails({ dict, details }: QuotaDetailsProps) {
   const locale = useLocale();
   const [open, setOpen] = React.useState(false);
-  const preferenceCurrency = useUserStore((state) => state.preference_currency);
+  const preferenceCurrency = useUserStore((state) => state.preferenceCurrency);
 
   const quotaAmount = details.reduce(
     (acc: number, curr: { orig: number; conv: number }) => acc + curr.conv,

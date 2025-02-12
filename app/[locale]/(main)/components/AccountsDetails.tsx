@@ -32,16 +32,14 @@ type AccountDetailsProps = {
 export function AccountDetails({ type, details, dict }: AccountDetailsProps) {
   const locale = useLocale();
   const [open, setOpen] = React.useState(false);
-  const preference_currency = useUserStore(
-    (state) => state.preference_currency
-  );
+  const preferenceCurrency = useUserStore((state) => state.preferenceCurrency);
   const totalBalance = details.reduce(
     (acc: number, curr: { orig: number; conv: number }) => acc + curr.conv,
     0
   );
   const { prefix, integer, decimal } = formatCurrency({
     amount: totalBalance,
-    currency: preference_currency,
+    currency: preferenceCurrency,
     locale: locale,
   });
   const Detail = type === "wallet" ? WalletDetail : CryptoDetail;
@@ -75,6 +73,7 @@ export function AccountDetails({ type, details, dict }: AccountDetailsProps) {
 
 function WalletDetail({ details }: { details: WalletDetailProps }) {
   const locale = useLocale();
+  const preferenceCurrency = useUserStore((state) => state.preferenceCurrency);
   const accounts: {
     name: string;
     provider: string;
@@ -129,7 +128,7 @@ function WalletDetail({ details }: { details: WalletDetailProps }) {
                 {account.balance.map((balance) => {
                   const { prefix, integer, decimal } = formatCurrency({
                     amount: balance.amount,
-                    currency: balance.currency,
+                    currency: balance.currency ?? preferenceCurrency,
                     fractionDigits: 8,
                     locale: locale,
                   });
@@ -152,9 +151,7 @@ function WalletDetail({ details }: { details: WalletDetailProps }) {
 
 function CryptoDetail({ details }: { details: CryptoDetailProps }) {
   const locale = useLocale();
-  const preference_currency = useUserStore(
-    (state) => state.preference_currency
-  );
+  const preferenceCurrency = useUserStore((state) => state.preferenceCurrency);
   return (
     <div className="w-full flex flex-col gap-1">
       {details.map((crypto) => {
@@ -164,7 +161,7 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
           decimal: decimalOrig,
         } = formatCurrency({
           amount: crypto.orig,
-          currency: crypto.currency_id,
+          currency: preferenceCurrency, // Moneda por defecto, no se muestra realmente.
           locale: locale,
           fractionDigits: 8,
         });
@@ -174,7 +171,7 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
           decimal: decimalConv,
         } = formatCurrency({
           amount: crypto.conv,
-          currency: preference_currency,
+          currency: preferenceCurrency,
           locale: locale,
           fractionDigits: 8,
         });
@@ -195,8 +192,7 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
               <span className="flex flex-col items-end">
                 <span className="pl-2">
                   {integerOrig}
-                  {decimalOrig}
-                  {prefixOrig}
+                  {decimalOrig} {crypto.currency_id.toUpperCase()}
                 </span>
                 <span className="pl-2">
                   {integerConv}
