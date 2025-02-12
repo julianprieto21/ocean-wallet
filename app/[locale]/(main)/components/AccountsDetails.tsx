@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FiChevronRight as ChevronRightIcon } from "react-icons/fi";
+import { ChevronRight } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useUserStore } from "@/lib/store/userStore";
 import { useLocale } from "next-intl";
@@ -54,7 +54,7 @@ export function AccountDetails({ type, details, dict }: AccountDetailsProps) {
           open ? "bg-primary-250 text-primary-400" : ""
         }`}
       >
-        <ChevronRightIcon
+        <ChevronRight
           className={`size-7 flex-shrink-0 ${
             open ? "rotate-90" : ""
           } transition-transform duration-75`}

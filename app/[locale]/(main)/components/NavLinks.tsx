@@ -1,5 +1,5 @@
 "use client";
-import { LuLayers, LuCreditCard, LuHouse } from "react-icons/lu";
+import { Layers, CreditCard, Home } from "lucide-react";
 import { usePathname, Link } from "@/i18n/routing";
 import { NavigationDict } from "@/lib/types";
 
@@ -8,17 +8,17 @@ export default function NavLinks({ dict }: { dict: NavigationDict }) {
     {
       name: dict.home,
       href: "/",
-      icon: LuHouse,
+      icon: Home,
     },
     {
       name: dict.transactions,
       href: "/transactions",
-      icon: LuLayers,
+      icon: Layers,
     },
     {
       name: dict.accounts,
       href: "/accounts",
-      icon: LuCreditCard,
+      icon: CreditCard,
     },
   ];
   const pathname = usePathname();

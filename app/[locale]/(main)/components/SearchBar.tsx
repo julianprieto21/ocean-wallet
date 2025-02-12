@@ -1,5 +1,5 @@
 "use client";
-import { FiSearch as SearchIcon } from "react-icons/fi";
+import { Search as SearchIcon } from "lucide-react";
 
 export default function Search({ placeholder }: { placeholder: string }) {
   return (

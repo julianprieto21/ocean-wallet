@@ -1,10 +1,7 @@
 "use client";
 
 import React from "react";
-import {
-  FiPlus as PlusIcon,
-  FiChevronRight as ChevronRightIcon,
-} from "react-icons/fi";
+import { ChevronRight, Plus } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useUserStore } from "@/lib/store/userStore";
 import { useLocale } from "next-intl";
@@ -17,7 +14,7 @@ function PayQuota() {
       type="button"
       className="size-7 flex-shrink-0 border border-primary-250 text-primary-250 rounded-full grid place-content-center hover:text-primary-300 hover:border-primary-300 transition-colors duration-75"
     >
-      <PlusIcon className="size-5 flex-shrink-0" />
+      <Plus className="size-5 flex-shrink-0" />
     </button>
   );
 }
@@ -62,7 +59,7 @@ export default function QuotaDetails({ dict, details }: QuotaDetailsProps) {
           open ? "bg-primary-250 text-primary-400" : ""
         }`}
       >
-        <ChevronRightIcon
+        <ChevronRight
           className={`size-7 flex-shrink-0 ${
             open ? "rotate-90" : ""
           } transition-transform duration-75`}

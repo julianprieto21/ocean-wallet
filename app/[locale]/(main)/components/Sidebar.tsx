@@ -1,4 +1,4 @@
-import { FiUser } from "react-icons/fi";
+import { User } from "lucide-react";
 import SearchBar from "./SearchBar";
 import NavLinks from "./NavLinks";
 import { AccountDetails } from "./AccountsDetails";
@@ -34,7 +34,7 @@ export default async function Sidebar({ locale }: { locale: Locale }) {
               referrerPolicy="no-referrer"
             />
           ) : (
-            <FiUser className="size-7" />
+            <User className="size-7" />
           )}
         </div>
       </div>
