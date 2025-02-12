@@ -8,7 +8,7 @@ import { auth } from "@/auth";
 import { getDictionary } from "@/lib/dictionaries";
 import {
   getWalletAccountDetails,
-  getCryptoAccountDetails,
+  getInvestmentAccountDetails,
   getQuotaDetails,
 } from "@/lib/db";
 import type { Locale } from "@/i18n/routing";
@@ -17,7 +17,7 @@ export default async function Sidebar({ locale }: { locale: Locale }) {
   const session = await auth();
   const dict = await getDictionary(locale);
   const walletAccounts = await getWalletAccountDetails();
-  const cryptoAccounts = await getCryptoAccountDetails();
+  const cryptoAccounts = await getInvestmentAccountDetails();
   const quotas = await getQuotaDetails();
 
   const image = session?.user.image;

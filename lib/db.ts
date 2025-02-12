@@ -1,5 +1,6 @@
 import { Pool } from "@neondatabase/serverless";
 import { auth } from "@/auth";
+import { fillMissingDailyBalances } from "./utils";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -45,6 +46,7 @@ export async function getTransactions({ search }: { search?: string } = {}) {
     `
     SELECT 
       ac.type account_type,
+      ac.provider,
       tx.transaction_id, 
       tx.description, 
       ac.name, 
@@ -81,26 +83,34 @@ export async function getBalances() {
     JOIN accounts AS ac ON ac.account_id = tx.account_id
     JOIN users AS us ON us.user_id = $1
     JOIN currency_exchange_rates as ex ON tx.currency_id = ex.from_curr
-    WHERE ac.type = 'wallet' AND ex.to_curr = us.preference_currency`,
+    WHERE ac.type = 'cash' AND ex.to_curr = us.preference_currency`,
     [user.id]
   );
   return rows[0];
 }
 
-export async function getDailyBalances() {
+export async function getDailyBalances({ offset = 30 }: { offset?: number }) {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
-    SELECT DATE(tx.created_at), SUM(tx.amount * ex.exchange_rate)::float balance
+    WITH daily_totals AS (
+    SELECT
+        DATE(tx.created_at) AS date,
+        SUM(tx.amount * ex.exchange_rate) AS daily_balance
     FROM transactions AS tx
-    JOIN accounts AS ac ON ac.accouts_id = tx.account_id AND ac.type = 'wallet'
+    JOIN accounts AS ac ON ac.account_id = tx.account_id AND ac.type = 'cash'
     JOIN users AS us ON us.user_id = $1
     JOIN currency_exchange_rates as ex ON tx.currency_id = ex.from_curr AND ex.to_curr = us.preference_currency
     GROUP BY DATE(tx.created_at)
-    ORDER BY DATE(tx.created_at) DESC`,
+    )
+    SELECT
+        date,
+        SUM(daily_balance) OVER (ORDER BY date) AS balance
+    FROM daily_totals
+    ORDER BY date ASC;`,
     [user.id]
   );
-  return rows;
+  return fillMissingDailyBalances({ data: rows, offset: offset });
 }
 
 export async function getWalletAccountDetails() {
@@ -108,27 +118,28 @@ export async function getWalletAccountDetails() {
   const { rows } = await pool.query(
     `
     SELECT ac.name, ac.provider, tx.currency_id, SUM(tx.amount)::float orig, SUM(tx.amount * ex.exchange_rate)::float conv
-    FROM transactions AS tx
-    JOIN accounts AS ac ON ac.account_id = tx.account_id AND ac.type = 'wallet'
+    FROM accounts AS ac
+    LEFT JOIN transactions AS tx ON tx.account_id = ac.account_id
     JOIN users AS us ON us.user_id = $1
-    JOIN currency_exchange_rates AS ex ON ex.from_curr = tx.currency_id AND ex.to_curr = us.preference_currency
+    LEFT JOIN currency_exchange_rates AS ex ON ex.from_curr = tx.currency_id AND ex.to_curr = us.preference_currency
+    WHERE ac.type = 'cash'
     GROUP BY ac.name, ac.provider, tx.currency_id`,
     [user.id]
   );
   return rows;
 }
 
-export async function getCryptoAccountDetails() {
+export async function getInvestmentAccountDetails() {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
-    SELECT cu.name name, tx.currency_id, SUM(tx.amount)::float orig, SUM(tx.amount * ex.exchange_rate)::float conv
+    SELECT cu.name, tx.currency_id, cu.type, SUM(tx.amount)::float orig, SUM(tx.amount * ex.exchange_rate)::float conv
     FROM transactions AS tx
-    JOIN accounts AS ac ON ac.account_id = tx.account_id AND ac.type = 'crypto'
+    JOIN accounts AS ac ON ac.account_id = tx.account_id AND ac.type = 'investment'
     JOIN users AS us ON us.user_id = $1
     JOIN currency_exchange_rates AS ex ON ex.from_curr = tx.currency_id AND ex.to_curr = 'usd'
     JOIN currencies AS cu ON cu.currency_id = tx.currency_id
-    GROUP BY tx.currency_id, cu.name`,
+    GROUP BY tx.currency_id, cu.name, cu.type`,
     [user.id]
   );
   return rows;
@@ -154,18 +165,18 @@ export async function getBalancePerAccount() {
   const { rows } = await pool.query(
     `
     SELECT ac.name, ac.provider, SUM((tx.amount * ex.exchange_rate) / total.total * 100)::float percent
-    FROM transactions AS tx
-    JOIN accounts AS ac ON ac.account_id = tx.account_id AND ac.type = 'wallet'
+    FROM accounts AS ac
+    LEFT JOIN transactions AS tx ON tx.account_id = ac.account_id
     JOIN users AS us ON us.user_id = $1
-    JOIN currency_exchange_rates AS ex ON ex.from_curr = tx.currency_id AND ex.to_curr = us.preference_currency
+    LEFT JOIN currency_exchange_rates AS ex ON ex.from_curr = tx.currency_id AND ex.to_curr = us.preference_currency
     JOIN (
-      SELECT ac.name, SUM(tx.amount * ex.exchange_rate) total
+      SELECT SUM(tx.amount * ex.exchange_rate) total
       FROM transactions AS tx
-      JOIN accounts AS ac ON ac.account = tx.account_id AND ac.type = 'wallet'
+      JOIN accounts AS ac ON ac.account_id = tx.account_id AND ac.type = 'cash'
       JOIN users AS us ON us.user_id = $1
       JOIN currency_exchange_rates as ex ON ex.from_curr = tx.currency_id AND ex.to_curr = us.preference_currency
-      GROUP BY ac.name
-    ) total ON total.name = ac.name
+    ) total ON 1 = 1
+    WHERE ac.type = 'cash'
     GROUP BY ac.name, ac.provider`,
     [user.id]
   );

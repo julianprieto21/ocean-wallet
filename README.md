@@ -52,14 +52,14 @@ Aplicación web para gestionar las finanzas personales.
 
 ### Table `Accounts`
 
-| Column Name | Type      | Description                           |
-| ----------- | --------- | ------------------------------------- |
-| account_id  | UUID      | ID de la cuenta                       |
-| user_id     | UUID      | Referencia al ID del usuario          |
-| name        | string    | Nombre de la cuenta                   |
-| type        | decimal   | Tipo de cuenta (wallet, crypto, etc.) |
-| created_at  | timestamp | Fecha de creación de la cuenta        |
-| provider    | string    | Proveedor de la cuenta                |
+| Column Name | Type      | Description                             |
+| ----------- | --------- | --------------------------------------- |
+| account_id  | UUID      | ID de la cuenta                         |
+| user_id     | UUID      | Referencia al ID del usuario            |
+| name        | string    | Nombre de la cuenta                     |
+| type        | decimal   | Tipo de cuenta (cash, investment, etc.) |
+| created_at  | timestamp | Fecha de creación de la cuenta          |
+| provider    | string    | Proveedor de la cuenta                  |
 
 ### Table `Transactions`
 
@@ -116,11 +116,11 @@ Aplicación web para gestionar las finanzas personales.
 
 ### Table `Currencies`
 
-| Column Name | Type   | Description                   |
-| ----------- | ------ | ----------------------------- |
-| currency_id | string | Código de la moneda           |
-| name        | string | Nombre de la moneda           |
-| type        | string | Tipo de moneda (fiat, crypto) |
+| Column Name | Type   | Description                               |
+| ----------- | ------ | ----------------------------------------- |
+| currency_id | string | Código de la moneda                       |
+| name        | string | Nombre de la moneda                       |
+| type        | string | Tipo de moneda (fiat, crypto, stock, etc) |
 
 ### Table `Currency_Exchange_Rates`
 
