@@ -2,27 +2,20 @@ import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import "@mantine/core/styles.css";
 import "@mantine/charts/styles.css";
-import "../globals.css";
 import Sidebar from "@/components/Sidebar";
 import Provider from "@/components/Provider";
 import Menu from "@/components/Menu";
 import { Locale } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
 import { UserLoader } from "@/components/UserLoader";
-import {
-  MantineProvider,
-  ColorSchemeScript,
-  mantineHtmlProps,
-  createTheme,
-} from "@mantine/core";
+import { MantineProvider, mantineHtmlProps } from "@mantine/core";
+import "../globals.css";
 
 const kanit = Kanit({
   variable: "--font-kanit",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
-
-const theme = createTheme({});
 
 export const metadata: Metadata = {
   title: "Ocean Wallet",
@@ -40,14 +33,13 @@ export default async function RootLayout({
   const { locale } = await params;
   return (
     <html lang={locale} {...mantineHtmlProps}>
-      <head>
-        <ColorSchemeScript />
-      </head>
-      <body className={`${kanit.className} antialiased`}>
+      <body
+        className={`${kanit.className} antialiased bg-background text-foreground`}
+      >
         <NextIntlClientProvider locale={locale}>
           <Provider>
             <UserLoader />
-            <MantineProvider theme={theme}>
+            <MantineProvider>
               <main className="size-full flex flex-row gap-8 relative">
                 <Sidebar locale={locale} />
                 {children}
