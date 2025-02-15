@@ -23,7 +23,7 @@ export default function Greetings({
   };
 
   const [time, setTime] = useState(new Date());
-  const [date, setDate] = useState(new Date());
+  const [date] = useState(new Date());
   const [greeting, setGreeting] = useState<string>(
     getGreeting(time.getHours())
   );

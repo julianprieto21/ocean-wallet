@@ -1,6 +1,31 @@
 "use client";
 
 import { ACCOUNT_PROVIDERS } from "@/lib/accountProviders";
+import React from "react";
+import { Sparkline } from "@mantine/charts";
+import { fillMissingDailyBalances } from "@/lib/utils";
+
+type DailyBalanceChartProps = {
+  dailyBalances: {
+    date: Date;
+    balance: number;
+  }[];
+};
+export function DailyBalanceChart({ dailyBalances }: DailyBalanceChartProps) {
+  const [offset] = React.useState(7);
+  const completeData = fillMissingDailyBalances({
+    data: dailyBalances,
+    offset: offset,
+  });
+  return (
+    <Sparkline
+      h={300}
+      data={completeData.map((d) => d.balance)}
+      curveType="linear" // "bump"
+      color="var(--primary-300)"
+    />
+  );
+}
 
 type AccountBalanceChartProps = {
   data: {
@@ -10,7 +35,6 @@ type AccountBalanceChartProps = {
   }[];
 };
 export function AccountBalanceChart({ data }: AccountBalanceChartProps) {
-  console.log(data);
   return (
     <div className="w-full flex flex-col items-start justify-end">
       <div id="account-bar-chart" className="w-full h-2 flex ">

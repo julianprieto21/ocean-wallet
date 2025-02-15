@@ -42,8 +42,8 @@ body {
   padding-right: 30px;
   padding-top: 34px;
   padding-bottom: 20px;
-  border-left: #000000 solid 1px;
-  border-right: #000000 solid 1px;
+  /* border-left: #000000 solid 1px; */
+  /* border-right: #000000 solid 1px; */
   margin: 0;
   height: 100%;
   width: 70%;

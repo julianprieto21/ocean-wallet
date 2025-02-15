@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
+import "@mantine/core/styles.css";
+import "@mantine/charts/styles.css";
 import "../globals.css";
-import Sidebar from "@/app/[locale]/(main)/components/Sidebar";
-import Provider from "@/app/[locale]/(main)/components/Provider";
+import Sidebar from "@/components/Sidebar";
+import Provider from "@/components/Provider";
+import Menu from "@/components/Menu";
 import { Locale } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
-import { UserLoader } from "./components/UserLoader";
+import { UserLoader } from "@/components/UserLoader";
+import {
+  MantineProvider,
+  ColorSchemeScript,
+  mantineHtmlProps,
+} from "@mantine/core";
 
 const kanit = Kanit({
   variable: "--font-kanit",
@@ -28,15 +36,21 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
   return (
-    <html lang={locale}>
+    <html lang={locale} {...mantineHtmlProps}>
+      <head>
+        <ColorSchemeScript />
+      </head>
       <body className={`${kanit.className} antialiased`}>
         <NextIntlClientProvider locale={locale}>
           <Provider>
             <UserLoader />
-            <main className="size-full flex flex-row gap-8 relative">
-              <Sidebar locale={locale} />
-              {children}
-            </main>
+            <MantineProvider>
+              <main className="size-full flex flex-row gap-8 relative">
+                <Sidebar locale={locale} />
+                {children}
+                <Menu />
+              </main>
+            </MantineProvider>
           </Provider>
         </NextIntlClientProvider>
       </body>

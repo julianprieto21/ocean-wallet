@@ -1,10 +1,12 @@
-import { Category, Dict } from "@/lib/types";
+import { Category, Dict, Transaction } from "@/lib/types";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { useLocale } from "next-intl";
 
 type TransactionTableProps = {
   dict: Dict;
-  transactions: any;
+  transactions: Array<
+    Transaction & { account_type: string; provider: string; name: string }
+  >;
   limit?: number;
 };
 
@@ -36,10 +38,11 @@ export function TransactionTable({
         <tbody className="bg-primary-100">
           {transactions
             .filter(
-              (transaction: any) => transaction.account_type === "transactional"
+              (transaction: TransactionTableProps["transactions"][0]) =>
+                transaction.account_type === "transactional"
             )
             .slice(0, limit)
-            .map((transaction: any) => {
+            .map((transaction: TransactionTableProps["transactions"][0]) => {
               const tx = formatCurrency({
                 amount: transaction.amount,
                 currency: transaction.currency_id,

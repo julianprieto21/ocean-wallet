@@ -89,7 +89,7 @@ export async function getBalances() {
   return rows[0];
 }
 
-export async function getDailyBalances({ offset = 30 }: { offset?: number }) {
+export async function getDailyBalances() {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
@@ -110,7 +110,7 @@ export async function getDailyBalances({ offset = 30 }: { offset?: number }) {
     ORDER BY date ASC;`,
     [user.id]
   );
-  return fillMissingDailyBalances({ data: rows, offset: offset });
+  return rows;
 }
 
 export async function getWalletAccountDetails() {
