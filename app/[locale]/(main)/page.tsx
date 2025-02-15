@@ -17,7 +17,11 @@ import { Card } from "./components/Card";
 import { BalanceWidget } from "./components/widgets";
 import { Locale } from "@/i18n/routing";
 
-export default async function Home({ params }: { params: { locale: Locale } }) {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
   const { locale } = await params;
   const dict = (await getDictionary(locale)) as Dict;
   const { preference_currency: preferenceCurrency } = await getUser();
