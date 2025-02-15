@@ -93,6 +93,7 @@ export function fillMissingDailyBalances({
   offset,
 }: FillMissingDailyBalancesProps) {
   const result: { date: string; balance: number }[] = [];
+  if (data.length === 0) return result;
   const lastDate = data[data.length - 1].date;
   const firstDate = new Date(lastDate.getTime() - offset * 24 * 60 * 60 * 1000);
   const balanceMap = new Map(

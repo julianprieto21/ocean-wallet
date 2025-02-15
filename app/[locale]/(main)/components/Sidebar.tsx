@@ -28,7 +28,7 @@ export default async function Sidebar({ locale }: { locale: Locale }) {
         <div className="rounded-full bg-primary-50 size-12 grid place-content-center text-primary-300 hover:text-primary-400">
           {image ? (
             <img
-              src="https://lh3.googleusercontent.com/a/ACg8ocL5BpUK7g2Z5kLC7Yqguxe2L8Esu1Foa1IK1dqgyVcyd2OwVXs=s96-c"
+              src={image}
               alt=""
               className="rounded-full"
               referrerPolicy="no-referrer"

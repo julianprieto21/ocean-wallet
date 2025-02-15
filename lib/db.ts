@@ -1,6 +1,5 @@
 import { Pool } from "@neondatabase/serverless";
 import { auth } from "@/auth";
-import { fillMissingDailyBalances } from "./utils";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -20,8 +19,8 @@ export async function getUser() {
   const { rows } = await pool.query(
     `
     SELECT username, email, image_url, preference_currency
-    FROM users AS us
-    WHERE us.user_id = $1`,
+    FROM users
+    WHERE user_id = $1`,
     [user.id]
   );
   return rows[0];
@@ -31,9 +30,9 @@ export async function getAccounts() {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
-    SELECT ac.account_id, ac.name, ac.type, ac.created_at, ac.provider
-    FROM accounts AS ac
-    WHERE ac.user_id = $1`,
+    SELECT account_id, name, type, created_at, provider
+    FROM accounts
+    WHERE user_id = $1`,
     [user.id]
   );
   return rows;
@@ -78,12 +77,23 @@ export async function getBalances() {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
-    SELECT SUM(tx.amount * ex.exchange_rate)::float balance, SUM(CASE WHEN tx.type = 'expense' THEN tx.amount * ex.exchange_rate ELSE 0 END) ::float AS expense, SUM(CASE WHEN tx.type = 'income' THEN tx.amount * ex.exchange_rate ELSE 0 END)::float AS income
+    SELECT 
+      SUM(tx.amount * ex.exchange_rate)::float balance, 
+      SUM(
+        CASE WHEN tx.type = 'expense' THEN tx.amount * ex.exchange_rate 
+        ELSE 0 END) ::float AS expense, 
+      SUM(
+        CASE WHEN tx.type = 'income' THEN tx.amount * ex.exchange_rate 
+        ELSE 0 END)::float AS income
     FROM transactions AS tx
-    JOIN accounts AS ac ON ac.account_id = tx.account_id
-    JOIN users AS us ON us.user_id = $1
-    JOIN currency_exchange_rates as ex ON tx.currency_id = ex.from_curr
-    WHERE ac.type = 'transactional' AND ex.to_curr = us.preference_currency`,
+    JOIN accounts AS ac ON 
+      ac.account_id = tx.account_id
+    JOIN currency_exchange_rates as ex ON 
+      tx.currency_id = ex.from_curr
+    WHERE 
+      ac.user_id = $1
+      AND ac.type = 'transactional' 
+      AND ex.to_curr = (SELECT preference_currency FROM users WHERE user_id = $1)`,
     [user.id]
   );
   return rows[0];
@@ -98,9 +108,13 @@ export async function getDailyBalances() {
         DATE(tx.created_at) AS date,
         SUM(tx.amount * ex.exchange_rate) AS daily_balance
     FROM transactions AS tx
-    JOIN accounts AS ac ON ac.account_id = tx.account_id AND ac.type = 'transactional'
-    JOIN users AS us ON us.user_id = $1
-    JOIN currency_exchange_rates as ex ON tx.currency_id = ex.from_curr AND ex.to_curr = us.preference_currency
+    JOIN accounts AS ac ON 
+      ac.account_id = tx.account_id 
+      AND ac.user_id = $1 
+      AND ac.type = 'transactional'
+    JOIN currency_exchange_rates as ex ON 
+      tx.currency_id = ex.from_curr 
+      AND ex.to_curr = (SELECT preference_currency FROM users WHERE user_id = $1)
     GROUP BY DATE(tx.created_at)
     )
     SELECT
@@ -117,15 +131,25 @@ export async function getWalletAccountDetails() {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
-    SELECT ac.name, ac.provider, tx.currency_id, SUM(tx.amount)::float orig, SUM(tx.amount * ex.exchange_rate)::float conv
+    SELECT 
+      ac.name, 
+      ac.provider, 
+      tx.currency_id, 
+      SUM(tx.amount)::float orig, 
+      SUM(tx.amount * ex.exchange_rate)::float conv
     FROM accounts AS ac
-    LEFT JOIN transactions AS tx ON tx.account_id = ac.account_id
-    JOIN users AS us ON us.user_id = $1
-    LEFT JOIN currency_exchange_rates AS ex ON ex.from_curr = tx.currency_id AND ex.to_curr = us.preference_currency
-    WHERE ac.type = 'transactional'
+    LEFT JOIN transactions AS tx ON 
+      tx.account_id = ac.account_id
+    LEFT JOIN currency_exchange_rates AS 
+      ex ON ex.from_curr = tx.currency_id 
+      AND ex.to_curr = (SELECT preference_currency FROM users WHERE user_id = $1)
+    WHERE 
+      ac.user_id = $1
+      AND ac.type = 'transactional'
     GROUP BY ac.name, ac.provider, tx.currency_id`,
     [user.id]
   );
+
   return rows;
 }
 
@@ -133,12 +157,22 @@ export async function getInvestmentAccountDetails() {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
-    SELECT cu.name, tx.currency_id, cu.type, SUM(tx.amount)::float orig, SUM(tx.amount * ex.exchange_rate)::float conv
+    SELECT 
+      cu.name, 
+      tx.currency_id, 
+      cu.type, 
+      SUM(tx.amount)::float orig, 
+      SUM(tx.amount * ex.exchange_rate)::float conv
     FROM transactions AS tx
-    JOIN accounts AS ac ON ac.account_id = tx.account_id AND ac.type = 'investment'
-    JOIN users AS us ON us.user_id = $1
-    JOIN currency_exchange_rates AS ex ON ex.from_curr = tx.currency_id AND ex.to_curr = 'usd'
-    JOIN currencies AS cu ON cu.currency_id = tx.currency_id
+    JOIN accounts AS ac ON 
+      ac.account_id = tx.account_id 
+      AND ac.user_id = $1
+      AND ac.type = 'investment'
+    JOIN currency_exchange_rates AS ex ON 
+      ex.from_curr = tx.currency_id 
+      AND ex.to_curr = 'usd'
+    JOIN currencies AS cu ON 
+      cu.currency_id = tx.currency_id
     GROUP BY tx.currency_id, cu.name, cu.type`,
     [user.id]
   );
@@ -149,11 +183,23 @@ export async function getQuotaDetails() {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
-    SELECT qu.name, qu.type, qu.quantity, qu.current_quantity, qu.currency_id currency, qu.created_at, qu.next_payment_date, qu.amount orig, (qu.amount * ex.exchange_rate) conv
+    SELECT 
+      qu.name, 
+      qu.type, 
+      qu.quantity, 
+      qu.current_quantity, 
+      qu.currency_id currency, 
+      qu.created_at, 
+      qu.next_payment_date, 
+      qu.amount orig, 
+      (qu.amount * ex.exchange_rate) conv
     FROM quotas AS qu
-    JOIN users AS us ON us.user_id = $1
-    JOIN currency_exchange_rates AS ex ON ex.from_curr = qu.currency_id AND ex.to_curr = us.preference_currency
-    WHERE qu.status IN ('active', 'paused')
+    JOIN currency_exchange_rates AS ex ON 
+      ex.from_curr = qu.currency_id 
+      AND ex.to_curr = (SELECT preference_currency FROM users WHERE user_id = $1)
+    WHERE 
+      qu.user_id = $1
+      AND qu.status IN ('active', 'paused')
     ORDER BY qu.created_at`,
     [user.id]
   );
@@ -164,20 +210,28 @@ export async function getBalancePerAccount() {
   const user = await verifySession();
   const { rows } = await pool.query(
     `
-    SELECT ac.name, ac.provider, SUM((tx.amount * ex.exchange_rate) / total.total * 100)::float percent
+    WITH total AS (
+      SELECT 
+        SUM(tx.amount * ex.exchange_rate) AS total
+      FROM transactions AS tx
+      JOIN accounts AS ac ON ac.account_id = tx.account_id 
+         AND ac.user_id = $1 
+         AND ac.type = 'transactional'
+      JOIN currency_exchange_rates AS ex ON ex.from_curr = tx.currency_id 
+         AND ex.to_curr = (SELECT preference_currency FROM users WHERE user_id = $1)
+    )
+    SELECT 
+      ac.name, 
+      ac.provider, 
+      SUM((tx.amount * ex.exchange_rate) / total.total * 100)::float AS percent
     FROM accounts AS ac
     LEFT JOIN transactions AS tx ON tx.account_id = ac.account_id
-    JOIN users AS us ON us.user_id = $1
-    LEFT JOIN currency_exchange_rates AS ex ON ex.from_curr = tx.currency_id AND ex.to_curr = us.preference_currency
-    JOIN (
-      SELECT SUM(tx.amount * ex.exchange_rate) total
-      FROM transactions AS tx
-      JOIN accounts AS ac ON ac.account_id = tx.account_id AND ac.type = 'transactional'
-      JOIN users AS us ON us.user_id = $1
-      JOIN currency_exchange_rates as ex ON ex.from_curr = tx.currency_id AND ex.to_curr = us.preference_currency
-    ) total ON 1 = 1
-    WHERE ac.type = 'transactional'
-    GROUP BY ac.name, ac.provider`,
+    LEFT JOIN currency_exchange_rates AS ex ON ex.from_curr = tx.currency_id 
+         AND ex.to_curr = (SELECT preference_currency FROM users WHERE user_id = $1)
+    CROSS JOIN total
+    WHERE ac.user_id = $1 
+      AND ac.type = 'transactional'
+    GROUP BY ac.name, ac.provider, total.total`,
     [user.id]
   );
   return rows;
