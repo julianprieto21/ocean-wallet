@@ -13,6 +13,7 @@ import {
   MantineProvider,
   ColorSchemeScript,
   mantineHtmlProps,
+  createTheme,
 } from "@mantine/core";
 
 const kanit = Kanit({
@@ -20,6 +21,8 @@ const kanit = Kanit({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
+
+const theme = createTheme({});
 
 export const metadata: Metadata = {
   title: "Ocean Wallet",
@@ -44,7 +47,7 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale}>
           <Provider>
             <UserLoader />
-            <MantineProvider>
+            <MantineProvider theme={theme}>
               <main className="size-full flex flex-row gap-8 relative">
                 <Sidebar locale={locale} />
                 {children}
