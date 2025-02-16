@@ -23,7 +23,7 @@ export function DailyBalanceChart({ dailyBalances }: DailyBalanceChartProps) {
         offset: offset,
       })
     );
-  }, [offset]);
+  }, [dailyBalances, offset]);
   return (
     <Sparkline
       h={300}
