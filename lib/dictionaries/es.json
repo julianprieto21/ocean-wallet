@@ -63,7 +63,8 @@
     "food": "Alimentación",
     "health_beauty": "Salud y Bienestar",
     "entertainment_leisure": "Entretenimiento y Ocio",
-    "savings_investments": "Ahorro e Inversion"
+    "savings_investments": "Ahorro e Inversion",
+    "initial-balance": "Saldo Inicial"
   },
   "sub_categories": {},
   "actions": {
@@ -82,5 +83,28 @@
     "edit_quota": "Editar Cuota",
     "new_quota": "Nueva Cuota",
     "delete_quota": "Eliminar Cuota"
+  },
+  "modalMessages": {
+    "no_account": {
+      "title": "Crea tu primer cuenta!",
+      "message": "Antes que nada creá tu primer cuenta y asi poder comenzar a usar la aplicación.",
+      "button": "Crear Cuenta"
+    },
+    "create_account": {
+      "title": "Nueva cuenta",
+      "message": "",
+      "button": "Crear Cuenta"
+    }
+  },
+  "form": {
+    "pending": "Pendiente...",
+    "accountForm": {
+      "name": "Nombre de la Cuenta",
+      "type": "Tipo de Cuenta",
+      "provider": "Proveedor",
+      "create": "Crear Cuenta",
+      "edit": "Editar Cuenta",
+      "initial": "Monto Inicial"
+    }
   }
 }

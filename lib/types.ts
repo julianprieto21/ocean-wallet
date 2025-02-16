@@ -43,8 +43,10 @@ export interface Dict {
   currencies: CurrenciesDict;
   greetings: GreetingsDict;
   categories: CategoriesDict;
-  sub_categories: "";
+  sub_categories: {};
   actions: ActionsDict;
+  modalMessages: ModalMessages;
+  form: Form;
 }
 
 export interface NavigationDict {
@@ -136,4 +138,26 @@ export interface ActionsDict {
   add_quota: string;
   edit_quota: string;
   new_quota: string;
+}
+
+type Messages = {
+  title: string;
+  message: string;
+  button: string;
+};
+export interface ModalMessages {
+  no_account: Messages;
+  create_account: Messages;
+}
+
+export interface Form {
+  pending: string;
+  accountForm: {
+    name: string;
+    type: string;
+    provider: string;
+    create: string;
+    edit: string;
+    initial: string;
+  };
 }

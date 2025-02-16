@@ -63,7 +63,8 @@
     "food": "Food",
     "health_beauty": "Health and Beauty",
     "entertainment_leisure": "Entertainment and Leisure",
-    "savings_investments": "Savings and Investments"
+    "savings_investments": "Savings and Investments",
+    "initial-balance": "Initial Balance"
   },
   "sub_categories": {},
   "actions": {
@@ -81,5 +82,28 @@
     "add_quota": "Add Quota",
     "edit_quota": "Edit Quota",
     "new_quota": "New Quota"
+  },
+  "modalMessages": {
+    "no_account": {
+      "title": "Create your first account!",
+      "message": "Before anything, create your first account and start using the app.",
+      "button": "Create Account"
+    },
+    "create_account": {
+      "title": "New account",
+      "message": "",
+      "button": "Create Account"
+    }
+  },
+  "form": {
+    "pending": "Pending...",
+    "accountForm": {
+      "name": "Account Name",
+      "type": "Account Type",
+      "provider": "Provider",
+      "create": "Create Account",
+      "edit": "Edit Account",
+      "initial": "Initial Amount"
+    }
   }
 }
