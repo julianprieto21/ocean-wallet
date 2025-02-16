@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import { Pool } from "@neondatabase/serverless";
 import { routing } from "./i18n/routing";
+import { userSchema } from "./lib/squemas";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -14,10 +15,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user, account, profile }) {
-      const { name, email, image } = user;
+      const { username, email, image_url, preference_currency } =
+        userSchema.parse({
+          username: user.name,
+          email: user.email,
+          image_url: user.image,
+          preference_currency: "usd",
+        });
       await pool.query(
         `INSERT INTO users (username, email, image_url, created_at, preference_currency) VALUES ($1, $2, $3, NOW(), $4) ON CONFLICT (email) DO UPDATE SET username = $1, email = $2, image_url = $3, preference_currency = $4;`,
-        [name, email, image, "usd"]
+        [username, email, image_url, preference_currency]
       );
       return true;
     },
