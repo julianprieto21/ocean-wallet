@@ -43,7 +43,7 @@ export interface Dict {
   currencies: CurrenciesDict;
   greetings: GreetingsDict;
   categories: CategoriesDict;
-  sub_categories: {};
+  // sub_categories: SubCategoriesDict;
   actions: ActionsDict;
   modalMessages: ModalMessages;
   form: Form;
