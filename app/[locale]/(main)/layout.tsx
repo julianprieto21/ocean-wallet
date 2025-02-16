@@ -10,6 +10,10 @@ import { NextIntlClientProvider } from "next-intl";
 import { UserLoader } from "@/components/UserLoader";
 import { MantineProvider, mantineHtmlProps } from "@mantine/core";
 import "../globals.css";
+import { getDictionary } from "@/lib/dictionaries";
+import { Modal } from "./components/Modal";
+import { Dict } from "@/lib/types";
+import { getAccounts } from "@/lib/db";
 
 const kanit = Kanit({
   variable: "--font-kanit",
@@ -31,6 +35,9 @@ export default async function RootLayout({
   params: Promise<{ locale: Locale }>;
 }>) {
   const { locale } = await params;
+  const dict = (await getDictionary(locale)) as Dict;
+  const accounts = await getAccounts();
+
   return (
     <html lang={locale} {...mantineHtmlProps}>
       <body
@@ -38,9 +45,10 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider locale={locale}>
           <Provider>
-            <UserLoader />
+            <UserLoader accounts={accounts} />
             <MantineProvider>
               <main className="size-full flex flex-row gap-8 relative">
+                <Modal dict={dict} />
                 <Sidebar locale={locale} />
                 {children}
                 <Menu />
