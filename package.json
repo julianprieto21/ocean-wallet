@@ -9,13 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@formatjs/intl-localematcher": "^0.5.10",
+    "@formatjs/intl-localematcher": "^0.6.0",
     "@mantine/charts": "^7.16.3",
     "@mantine/core": "^7.16.3",
     "@neondatabase/serverless": "^0.10.4",
     "lucide-react": "^0.475.0",
     "negotiator": "^1.0.0",
-    "next": "15.1.6",
+    "next": "15.1.7",
     "next-auth": "5.0.0-beta.25",
     "next-intl": "^3.26.3",
     "postcss-simple-vars": "^7.0.1",
@@ -27,15 +27,15 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
+    "@eslint/eslintrc": "^3.2.0",
     "@types/negotiator": "^0.6.3",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.1.6",
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.0.9",
+    "@types/react-dom": "^19.0.3",
+    "eslint": "^9.20.1",
+    "eslint-config-next": "15.1.7",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5.7.3"
   }
 }
