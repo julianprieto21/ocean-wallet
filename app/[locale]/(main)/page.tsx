@@ -38,7 +38,6 @@ export default async function Home({
           <BalanceWidget
             title={dict.balance}
             balance={balances.balance}
-            preferenceCurrency={preferenceCurrency}
             growPercentage={growPercentage}
             locale={locale}
             size="large"
@@ -49,14 +48,12 @@ export default async function Home({
           <BalanceWidget
             title={dict.income}
             balance={balances.income}
-            preferenceCurrency={preferenceCurrency}
             locale={locale}
             color="text-primary-green"
           />
           <BalanceWidget
             title={dict.expenses}
             balance={balances.expense}
-            preferenceCurrency={preferenceCurrency}
             locale={locale}
             color="text-primary-red"
           />

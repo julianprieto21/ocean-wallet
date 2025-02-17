@@ -1,10 +1,11 @@
+"use client";
+import { useUserStore } from "@/lib/store/userStore";
 import { formatCurrency } from "@/lib/utils";
 import { TrendingUp, TrendingDown } from "lucide-react";
 
 type BalanceProps = {
   title: string;
   balance: number;
-  preferenceCurrency: string;
   locale: string;
   growPercentage?: number;
   size?: "small" | "medium" | "large";
@@ -13,12 +14,12 @@ type BalanceProps = {
 export const BalanceWidget = ({
   title,
   balance,
-  preferenceCurrency,
   locale,
   size = "medium",
   color = "text-primary-500",
   growPercentage,
 }: BalanceProps) => {
+  const preferenceCurrency = useUserStore((state) => state.preferenceCurrency);
   const total = formatCurrency({
     amount: balance,
     currency: preferenceCurrency,
