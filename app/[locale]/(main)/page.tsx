@@ -8,7 +8,6 @@ import {
   getBalances,
   getDailyBalances,
   getTransactions,
-  getUser,
 } from "@/lib/db";
 import { Dict } from "@/lib/types";
 import { TransactionTable } from "./components/TransactionTable";
@@ -24,7 +23,6 @@ export default async function Home({
 }) {
   const { locale } = await params;
   const dict = (await getDictionary(locale)) as Dict;
-  const { preference_currency: preferenceCurrency } = await getUser();
   const transactions = await getTransactions();
   const balances = await getBalances();
   const accountBalances = await getBalancePerAccount();

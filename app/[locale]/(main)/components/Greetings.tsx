@@ -38,7 +38,7 @@ export default function Greetings({
   useEffect(() => {
     const hour = time.getHours();
     setGreeting(getGreeting(hour));
-  }, [time]);
+  }, [time, setGreeting]);
 
   return (
     <p className="w-full text-2xl flex flex-col justify-end text-primary-500 pl-4">
