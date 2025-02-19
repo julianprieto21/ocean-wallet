@@ -32,7 +32,7 @@ export type Transaction = {
 
 export interface Dict {
   balance: string;
-  income: string;
+  incomes: string;
   expenses: string;
   navigation: NavigationDict;
   common_fields: CommonFields;
@@ -46,7 +46,7 @@ export interface Dict {
   // sub_categories: SubCategoriesDict;
   actions: ActionsDict;
   modalMessages: ModalMessages;
-  form: Form;
+  form: FormDict;
 }
 
 export interface NavigationDict {
@@ -83,6 +83,7 @@ export interface AccountsDict {
   provider: string;
   generic: string;
   cash: string;
+  initial: string;
 }
 
 export interface TransactionsDict {
@@ -91,6 +92,8 @@ export interface TransactionsDict {
   description: string;
   category: string;
   subcategory: string;
+  income: string;
+  expense: string;
 }
 
 export interface QuotasDict {
@@ -148,16 +151,13 @@ type Messages = {
 export interface ModalMessages {
   no_account: Messages;
   create_account: Messages;
+  create_transactions: Messages;
 }
 
-export interface Form {
+export interface FormDict {
   pending: string;
-  accountForm: {
-    name: string;
-    type: string;
-    provider: string;
-    create: string;
-    edit: string;
-    initial: string;
-  };
+  edit: string;
+  delete: string;
+  cancel: string;
+  create: string;
 }

@@ -1,6 +1,6 @@
 {
   "balance": "Balance",
-  "income": "Income",
+  "incomes": "Income",
   "expenses": "Expenses",
   "navigation": {
     "search": "Search",
@@ -32,14 +32,17 @@
     "stock": "Stocks",
     "provider": "Provider",
     "generic": "Generic",
-    "cash": "Cash"
+    "cash": "Cash",
+    "initial": "Initial Balance"
   },
   "transactions": {
     "transactions": "Transactions",
     "transaction": "Transaction",
     "description": "Description",
     "category": "Category",
-    "subcategory": "Subcategory"
+    "subcategory": "Subcategory",
+    "income": "Income",
+    "expense": "Expense"
   },
   "quotas": {
     "quotas": "Quotas",
@@ -93,17 +96,19 @@
       "title": "New account",
       "message": "",
       "button": "Create Account"
+    },
+    "create_transactions": {
+      "title": "New transaction",
+      "message": "",
+      "button": "Create Transaction"
     }
   },
   "form": {
     "pending": "Pending...",
-    "accountForm": {
-      "name": "Account Name",
-      "type": "Account Type",
-      "provider": "Provider",
-      "create": "Create Account",
-      "edit": "Edit Account",
-      "initial": "Initial Amount"
-    }
+    "edit": "Edit",
+    "error": "Error",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "create": "Create"
   }
 }

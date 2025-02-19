@@ -1,6 +1,6 @@
 {
   "balance": "Balance",
-  "income": "Ingresos",
+  "incomes": "Ingresos",
   "expenses": "Gastos",
   "navigation": {
     "search": "Buscar",
@@ -32,14 +32,17 @@
     "stock": "Acciones",
     "provider": "Proveedor",
     "generic": "Genérica",
-    "cash": "Efectivo"
+    "cash": "Efectivo",
+    "initial": "Saldo Inicial"
   },
   "transactions": {
     "transactions": "Transacciones",
     "transaction": "Transacción",
     "description": "Descripción",
     "category": "Categoría",
-    "subcategory": "Subcategoría"
+    "subcategory": "Subcategoría",
+    "income": "Ingreso",
+    "expense": "Gasto"
   },
   "quotas": {
     "quotas": "Cuotas",
@@ -94,17 +97,19 @@
       "title": "Nueva cuenta",
       "message": "",
       "button": "Crear Cuenta"
+    },
+    "create_transactions": {
+      "title": "Nueva transacción",
+      "message": "",
+      "button": "Crear Transacción"
     }
   },
   "form": {
     "pending": "Pendiente...",
-    "accountForm": {
-      "name": "Nombre de la Cuenta",
-      "type": "Tipo de Cuenta",
-      "provider": "Proveedor",
-      "create": "Crear Cuenta",
-      "edit": "Editar Cuenta",
-      "initial": "Monto Inicial"
-    }
+    "edit": "Editar",
+    "error": "Error",
+    "delete": "Eliminar",
+    "cancel": "Cancelar",
+    "create": "Crear"
   }
 }
