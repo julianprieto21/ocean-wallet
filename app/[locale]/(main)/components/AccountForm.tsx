@@ -1,15 +1,29 @@
 "use client";
 import { createAccount } from "@/lib/actions";
 import { useModalStore } from "@/lib/store/useModal";
-import { Form } from "@/lib/types";
+import { Dict } from "@/lib/types";
 import { useRouter } from "next/navigation";
-import { SubmitButton } from "./buttons";
+import { SubmitButton } from "./Buttons";
+import { Select, NumberInput, TextInput, Radio, Group } from "@mantine/core";
+import { useUserStore } from "@/lib/store/userStore";
+import { useForm } from "@mantine/form";
+import { PROVIDERS } from "@/lib/providers";
+import { CURRENCIES } from "@/lib/currencies";
 
-export function AccountForm({ formDict }: { formDict: Form }) {
-  const dict = formDict.accountForm;
-  const pendingText = formDict.pending;
+export function AccountForm({ dict }: { dict: Dict }) {
+  const { preferenceCurrency } = useUserStore((state) => state);
   const { setModalOpen } = useModalStore((state) => state);
   const router = useRouter();
+  const form = useForm({
+    mode: "controlled",
+    initialValues: {
+      name: "",
+      type: "transactional",
+      provider: null,
+      initial: "",
+      currency_id: preferenceCurrency,
+    },
+  });
 
   async function HandleSubmit(formData: FormData) {
     try {
@@ -24,38 +38,68 @@ export function AccountForm({ formDict }: { formDict: Form }) {
     }
   }
   return (
-    <form className="flex flex-col gap-2 mt-4" action={HandleSubmit}>
-      <input
-        type="text"
+    <form
+      className="flex flex-col gap-2 mt-4"
+      action={HandleSubmit}
+      onSubmit={form.reset}
+    >
+      <TextInput
         name="name"
+        label={dict.common_fields.name}
+        placeholder={dict.common_fields.name}
+        {...form.getInputProps("name")}
         required
-        className="border-b border-primary-200 placeholder:text-primary-200 focus:border-primary-300 focus:placeholder:text-primary-300 transition-colors duration-74"
-        placeholder={dict.name}
       />
-      <input
-        type="text"
+      <Radio.Group
         name="type"
+        label={dict.common_fields.type}
+        {...form.getInputProps("type")}
         required
-        className="border-b border-primary-200 placeholder:text-primary-200 focus:border-primary-300 focus:placeholder:text-primary-300 transition-colors duration-74"
-        placeholder={dict.type}
-      />
-      <input
-        type="text"
+      >
+        <Group>
+          <Radio value="transactional" label={dict.accounts.transactional} />
+          <Radio value="investment" label={dict.accounts.investment} />
+        </Group>
+      </Radio.Group>
+      <Select
         name="provider"
+        label={dict.accounts.provider}
+        data={PROVIDERS.filter(
+          (provider) => provider.type == form.getValues().type
+        )}
+        placeholder={dict.accounts.provider}
+        checkIconPosition="right"
+        {...form.getInputProps("provider")}
+        searchable
         required
-        className="border-b border-primary-200 placeholder:text-primary-200 focus:border-primary-300 focus:placeholder:text-primary-300 transition-colors duration-74"
-        placeholder={dict.provider}
       />
-      <input
-        type="number"
+      <NumberInput
         name="initial"
+        label={dict.accounts.initial}
         min={0}
-        defaultValue={0}
+        prefix="$"
+        thousandSeparator=","
+        {...form.getInputProps("initial")}
         required
-        className="border-b border-primary-200 placeholder:text-primary-200 focus:border-primary-300 focus:placeholder:text-primary-300 transition-colors duration-74"
-        placeholder={dict.initial}
+        placeholder={dict.accounts.initial}
+        disabled={form.values.type == "investment"}
       />
-      <SubmitButton main={dict.create} loading={pendingText} />
+      <Select
+        name="currency_id"
+        label={dict.common_fields.currency}
+        placeholder={dict.common_fields.currency}
+        data={CURRENCIES.filter((curr) => curr.type == "fiat")}
+        defaultValue={preferenceCurrency}
+        checkIconPosition="right"
+        {...form.getInputProps("currency_id")}
+        required
+        disabled={form.values.type == "investment"}
+        searchable
+      />
+      <SubmitButton
+        main={`${dict.form.create} ${dict.accounts.account}`}
+        loading={`${dict.form.pending}`}
+      />
     </form>
   );
 }

@@ -2,9 +2,10 @@
 
 import { Card } from "./Card";
 import { useModalStore } from "@/lib/store/useModal";
-import { Dict, Form } from "@/lib/types";
-import { CloseModal } from "./buttons";
+import { Dict } from "@/lib/types";
+import { CloseModal } from "./Buttons";
 import { AccountForm } from "./AccountForm";
+import { TransactionForm } from "./TransactionForm";
 
 type ModalProps = {
   messages: {
@@ -27,7 +28,13 @@ export function Modal({ dict }: { dict: Dict }) {
       {modalActive === "create-account" && (
         <CreateAccountModal
           messages={dict.modalMessages.create_account}
-          formDict={dict.form}
+          dict={dict}
+        />
+      )}
+      {modalActive === "create-transaction" && (
+        <CreateTransactionModal
+          messages={dict.modalMessages.create_transactions}
+          dict={dict}
         />
       )}
     </div>
@@ -55,17 +62,29 @@ function NoAccountModal({ messages }: ModalProps) {
   );
 }
 
-function CreateAccountModal({
-  messages,
-  formDict,
-}: ModalProps & { formDict: Form }) {
+function CreateAccountModal({ messages, dict }: ModalProps & { dict: Dict }) {
   const { setModalOpen } = useModalStore((state) => state);
 
   return (
     <Card className="w-full max-w-md p-6 relative h-fit py-4">
       <h2 className="text-xl font-bold">{messages.title}</h2>
       <CloseModal handleOnClick={setModalOpen.bind(null, false)} />
-      <AccountForm formDict={formDict} />
+      <AccountForm dict={dict} />
+    </Card>
+  );
+}
+
+function CreateTransactionModal({
+  messages,
+  dict,
+}: ModalProps & { dict: Dict }) {
+  const { setModalOpen } = useModalStore((state) => state);
+
+  return (
+    <Card className="w-full max-w-md p-6 relative h-fit py-4">
+      <h2 className="text-xl font-bold">{messages.title}</h2>
+      <CloseModal handleOnClick={setModalOpen.bind(null, false)} />
+      <TransactionForm dict={dict} />
     </Card>
   );
 }
