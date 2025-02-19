@@ -34,7 +34,7 @@ export function TransactionForm({ dict }: { dict: Dict }) {
 
   useEffect(() => {
     form.setFieldValue("created_at", new Date());
-  }, [modalOpen, form]);
+  }, [modalOpen]);
 
   async function HandleSubmit(formData: FormData) {
     try {
