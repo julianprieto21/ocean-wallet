@@ -1,6 +1,6 @@
 "use client";
 
-import { ACCOUNT_PROVIDERS } from "@/lib/accountProviders";
+import { PROVIDERS } from "@/lib/providers";
 import React, { useEffect } from "react";
 import { Sparkline } from "@mantine/charts";
 import { fillMissingDailyBalances } from "@/lib/utils";
@@ -47,8 +47,8 @@ export function AccountBalanceChart({ data }: AccountBalanceChartProps) {
       <div id="account-bar-chart" className="w-full h-2 flex ">
         {data.map((acc) => {
           if (!acc.percent || acc.percent <= 0.5) return null; // No mostrar porcentajes demasiado bajos
-          const color = ACCOUNT_PROVIDERS.filter(
-            (provider) => provider.id == acc.provider
+          const color = PROVIDERS.filter(
+            (provider) => provider.value == acc.provider
           )[0].color;
           return (
             <div
