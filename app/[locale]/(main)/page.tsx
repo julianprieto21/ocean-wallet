@@ -11,7 +11,7 @@ import {
 } from "@/lib/db";
 import { Dict } from "@/lib/types";
 import { TransactionTable } from "./components/TransactionTable";
-import { CreateTransaction } from "./components/buttons";
+import { CreateTransaction } from "./components/Buttons";
 import { Card } from "./components/Card";
 import { BalanceWidget } from "./components/widgets";
 import { Locale } from "@/i18n/routing";
@@ -44,7 +44,7 @@ export default async function Home({
         <DailyBalanceChart dailyBalances={dailyBalances} />
         <div className="flex flex-row justify-between items-start w-full gap-8 flex-shrink-0 px-4">
           <BalanceWidget
-            title={dict.income}
+            title={dict.incomes}
             balance={balances.income}
             locale={locale}
             color="text-primary-green"

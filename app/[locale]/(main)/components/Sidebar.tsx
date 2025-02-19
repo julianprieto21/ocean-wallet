@@ -2,7 +2,7 @@ import { User } from "lucide-react";
 import SearchBar from "./SearchBar";
 import NavLinks from "./NavLinks";
 import { AccountDetails } from "./AccountsDetails";
-import { CreateAccount } from "./buttons";
+import { CreateAccount } from "./Buttons";
 import QuotaDetails from "./QuotaDetails";
 import { auth } from "@/auth";
 import { getDictionary } from "@/lib/dictionaries";

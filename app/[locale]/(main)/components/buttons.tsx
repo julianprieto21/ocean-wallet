@@ -23,11 +23,17 @@ export function CreateAccount({ dict }: { dict: ActionsDict }) {
 }
 
 export function CreateTransaction() {
+  const { setModalOpen, setModalActive } = useModalStore((state) => state);
+  const handleOnClick = () => {
+    setModalActive("create-transaction");
+    setModalOpen(true);
+  };
   return (
     <button
       title="Create Transaction"
       type="button"
       className="flex flex-row items-center text-xl text-primary-300 rounded-2xl hover:text-primary-400 transition-colors duration-75 flex-shrink-0"
+      onClick={handleOnClick}
     >
       <Plus className="size-10 flex-shrink-0" />
     </button>
@@ -39,7 +45,7 @@ export function CloseModal({ handleOnClick }: { handleOnClick: () => void }) {
     <button
       title="Close Modal"
       type="button"
-      className="absolute right-2 top-2 cursor-pointer text-gray-400 hover:text-gray-500"
+      className="absolute right-6 top-5 cursor-pointer text-gray-400 hover:text-gray-500"
       onClick={() => handleOnClick()}
     >
       <X className="size-6" />
@@ -57,7 +63,7 @@ export function SubmitButton({ main, loading }: SubmitButtonProps) {
     <button
       type="submit"
       disabled={pending}
-      className="flex justify-center w-full rounded-lg bg-primary-50 p-4 text-primary-300 hover:bg-primary-100 hover:text-primary-400 disabled:opacity-50 disabled:cursor-not-allowed"
+      className="flex justify-center w-full rounded-lg bg-primary-50 p-4 text-primary-300 hover:bg-primary-100 hover:text-primary-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-100"
     >
       {pending ? loading : main}
     </button>
