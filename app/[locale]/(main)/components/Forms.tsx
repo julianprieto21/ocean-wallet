@@ -173,7 +173,7 @@ export function TransactionForm({ dict, accounts }: FormProps) {
         form.setFieldValue("currency_id", preferenceCurrency);
       }
     }
-  }, [form.values.account_id]);
+  }, [form.values.account_id, accounts, preferenceCurrency]);
 
   return (
     <form
