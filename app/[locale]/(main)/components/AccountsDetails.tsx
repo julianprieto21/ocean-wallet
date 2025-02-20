@@ -108,12 +108,12 @@ function TransactionalDetail({ details }: { details: WalletDetailProps }) {
     )
   );
   return (
-    <div className="w-full flex flex-col gap-1">
+    <div className="ml-2 flex flex-col gap-1">
       {accounts.map((account) => {
         return (
           <div
             key={account.name}
-            className="flex flex-row items-start gap-2 text-xl text-primary-300 p-3 rounded-2xl mx-4 transition-colors duration-75"
+            className="flex flex-row items-start gap-2 text-lg text-primary-300 p-3 rounded-2xl mx-4 transition-colors duration-75"
           >
             <img
               src={`/icons/wallet/${account.provider}.svg`}
@@ -153,7 +153,7 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
   const locale = useLocale();
   const preferenceCurrency = useUserStore((state) => state.preferenceCurrency);
   return (
-    <div className="w-full flex flex-col gap-1">
+    <div className="ml-2 flex flex-col gap-1">
       {details.map((crypto) => {
         const orig = formatCurrency({
           amount: crypto.orig,
@@ -170,7 +170,7 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
         return (
           <div
             key={crypto.name}
-            className="flex flex-row items-start gap-2 text-xl text-primary-300 p-3 rounded-2xl mx-4 transition-colors duration-75"
+            className="flex flex-row items-start gap-2 text-lg text-primary-300 p-3 rounded-2xl mx-4 transition-colors duration-75"
           >
             <img
               src={`/icons/crypto/${crypto.currency_id}.svg`}

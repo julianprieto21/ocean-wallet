@@ -80,7 +80,7 @@ export default function QuotaDetails({ dict, details }: QuotaDetailsProps) {
 
 function Detail({ details }: { details: DetailProps }) {
   return (
-    <div className="w-full flex flex-col gap-1">
+    <div className="ml-2 flex flex-col gap-1">
       {details.map((quota: DetailProps[0]) => {
         const { prefix, integer, decimal } = formatCurrency({
           amount: quota.orig,
@@ -89,7 +89,7 @@ function Detail({ details }: { details: DetailProps }) {
         return (
           <div
             key={quota.name}
-            className="flex flex-row items-start gap-2 text-xl text-primary-300 p-3 rounded-2xl mx-4 transition-colors duration-75"
+            className="flex flex-row items-start gap-2 text-lg text-primary-300 p-3 rounded-2xl mx-4 transition-colors duration-75"
           >
             <PayQuota />
             <div className="flex flex-row w-full justify-between items-start">
