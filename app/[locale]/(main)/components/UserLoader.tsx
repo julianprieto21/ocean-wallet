@@ -1,12 +1,10 @@
 "use client";
 
-import { useModalStore } from "@/lib/store/useModal";
 import { useUserStore } from "@/lib/store/userStore";
-import { Account } from "@/lib/types";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 
-export const UserLoader = ({ accounts }: { accounts: Account[] }) => {
+export const UserLoader = () => {
   const { data: session } = useSession();
   const { setUsername, setEmail, setImage, setPreferenceCurrency } =
     useUserStore();
@@ -18,12 +16,5 @@ export const UserLoader = ({ accounts }: { accounts: Account[] }) => {
     setPreferenceCurrency(session.user.preferenceCurrency);
   }, [session, setUsername, setEmail, setImage, setPreferenceCurrency]);
 
-  const { setModalOpen, setModalActive } = useModalStore((state) => state);
-  useEffect(() => {
-    if (accounts.length == 0) {
-      setModalActive("no-account");
-      setModalOpen(true);
-    }
-  }, [accounts, setModalOpen, setModalActive]);
   return <></>;
 };

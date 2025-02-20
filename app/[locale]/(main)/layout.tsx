@@ -46,10 +46,10 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider locale={locale}>
           <Provider>
-            <UserLoader accounts={accounts} />
+            <UserLoader />
             <MantineProvider>
               <main className="size-full flex flex-row gap-8 relative">
-                <Modal dict={dict} />
+                <Modal dict={dict} accounts={accounts} />
                 <Sidebar locale={locale} />
                 {children}
                 <Menu />
