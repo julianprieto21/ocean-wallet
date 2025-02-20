@@ -5,7 +5,8 @@ import { ChevronRight } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useUserStore } from "@/lib/store/userStore";
 import { useLocale } from "next-intl";
-import { AccountsDict } from "@/lib/types";
+import { Dict } from "@/lib/types";
+import { PayQuota } from "./Buttons";
 
 type WalletDetailProps = {
   name: string;
@@ -23,13 +24,25 @@ type CryptoDetailProps = {
   conv: number;
 }[];
 
+type QuotaDetailProps = {
+  name: string;
+  type: string;
+  quantity: number;
+  current_quantity: number;
+  currency: string;
+  created_at: string;
+  next_payment_date: string;
+  orig: number;
+  conv: number;
+}[];
+
 type AccountDetailsProps = {
-  type: "transactional" | "crypto" | "stock";
-  details: WalletDetailProps & CryptoDetailProps;
-  dict: AccountsDict;
+  type: "transactional" | "crypto" | "stock" | "quota";
+  details: WalletDetailProps & CryptoDetailProps & QuotaDetailProps;
+  dict: Dict;
 };
 
-export function AccountDetails({ type, details, dict }: AccountDetailsProps) {
+export function Details({ type, details, dict }: AccountDetailsProps) {
   const locale = useLocale();
   const [open, setOpen] = React.useState(false);
   const preferenceCurrency = useUserStore((state) => state.preferenceCurrency);
@@ -42,7 +55,18 @@ export function AccountDetails({ type, details, dict }: AccountDetailsProps) {
     currency: preferenceCurrency,
     locale: locale,
   });
-  const Detail = type === "transactional" ? TransactionalDetail : CryptoDetail;
+  const Detail =
+    type === "transactional"
+      ? TransactionalDetail
+      : type === "quota"
+      ? QuotaDetail
+      : CryptoDetail;
+  const title =
+    type === "transactional"
+      ? dict.accounts.transactional
+      : type === "quota"
+      ? dict.quotas.quotas
+      : dict.accounts.crypto;
   return (
     <>
       <button
@@ -58,7 +82,7 @@ export function AccountDetails({ type, details, dict }: AccountDetailsProps) {
           } transition-transform duration-75`}
         />
         <div className="w-full flex flex-row justify-between items-center">
-          <span>{dict[type]}</span>
+          <span>{title}</span>
           <span>
             {total.integer}
             {total.decimal}
@@ -190,6 +214,39 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
                   {conv.integer}
                   {conv.decimal}
                   {conv.prefix}
+                </span>
+              </span>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function QuotaDetail({ details }: { details: QuotaDetailProps }) {
+  return (
+    <div className="ml-2 flex flex-col gap-1">
+      {details.map((quota: QuotaDetailProps[0]) => {
+        const { prefix, integer, decimal } = formatCurrency({
+          amount: quota.orig,
+          currency: quota.currency,
+        });
+        return (
+          <div
+            key={quota.name}
+            className="flex flex-row items-start gap-2 text-lg text-primary-300 p-3 rounded-2xl mx-4 transition-colors duration-75"
+          >
+            <PayQuota />
+            <div className="flex flex-row w-full justify-between items-start">
+              <button type="button" className="hover:underline">
+                {quota.name}
+              </button>
+              <span className="flex flex-col items-end">
+                <span className="pl-2">
+                  {integer}
+                  {decimal}
+                  {prefix}
                 </span>
               </span>
             </div>

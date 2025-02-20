@@ -1,9 +1,8 @@
 import { User } from "lucide-react";
 import SearchBar from "./SearchBar";
 import NavLinks from "./NavLinks";
-import { AccountDetails } from "./AccountsDetails";
+import { Details } from "./Details";
 import { CreateAccount } from "./Buttons";
-import QuotaDetails from "./QuotaDetails";
 import { auth } from "@/auth";
 import { getDictionary } from "@/lib/dictionaries";
 import {
@@ -50,19 +49,11 @@ export default async function Sidebar({ locale }: { locale: Locale }) {
             {dict.navigation.details}
           </h2>
           <CreateAccount dict={dict.actions} />
-          <AccountDetails
-            type="transactional"
-            details={walletAccounts}
-            dict={dict.accounts}
-          />
-          <AccountDetails
-            type="crypto"
-            details={cryptoAccounts}
-            dict={dict.accounts}
-          />
+          <Details type="transactional" details={walletAccounts} dict={dict} />
+          <Details type="crypto" details={cryptoAccounts} dict={dict} />
         </div>
         <span className="border-t border-primary-300 border-dashed mx-4 my-2"></span>
-        <QuotaDetails dict={dict.quotas} details={quotas} />
+        <Details type="quota" details={quotas} dict={dict} />
       </div>
     </div>
   );

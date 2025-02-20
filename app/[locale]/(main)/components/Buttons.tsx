@@ -69,3 +69,15 @@ export function SubmitButton({ main, loading }: SubmitButtonProps) {
     </button>
   );
 }
+
+export function PayQuota() {
+  return (
+    <button
+      title="Pay Quota"
+      type="button"
+      className="size-7 flex-shrink-0 border border-primary-250 text-primary-250 rounded-full grid place-content-center hover:text-primary-300 hover:border-primary-300 transition-colors duration-75"
+    >
+      <Plus className="size-5 flex-shrink-0" />
+    </button>
+  );
+}
