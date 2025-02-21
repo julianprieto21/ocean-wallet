@@ -51,7 +51,7 @@ export function Details({ type, details, dict }: AccountDetailsProps) {
   );
   const total = formatCurrency({
     amount: totalBalance,
-    currency: preferenceCurrency,
+    currency: type === "crypto" ? "usd" : preferenceCurrency,
     locale: locale,
   });
   const Detail =
