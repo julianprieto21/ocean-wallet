@@ -1,8 +1,7 @@
-import { User } from "lucide-react";
 import SearchBar from "./SearchBar";
 import NavLinks from "./NavLinks";
 import { Details } from "./Details";
-import { CreateAccount } from "./Buttons";
+import { Avatar, CreateAccount } from "./Buttons";
 import { auth } from "@/auth";
 import { getDictionary } from "@/lib/dictionaries";
 import {
@@ -24,18 +23,7 @@ export default async function Sidebar({ locale }: { locale: Locale }) {
     <div className="w-[35%] flex-shrink-0 flex flex-col h-full gap-4">
       <div className="flex justify-between items-center w-full">
         <h1 className="text-6xl text-primary-500 pl-4">OCEAN</h1>
-        <div className="rounded-full bg-primary-50 size-12 grid place-content-center text-primary-300 hover:text-primary-400">
-          {image ? (
-            <img
-              src={image}
-              alt=""
-              className="rounded-full"
-              referrerPolicy="no-referrer"
-            />
-          ) : (
-            <User className="size-7" />
-          )}
-        </div>
+        <Avatar image_url={image ?? ""} />
       </div>
       <div className="flex flex-col gap-8 mt-4">
         <SearchBar placeholder={dict.navigation.search} />

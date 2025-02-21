@@ -20,6 +20,7 @@
   "users": {
     "users": "Usuarios",
     "user": "Usuario",
+    "username": "Nombre de Usuario",
     "email": "Correo Electrónico",
     "preference_currency": "Moneda de Preferencia"
   },
@@ -102,6 +103,11 @@
       "title": "Nueva transacción",
       "message": "",
       "button": "Crear Transacción"
+    },
+    "menu": {
+      "title": "Datos de Usuario",
+      "message": "Modifica tus datos de usuario",
+      "button": "Guardar"
     }
   },
   "form": {

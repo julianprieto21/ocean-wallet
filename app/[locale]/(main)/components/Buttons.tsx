@@ -1,8 +1,33 @@
 "use client";
 import { useModalStore } from "@/lib/store/useModal";
 import { ActionsDict } from "@/lib/types";
-import { Plus, X } from "lucide-react";
+import { Plus, User, X } from "lucide-react";
 import { useFormStatus } from "react-dom";
+
+export function Avatar({ image_url }: { image_url: string }) {
+  const { setModalOpen, setModalActive } = useModalStore((state) => state);
+  const OnClick = () => {
+    setModalActive("menu");
+    setModalOpen(true);
+  };
+  return (
+    <button
+      className="rounded-full bg-primary-50 size-12 grid place-content-center text-primary-300 hover:text-primary-400"
+      onClick={OnClick}
+    >
+      {image_url ? (
+        <img
+          src={image_url}
+          alt=""
+          className="rounded-full"
+          referrerPolicy="no-referrer"
+        />
+      ) : (
+        <User className="size-7" />
+      )}
+    </button>
+  );
+}
 
 export function CreateAccount({ dict }: { dict: ActionsDict }) {
   const { setModalOpen, setModalActive } = useModalStore((state) => state);

@@ -69,6 +69,7 @@ export interface CommonFields {
 export interface UsersDict {
   users: string;
   user: string;
+  username: string;
   email: string;
   preference_currency: string;
 }
@@ -152,6 +153,7 @@ export interface ModalMessages {
   no_account: Messages;
   create_account: Messages;
   create_transactions: Messages;
+  menu: Messages;
 }
 
 export interface FormDict {

@@ -1,8 +1,8 @@
 "use server";
 import { Pool } from "@neondatabase/serverless";
-import { auth } from "@/auth";
+import { auth, signOut as signOutFunction } from "@/auth";
 import { revalidatePath } from "next/cache";
-import { accountSchema, transactionSchema } from "./squemas";
+import { accountSchema, transactionSchema, userSchema } from "./squemas";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -16,6 +16,25 @@ const verifySession = async () => {
     return session.user;
   }
 };
+
+export async function updateUserData(formData: FormData) {
+  const user = await verifySession();
+  try {
+    const { preference_currency } = userSchema.parse(
+      Object.fromEntries(formData)
+    );
+    await pool.query(
+      `UPDATE users SET preference_currency = $1 WHERE user_id = $2;`,
+      [preference_currency, user.id]
+    );
+    return true;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error updating user data");
+  } finally {
+    revalidatePath("/");
+  }
+}
 
 export async function createAccount(formData: FormData) {
   const user = await verifySession();
@@ -86,4 +105,8 @@ export async function createTransaction(formData: FormData) {
   } finally {
     revalidatePath("/");
   }
+}
+
+export async function signOut() {
+  await signOutFunction();
 }

@@ -1,5 +1,10 @@
 "use client";
-import { createAccount, createTransaction } from "@/lib/actions";
+import {
+  createAccount,
+  createTransaction,
+  updateUserData,
+  signOut,
+} from "@/lib/actions";
 import { useModalStore } from "@/lib/store/useModal";
 import { Account, Dict } from "@/lib/types";
 import { useRouter } from "next/navigation";
@@ -33,7 +38,7 @@ export function AccountForm({ dict }: FormProps) {
     },
   });
 
-  async function HandleSubmit(formData: FormData) {
+  async function handleSubmit(formData: FormData) {
     try {
       await createAccount(formData);
     } catch (error) {
@@ -60,7 +65,7 @@ export function AccountForm({ dict }: FormProps) {
   return (
     <form
       className="flex flex-col gap-2 mt-4"
-      action={HandleSubmit}
+      action={handleSubmit}
       onSubmit={form.reset}
     >
       <TextInput
@@ -143,7 +148,7 @@ export function TransactionForm({ dict, accounts }: FormProps) {
     },
   });
 
-  async function HandleSubmit(formData: FormData) {
+  async function handleSubmit(formData: FormData) {
     try {
       await createTransaction(formData);
     } catch (error) {
@@ -178,7 +183,7 @@ export function TransactionForm({ dict, accounts }: FormProps) {
   return (
     <form
       className="flex flex-col gap-2 mt-4"
-      action={HandleSubmit}
+      action={handleSubmit}
       onSubmit={form.reset}
     >
       <Select
@@ -289,6 +294,89 @@ export function TransactionForm({ dict, accounts }: FormProps) {
         main={`${dict.form.create} ${dict.transactions.transaction}`}
         loading={`${dict.form.pending}`}
       />
+    </form>
+  );
+}
+
+export function UserForm({ dict }: { dict: FormProps["dict"] }) {
+  const router = useRouter();
+  const { setModalOpen } = useModalStore((state) => state);
+  const { preferenceCurrency, setPreferenceCurrency, email, username, image } =
+    useUserStore((state) => state);
+
+  async function handleSubmit(formData: FormData) {
+    try {
+      await updateUserData(formData);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      router.refresh();
+      setTimeout(() => {
+        setModalOpen(false);
+      }, 1000);
+    }
+    setPreferenceCurrency(formData.get("preference_currency") as string);
+  }
+  return (
+    <form className="flex flex-col gap-4 w-full" action={handleSubmit}>
+      <TextInput
+        name="username"
+        defaultValue={username}
+        label={dict.users.username}
+        placeholder={dict.users.username}
+        // required
+        disabled
+      />
+      <TextInput
+        name="email"
+        defaultValue={email}
+        label={dict.users.email}
+        placeholder={dict.users.email}
+        // required
+        disabled
+      />
+      {/* <TextInput
+        name="image_url"
+        label={dict.common_fields.image_url}
+        placeholder={dict.common_fields.image_url}
+        defaultValue={image}
+        required
+      /> */}
+      <input
+        name="image_url"
+        title="image_url"
+        type="text"
+        defaultValue={image}
+        className="hidden"
+      ></input>
+      <Select
+        name="preference_currency"
+        label={dict.users.preference_currency}
+        placeholder={dict.users.preference_currency}
+        defaultValue={preferenceCurrency}
+        data={CURRENCIES.filter((curr) => curr.type == "fiat")}
+        checkIconPosition="right"
+        required
+      />
+      <SubmitButton
+        main={`${dict.modalMessages.menu.button}`}
+        loading={`${dict.form.pending}`}
+      />
+    </form>
+  );
+}
+export function SignOutForm() {
+  // const { setModalOpen } = useModalStore((state) => state);
+  // const onSubmit = () => {
+  //   setModalOpen(false);
+  // };
+  return (
+    <form
+      className="flex flex-col gap-4 w-full"
+      // onSubmit={onSubmit}
+      action={signOut}
+    >
+      <SubmitButton main="Sign Out" loading="Signing Out" />
     </form>
   );
 }
