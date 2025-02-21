@@ -1,0 +1,15 @@
+name: Crypto Price Notifier
+
+on:
+  schedule:
+    - cron: "0 */4 * * *" # Cada 4 horas
+  workflow_dispatch:
+
+jobs:
+  update-exchange-rates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Crypto Price Notifier
+        run: |
+          curl -X POST "https://ocean-wallet.vercel.app/api/crypto-price-notifier" -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
