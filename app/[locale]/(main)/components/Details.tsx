@@ -7,8 +7,9 @@ import { useUserStore } from "@/lib/store/userStore";
 import { useLocale } from "next-intl";
 import { Dict } from "@/lib/types";
 import { PayQuota } from "./Buttons";
+import { CURRENCIES } from "@/lib/currencies";
 
-type WalletDetailProps = {
+type TransactionalDetailProps = {
   name: string;
   provider: string;
   currency_id: string;
@@ -17,8 +18,6 @@ type WalletDetailProps = {
 }[];
 
 type CryptoDetailProps = {
-  name: string;
-  image_url: string;
   currency_id: string;
   orig: number;
   conv: number;
@@ -38,7 +37,7 @@ type QuotaDetailProps = {
 
 type AccountDetailsProps = {
   type: "transactional" | "crypto" | "stock" | "quota";
-  details: WalletDetailProps & CryptoDetailProps & QuotaDetailProps;
+  details: TransactionalDetailProps & CryptoDetailProps & QuotaDetailProps;
   dict: Dict;
 };
 
@@ -95,7 +94,11 @@ export function Details({ type, details, dict }: AccountDetailsProps) {
   );
 }
 
-function TransactionalDetail({ details }: { details: WalletDetailProps }) {
+function TransactionalDetail({
+  details,
+}: {
+  details: TransactionalDetailProps;
+}) {
   const locale = useLocale();
   const preferenceCurrency = useUserStore((state) => state.preferenceCurrency);
   const accounts: {
@@ -112,7 +115,7 @@ function TransactionalDetail({ details }: { details: WalletDetailProps }) {
             balance: { currency: string; amount: number }[];
           };
         },
-        item: WalletDetailProps[0]
+        item: TransactionalDetailProps[0]
       ) => {
         const { name, provider, currency_id, orig } = item;
 
@@ -191,9 +194,12 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
           locale: locale,
           fractionDigits: 8,
         });
+        const name = CURRENCIES.find(
+          (c) => c.value == crypto.currency_id
+        )?.name;
         return (
           <div
-            key={crypto.name}
+            key={name}
             className="flex flex-row items-start gap-2 text-lg text-primary-300 p-3 rounded-2xl mx-4 transition-colors duration-75"
           >
             <img
@@ -203,7 +209,7 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
             />
             <div className="flex flex-row w-full justify-between items-start">
               <button type="button" className="hover:underline">
-                {crypto.name}
+                {name ?? "?"}
               </button>
               <span className="flex flex-col items-end">
                 <span className="pl-2">

@@ -1,3 +1,4 @@
+import { CURRENCIES } from "@/lib/currencies";
 import { Pool } from "@neondatabase/serverless";
 
 const pool = new Pool({
@@ -21,25 +22,16 @@ export async function GET(req: Request) {
   const day = String(date.getDate()).padStart(2, "0");
   const lastUpdate = `${year}-${month}-${day}`;
   try {
-    const { rows: currencies } = await pool.query(
-      `SELECT currency_id, type FROM currencies;`
-    );
     const exchangeRates = await Promise.all(
-      currencies.map(
-        async ({
-          currency_id,
-          currency_type,
-        }: {
-          currency_id: string;
-          currency_type: string;
-        }) => {
+      CURRENCIES.map(
+        async ({ value, type }: { value: string; type: string }) => {
           const response = await fetch(
-            `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${lastUpdate}/v1/currencies/${currency_id}.json`
+            `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${lastUpdate}/v1/currencies/${value}.json`
           );
           return response.ok
             ? {
-                from: currency_id,
-                type: currency_type,
+                from: value,
+                type: type,
                 data: await response.json(),
               }
             : null;
@@ -61,15 +53,9 @@ export async function GET(req: Request) {
       }) => {
         // Si es fiat, insertar tipos de camio entre fiats
         if (type == "fiat") {
-          currencies.forEach(
-            ({
-              currency_id: to,
-              currency_type,
-            }: {
-              currency_id: string;
-              currency_type: string;
-            }) => {
-              if (currency_type == "fiat") {
+          CURRENCIES.forEach(
+            ({ value: to, type }: { value: string; type: string }) => {
+              if (type == "fiat") {
                 const exchange = data[from][to];
                 if (exchange) {
                   values.push(

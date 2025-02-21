@@ -158,9 +158,7 @@ export async function getInvestmentAccountDetails() {
   const { rows } = await pool.query(
     `
     SELECT 
-      cu.name, 
       tx.currency_id, 
-      cu.type, 
       SUM(tx.amount)::float orig, 
       SUM(tx.amount * ex.exchange_rate)::float conv
     FROM transactions AS tx
@@ -171,9 +169,7 @@ export async function getInvestmentAccountDetails() {
     JOIN currency_exchange_rates AS ex ON 
       ex.from_curr = tx.currency_id 
       AND ex.to_curr = 'usd'
-    JOIN currencies AS cu ON 
-      cu.currency_id = tx.currency_id
-    GROUP BY tx.currency_id, cu.name, cu.type`,
+    GROUP BY tx.currency_id`,
     [user.id]
   );
   return rows;

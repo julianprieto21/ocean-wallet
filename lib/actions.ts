@@ -65,7 +65,7 @@ export async function createTransaction(formData: FormData) {
       currency_id,
     } = transactionSchema.parse(Object.fromEntries(formData));
     const formatAmount = amount.slice(1).replace(/\,/g, "");
-
+    console.log(currency_id);
     const { rows } = await pool.query(
       `INSERT INTO transactions (account_id, description, type, category, subcategory, amount, created_at, currency_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`,
       [
