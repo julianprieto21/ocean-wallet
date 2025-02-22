@@ -120,7 +120,7 @@ export function AccountForm({ dict }: FormProps) {
         // searchable
       />
       <SubmitButton
-        main={`${dict.form.create} ${dict.accounts.account}`}
+        main={`${dict.modalMessages.create_account.button}`}
         loading={`${dict.form.pending}`}
       />
     </form>
@@ -291,7 +291,7 @@ export function TransactionForm({ dict, accounts }: FormProps) {
         {...form.getInputProps("quota_id")}
       />
       <SubmitButton
-        main={`${dict.form.create} ${dict.transactions.transaction}`}
+        main={`${dict.modalMessages.create_transactions.button}`}
         loading={`${dict.form.pending}`}
       />
     </form>
@@ -366,16 +366,8 @@ export function UserForm({ dict }: { dict: FormProps["dict"] }) {
   );
 }
 export function SignOutForm() {
-  // const { setModalOpen } = useModalStore((state) => state);
-  // const onSubmit = () => {
-  //   setModalOpen(false);
-  // };
   return (
-    <form
-      className="flex flex-col gap-4 w-full"
-      // onSubmit={onSubmit}
-      action={signOut}
-    >
+    <form className="flex flex-col gap-4 w-full" action={signOut}>
       <SubmitButton main="Sign Out" loading="Signing Out" />
     </form>
   );
