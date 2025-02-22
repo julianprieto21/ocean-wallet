@@ -9,16 +9,19 @@ export default function NavLinks({ dict }: { dict: NavigationDict }) {
       name: dict.home,
       href: "/",
       icon: Home,
+      disabled: false,
     },
     {
       name: dict.transactions,
       href: "/transactions",
       icon: Layers,
+      disabled: true,
     },
     {
       name: dict.accounts,
       href: "/accounts",
       icon: CreditCard,
+      disabled: true,
     },
   ];
   const pathname = usePathname();
@@ -32,6 +35,11 @@ export default function NavLinks({ dict }: { dict: NavigationDict }) {
             link.href == pathname
               ? "text-primary-400 bg-primary-50 shadow-md"
               : ""
+          }
+          ${
+            link.disabled
+              ? "pointer-events-none opacity-50"
+              : "cursor-pointer hover:bg-primary-100"
           }`}
         >
           <link.icon className="size-7" />
