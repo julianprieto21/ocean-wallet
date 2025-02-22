@@ -156,7 +156,7 @@ function TransactionalDetail({
                   const bal = formatCurrency({
                     amount: balance.amount,
                     currency: balance.currency ?? preferenceCurrency,
-                    fractionDigits: 8,
+                    fractionDigits: 2,
                     locale: locale,
                   });
                   return (
@@ -190,9 +190,9 @@ function CryptoDetail({ details }: { details: CryptoDetailProps }) {
         });
         const conv = formatCurrency({
           amount: crypto.conv,
-          currency: preferenceCurrency,
+          currency: "usd",
           locale: locale,
-          fractionDigits: 8,
+          fractionDigits: 2,
         });
         const name = CURRENCIES.find(
           (c) => c.value == crypto.currency_id
@@ -237,6 +237,7 @@ function QuotaDetail({ details }: { details: QuotaDetailProps }) {
         const { prefix, integer, decimal } = formatCurrency({
           amount: quota.orig,
           currency: quota.currency,
+          fractionDigits: 2,
         });
         return (
           <div
