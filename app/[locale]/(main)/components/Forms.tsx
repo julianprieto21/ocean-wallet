@@ -438,7 +438,7 @@ export function UserForm({ dict }: { dict: FormProps["dict"] }) {
     setPreferenceCurrency(formData.get("preference_currency") as string);
   }
   return (
-    <form className="flex flex-col gap-4 w-full" action={handleSubmit}>
+    <form className="flex flex-col gap-2 mt-4" action={handleSubmit}>
       <TextInput
         name="username"
         defaultValue={username}
