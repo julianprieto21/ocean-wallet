@@ -93,7 +93,8 @@ export async function getBalances() {
     WHERE 
       ac.user_id = $1
       AND ac.type = 'transactional' 
-      AND ex.to_curr = (SELECT preference_currency FROM users WHERE user_id = $1)`,
+      AND ex.to_curr = (SELECT preference_currency FROM users WHERE user_id = $1)
+      AND tx.transfer_id IS NULL`,
     [user.id]
   );
   return rows[0];
@@ -115,6 +116,7 @@ export async function getDailyBalances() {
     JOIN currency_exchange_rates as ex ON 
       tx.currency_id = ex.from_curr 
       AND ex.to_curr = (SELECT preference_currency FROM users WHERE user_id = $1)
+    WHERE tx.transfer_id IS NULL
     GROUP BY DATE(tx.created_at)
     )
     SELECT

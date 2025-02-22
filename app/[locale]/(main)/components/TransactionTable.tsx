@@ -39,7 +39,8 @@ export function TransactionTable({
           {transactions
             .filter(
               (transaction: TransactionTableProps["transactions"][0]) =>
-                transaction.account_type === "transactional"
+                transaction.account_type === "transactional" &&
+                !transaction.transfer_id
             )
             .slice(0, limit)
             .map((transaction: TransactionTableProps["transactions"][0]) => {
