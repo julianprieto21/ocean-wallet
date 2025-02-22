@@ -47,9 +47,9 @@ export const BalanceWidget = ({
   }
   return (
     <div className="flex flex-col w-full">
-      <span className="w-1/2 text-xl flex flex-col flex-shrink-0 text-primary-300">
+      <span className="w-full text-xl flex flex-col flex-shrink-0 text-primary-300">
         {title}
-        <span className={`${totalSize} ${color}`}>
+        <span className={`${totalSize} ${color} w-full`}>
           <span className={`text-primary-300 ${currencySize} font-medium`}>
             {total.prefix}
           </span>
