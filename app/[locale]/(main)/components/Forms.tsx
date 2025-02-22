@@ -4,6 +4,7 @@ import {
   createTransaction,
   updateUserData,
   signOut,
+  createTransfer,
 } from "@/lib/actions";
 import { useModalStore } from "@/lib/store/useModal";
 import { Account, Dict } from "@/lib/types";
@@ -298,6 +299,125 @@ export function TransactionForm({ dict, accounts }: FormProps) {
   );
 }
 
+export function TransferForm({ dict, accounts }: FormProps) {
+  const { preferenceCurrency } = useUserStore((state) => state);
+  const { modalOpen, setModalOpen } = useModalStore((state) => state);
+  const [transferCurrType, setTransferCurrType] = useState<
+    string | undefined
+  >();
+  const router = useRouter();
+  const form = useForm({
+    mode: "controlled",
+    initialValues: {
+      from_account_id: null,
+      to_account_id: null,
+      created_at: new Date(),
+      amount: "",
+      currency_id: preferenceCurrency,
+    },
+  });
+
+  async function handleSubmit(formData: FormData) {
+    try {
+      await createTransfer(formData);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      router.refresh();
+      setTimeout(() => {
+        setModalOpen(false);
+      }, 1000);
+      form.reset();
+    }
+  }
+
+  useEffect(() => {
+    form.setFieldValue("created_at", new Date());
+  }, [modalOpen]);
+
+  useEffect(() => {
+    const from_account_id = form.values.from_account_id;
+    const from_account = accounts.find(
+      (acc) => acc.account_id == from_account_id
+    );
+    if (from_account) {
+      const currType = from_account.type == "investment" ? "crypto" : "fiat";
+      setTransferCurrType(currType);
+      if (currType == "crypto") {
+        form.setFieldValue("currency_id", "btc");
+      } else {
+        form.setFieldValue("currency_id", preferenceCurrency);
+      }
+    }
+  }, [form.values.from_account_id, accounts, preferenceCurrency]);
+
+  return (
+    <form
+      className="flex flex-col gap-2 mt-4"
+      action={handleSubmit}
+      onSubmit={form.reset}
+    >
+      <Select
+        name="from_account_id"
+        label={dict.transfers.from_account}
+        placeholder={dict.transfers.from_account}
+        checkIconPosition="right"
+        data={accounts.map((acc) => ({
+          value: acc.account_id,
+          label: acc.name,
+        }))}
+        {...form.getInputProps("from_account_id")}
+        required
+      />
+      <Select
+        name="to_account_id"
+        label={dict.transfers.to_account}
+        placeholder={dict.transfers.to_account}
+        checkIconPosition="right"
+        data={accounts.map((acc) => ({
+          value: acc.account_id,
+          label: acc.name,
+        }))}
+        {...form.getInputProps("to_account_id")}
+        required
+      />
+      <DateTimePicker
+        name="created_at"
+        label={dict.common_fields.created_at}
+        {...form.getInputProps("created_at")}
+        required
+        placeholder={dict.common_fields.created_at}
+      />
+      <NumberInput
+        name="amount"
+        label={dict.common_fields.amount}
+        min={0}
+        prefix="$"
+        thousandSeparator=","
+        placeholder={dict.common_fields.amount}
+        {...form.getInputProps("amount")}
+        required
+      />
+      <Select
+        name="currency_id"
+        label={dict.common_fields.currency}
+        placeholder={dict.common_fields.currency}
+        data={CURRENCIES.filter(
+          (curr) => !transferCurrType || curr.type == transferCurrType
+        )}
+        checkIconPosition="right"
+        {...form.getInputProps("currency_id")}
+        required
+        // searchable
+      />
+      <SubmitButton
+        main={`${dict.modalMessages.create_transfers.button}`}
+        loading={`${dict.form.pending}`}
+      />
+    </form>
+  );
+}
+
 export function UserForm({ dict }: { dict: FormProps["dict"] }) {
   const router = useRouter();
   const { setModalOpen } = useModalStore((state) => state);
@@ -365,6 +485,7 @@ export function UserForm({ dict }: { dict: FormProps["dict"] }) {
     </form>
   );
 }
+
 export function SignOutForm() {
   return (
     <form className="flex flex-col gap-4 w-full" action={signOut}>

@@ -45,6 +45,12 @@
     "income": "Income",
     "expense": "Expense"
   },
+  "transfers": {
+    "transfers": "Transfers",
+    "transfer": "Transfer",
+    "from_account": "From Account",
+    "to_account": "To Account"
+  },
   "quotas": {
     "quotas": "Quotas",
     "quota": "Quota",
@@ -68,7 +74,8 @@
     "health_beauty": "Health and Beauty",
     "entertainment_leisure": "Entertainment and Leisure",
     "savings_investments": "Savings and Investments",
-    "initial-balance": "Initial Balance"
+    "initial_balance": "Initial Balance",
+    "transfer": "Transfer"
   },
   "sub_categories": {},
   "actions": {
@@ -102,6 +109,11 @@
       "title": "New transaction",
       "message": "",
       "button": "Create Transaction"
+    },
+    "create_transfers": {
+      "title": "New transfer",
+      "message": "",
+      "button": "Create Transfer"
     },
     "menu": {
       "title": "User Data",

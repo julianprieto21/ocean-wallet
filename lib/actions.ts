@@ -2,7 +2,12 @@
 import { Pool } from "@neondatabase/serverless";
 import { auth, signOut as signOutFunction } from "@/auth";
 import { revalidatePath } from "next/cache";
-import { accountSchema, transactionSchema, userSchema } from "./squemas";
+import {
+  accountSchema,
+  transactionSchema,
+  transferSchema,
+  userSchema,
+} from "./squemas";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -84,7 +89,6 @@ export async function createTransaction(formData: FormData) {
       currency_id,
     } = transactionSchema.parse(Object.fromEntries(formData));
     const formatAmount = amount.slice(1).replace(/\,/g, "");
-    console.log(currency_id);
     const { rows } = await pool.query(
       `INSERT INTO transactions (account_id, description, type, category, subcategory, amount, created_at, currency_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`,
       [
@@ -93,7 +97,7 @@ export async function createTransaction(formData: FormData) {
         type,
         category,
         subcategory ?? "",
-        formatAmount,
+        type === "income" ? formatAmount : -formatAmount,
         created_at,
         currency_id,
       ]
@@ -102,6 +106,62 @@ export async function createTransaction(formData: FormData) {
   } catch (error) {
     console.log(error);
     throw new Error("Error creating transaction");
+  } finally {
+    revalidatePath("/");
+  }
+}
+
+export async function createTransfer(formData: FormData) {
+  await verifySession();
+  try {
+    const { from_account_id, to_account_id, created_at, amount, currency_id } =
+      transferSchema.parse(Object.fromEntries(formData));
+    const formatAmount = amount.slice(1).replace(/\,/g, "");
+
+    const { rows: source } = await pool.query(
+      `INSERT INTO transactions (account_id, description, type, category, subcategory, amount, created_at, currency_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`,
+      [
+        from_account_id,
+        "",
+        "expense",
+        "transfer",
+        "",
+        -formatAmount,
+        created_at,
+        currency_id,
+      ]
+    );
+
+    const { rows: target } = await pool.query(
+      `INSERT INTO transactions (account_id, description, type, category, subcategory, amount, created_at, currency_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`,
+      [
+        to_account_id,
+        "",
+        "income",
+        "transfer",
+        "",
+        formatAmount,
+        created_at,
+        currency_id,
+      ]
+    );
+
+    const from_transaction_id = source[0].transaction_id;
+    const to_transaction_id = target[0].transaction_id;
+    const { rows } = await pool.query(
+      `INSERT INTO transfers (created_at, source_transaction_id, target_transaction_id) VALUES ($1, $2, $3) RETURNING *;`,
+      [created_at, from_transaction_id, to_transaction_id]
+    );
+
+    const tranfer_id = rows[0].transfer_id;
+    await pool.query(
+      `UPDATE transactions SET transfer_id = $1 WHERE transaction_id = $2 OR transaction_id = $3;`,
+      [tranfer_id, from_transaction_id, to_transaction_id]
+    );
+    return rows[0];
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error creating transfer");
   } finally {
     revalidatePath("/");
   }

@@ -45,6 +45,12 @@
     "income": "Ingreso",
     "expense": "Gasto"
   },
+  "transfers": {
+    "transfers": "Transferencias",
+    "transfer": "Transferencia",
+    "from_account": "Cuenta Origen",
+    "to_account": "Cuenta Destino"
+  },
   "quotas": {
     "quotas": "Cuotas",
     "quota": "Cuota",
@@ -68,7 +74,8 @@
     "health_beauty": "Salud y Bienestar",
     "entertainment_leisure": "Entretenimiento y Ocio",
     "savings_investments": "Ahorro e Inversion",
-    "initial-balance": "Saldo Inicial"
+    "initial_balance": "Saldo Inicial",
+    "transfer": "Transferencia"
   },
   "sub_categories": {},
   "actions": {
@@ -103,6 +110,11 @@
       "title": "Nueva transacción",
       "message": "",
       "button": "Crear Transacción"
+    },
+    "create_transfers": {
+      "title": "Nueva transferencia",
+      "message": "",
+      "button": "Crear Transferencia"
     },
     "menu": {
       "title": "Datos de Usuario",

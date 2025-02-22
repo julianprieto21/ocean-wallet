@@ -1,7 +1,7 @@
 "use client";
 import { useModalStore } from "@/lib/store/useModal";
 import { ActionsDict } from "@/lib/types";
-import { Plus, User, X } from "lucide-react";
+import { ArrowUpDown, Plus, User, X } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
 export function Avatar({ image_url }: { image_url: string }) {
@@ -61,6 +61,24 @@ export function CreateTransaction() {
       onClick={handleOnClick}
     >
       <Plus className="size-10 flex-shrink-0" />
+    </button>
+  );
+}
+
+export function CreateTransfer() {
+  const { setModalOpen, setModalActive } = useModalStore((state) => state);
+  const handleOnClick = () => {
+    setModalActive("create-transfer");
+    setModalOpen(true);
+  };
+  return (
+    <button
+      title="Create Transfer"
+      type="button"
+      className="flex flex-row items-center text-xl text-primary-300 rounded-2xl hover:text-primary-400 transition-colors duration-75 flex-shrink-0"
+      onClick={handleOnClick}
+    >
+      <ArrowUpDown className="size-10 flex-shrink-0 p-0.5" />
     </button>
   );
 }

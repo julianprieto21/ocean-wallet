@@ -13,7 +13,9 @@ export type Category =
   | "food"
   | "health_beauty"
   | "entertainment_leisure"
-  | "savings_investments";
+  | "savings_investments"
+  | "initial_balance"
+  | "transfer";
 
 export type TransactionType = "income" | "expense";
 
@@ -39,6 +41,7 @@ export interface Dict {
   users: UsersDict;
   accounts: AccountsDict;
   transactions: TransactionsDict;
+  transfers: TransfersDict;
   quotas: QuotasDict;
   currencies: CurrenciesDict;
   greetings: GreetingsDict;
@@ -97,6 +100,13 @@ export interface TransactionsDict {
   expense: string;
 }
 
+export interface TransfersDict {
+  transfers: string;
+  transfer: string;
+  from_account: string;
+  to_account: string;
+}
+
 export interface QuotasDict {
   quotas: string;
   quota: string;
@@ -123,6 +133,8 @@ export interface CategoriesDict {
   health_beauty: string;
   entertainment_leisure: string;
   savings_investments: string;
+  initial_balance: string;
+  transfer: string;
 }
 
 // export interface SubCategoriesDict {}
@@ -153,6 +165,7 @@ export interface ModalMessages {
   no_account: Messages;
   create_account: Messages;
   create_transactions: Messages;
+  create_transfers: Messages;
   menu: Messages;
 }
 

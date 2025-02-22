@@ -4,7 +4,13 @@ import { Card } from "./Card";
 import { useModalStore } from "@/lib/store/useModal";
 import { Account, Dict } from "@/lib/types";
 import { CloseModal } from "./Buttons";
-import { AccountForm, SignOutForm, TransactionForm, UserForm } from "./Forms";
+import {
+  AccountForm,
+  SignOutForm,
+  TransactionForm,
+  TransferForm,
+  UserForm,
+} from "./Forms";
 import { useEffect } from "react";
 
 type ModalProps = {
@@ -18,6 +24,7 @@ export function Modal({ dict, accounts }: ModalProps) {
   const createTransactionMessages = dict.modalMessages.create_transactions;
   const noAccountMessages = dict.modalMessages.no_account;
   const menuMessages = dict.modalMessages.menu;
+  const createTransferMessages = dict.modalMessages.create_transfers;
 
   useEffect(() => {
     if (accounts.length == 0) {
@@ -67,6 +74,14 @@ export function Modal({ dict, accounts }: ModalProps) {
     </Card>
   );
 
+  const CreateTransfer = () => (
+    <Card className="w-full max-w-md p-6 relative h-fit py-4">
+      <h2 className="text-xl font-bold">{createTransferMessages.title}</h2>
+      <CloseModal handleOnClick={setModalOpen.bind(null, false)} />
+      <TransferForm dict={dict} accounts={accounts} />
+    </Card>
+  );
+
   return (
     <div
       className={` ${
@@ -76,6 +91,7 @@ export function Modal({ dict, accounts }: ModalProps) {
       {modalActive === "no-account" && <NoAccount />}
       {modalActive === "create-account" && <CreateAccount />}
       {modalActive === "create-transaction" && <CreateTransaction />}
+      {modalActive === "create-transfer" && <CreateTransfer />}
       {modalActive === "menu" && <MenuModal />}
     </div>
   );
