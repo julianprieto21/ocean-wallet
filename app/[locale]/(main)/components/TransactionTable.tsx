@@ -1,3 +1,5 @@
+"use client";
+import { useUISettingsStore } from "@/lib/store/uiSettingsStore";
 import { Category, Dict, Transaction } from "@/lib/types";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { useLocale } from "next-intl";
@@ -16,6 +18,7 @@ export function TransactionTable({
   limit = transactions.length,
 }: TransactionTableProps) {
   const locale = useLocale();
+  const { transactionType } = useUISettingsStore((state) => state);
   return (
     <div className="w-full overflow-auto h-3/4 flex-shrink-0">
       <table className="w-full table-fixed bg-primary-50 border-collapse">
@@ -39,7 +42,7 @@ export function TransactionTable({
           {transactions
             .filter(
               (transaction: TransactionTableProps["transactions"][0]) =>
-                transaction.account_type === "transactional" &&
+                transaction.account_type === transactionType &&
                 !transaction.transfer_id
             )
             .slice(0, limit)

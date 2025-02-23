@@ -11,7 +11,11 @@ import {
 } from "@/lib/db";
 import { Dict } from "@/lib/types";
 import { TransactionTable } from "./components/TransactionTable";
-import { CreateTransaction, CreateTransfer } from "./components/Buttons";
+import {
+  CreateTransaction,
+  CreateTransfer,
+  TransactionTypeSwitcher,
+} from "./components/Buttons";
 import { Card } from "./components/Card";
 import { BalanceWidget } from "./components/widgets";
 import { Locale } from "@/i18n/routing";
@@ -59,9 +63,14 @@ export default async function Home({
       </Card>
       <Card className="mt-6 flex flex-col justify-end px-6">
         <AccountBalanceChart data={accountBalances} />
-        <div className="flex flex-row justify-end gap-1">
-          <CreateTransaction />
-          <CreateTransfer />
+        <div className="flex justify-between">
+          <div className="flex items-center">
+            <TransactionTypeSwitcher />
+          </div>
+          <div className="flex flex-row justify-end gap-1">
+            <CreateTransaction />
+            <CreateTransfer />
+          </div>
         </div>
         <TransactionTable dict={dict} transactions={transactions} limit={5} />
       </Card>

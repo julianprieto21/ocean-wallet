@@ -1,7 +1,7 @@
 "use client";
 
 import { Card } from "./Card";
-import { useModalStore } from "@/lib/store/useModal";
+import { useModalStore } from "@/lib/store/modalStore";
 import { Account, Dict } from "@/lib/types";
 import { CloseModal } from "./Buttons";
 import {

@@ -6,7 +6,7 @@ import {
   signOut,
   createTransfer,
 } from "@/lib/actions";
-import { useModalStore } from "@/lib/store/useModal";
+import { useModalStore } from "@/lib/store/modalStore";
 import { Account, Dict } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { SubmitButton } from "./Buttons";

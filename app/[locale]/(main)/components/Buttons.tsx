@@ -1,7 +1,10 @@
 "use client";
-import { useModalStore } from "@/lib/store/useModal";
+import { useUISettingsStore } from "@/lib/store/uiSettingsStore";
+import { useModalStore } from "@/lib/store/modalStore";
 import { ActionsDict } from "@/lib/types";
+import { SegmentedControl } from "@mantine/core";
 import { ArrowUpDown, Plus, User, X } from "lucide-react";
+import { useState } from "react";
 import { useFormStatus } from "react-dom";
 
 export function Avatar({ image_url }: { image_url: string }) {
@@ -122,5 +125,22 @@ export function PayQuota() {
     >
       <Plus className="size-5 flex-shrink-0" />
     </button>
+  );
+}
+
+export function TransactionTypeSwitcher() {
+  const { transactionType, setTransactioType } = useUISettingsStore(
+    (state) => state
+  );
+  return (
+    <SegmentedControl
+      size="xs"
+      value={transactionType}
+      onChange={setTransactioType}
+      data={[
+        { label: "Transaccional", value: "transactional" },
+        { label: "Inversiones", value: "investment" },
+      ]}
+    />
   );
 }
