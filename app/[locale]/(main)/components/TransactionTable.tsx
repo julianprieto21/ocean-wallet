@@ -21,13 +21,13 @@ export function TransactionTable({
       <table className="w-full table-fixed bg-primary-50 border-collapse">
         <thead className="bg-primary-200 sticky top-0">
           <tr>
-            <td className="text-left py-3 px-2 border-b border-primary-200 text-primary-300 w-[35%]">
+            <td className="text-left py-3 px-2 border-b border-primary-200 text-primary-300 w-[30%]">
               {dict.transactions.description.toUpperCase()}
             </td>
             <td className="text-center py-3 px-2 border-b border-primary-200 text-primary-300 w-[25%]">
               {dict.common_fields.created_at.toUpperCase()}
             </td>
-            <td className="text-center py-3 px-2 border-b border-primary-200 text-primary-300 w-[20%]">
+            <td className="text-center py-3 px-2 border-b border-primary-200 text-primary-300 w-[25%]">
               {dict.transactions.category.toUpperCase()}
             </td>
             <td className="text-center py-3 px-2 border-b border-primary-200 text-primary-300">

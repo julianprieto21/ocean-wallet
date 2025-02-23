@@ -12,6 +12,7 @@ import {
   UserForm,
 } from "./Forms";
 import { useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type ModalProps = {
   dict: Dict;
@@ -71,6 +72,10 @@ export function Modal({ dict, accounts }: ModalProps) {
       <h2 className="text-xl font-bold">{createTransactionMessages.title}</h2>
       <CloseModal handleOnClick={setModalOpen.bind(null, false)} />
       <TransactionForm dict={dict} accounts={accounts} />
+      <ChevronRight
+        className="size-8 cursor-pointer absolute top-1/2 -translate-y-1/2 -right-10 text-primary-300 hover:text-primary-200 hover:translate-x-2 transition-all duration-100"
+        onClick={setModalActive.bind(null, "create-transfer")}
+      />
     </Card>
   );
 
@@ -79,6 +84,10 @@ export function Modal({ dict, accounts }: ModalProps) {
       <h2 className="text-xl font-bold">{createTransferMessages.title}</h2>
       <CloseModal handleOnClick={setModalOpen.bind(null, false)} />
       <TransferForm dict={dict} accounts={accounts} />
+      <ChevronLeft
+        className="size-8 cursor-pointer absolute top-1/2 -translate-y-1/2 -left-10 text-primary-300 hover:text-primary-200 hover:-translate-x-2 transition-all duration-100"
+        onClick={setModalActive.bind(null, "create-transaction")}
+      />
     </Card>
   );
 

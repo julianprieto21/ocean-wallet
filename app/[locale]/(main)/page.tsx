@@ -60,8 +60,8 @@ export default async function Home({
       <Card className="mt-6 flex flex-col justify-end px-6">
         <AccountBalanceChart data={accountBalances} />
         <div className="flex flex-row justify-end gap-1">
-          <CreateTransfer />
           <CreateTransaction />
+          <CreateTransfer />
         </div>
         <TransactionTable dict={dict} transactions={transactions} limit={5} />
       </Card>
