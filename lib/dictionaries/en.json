@@ -127,6 +127,10 @@
     "error": "Error",
     "delete": "Delete",
     "cancel": "Cancel",
-    "create": "Create"
+    "create": "Create",
+    "errorMessages": {
+      "amountNotPositive": "Amount must be positive",
+      "initialBalanceNotPositive": "Initial balance must be positive"
+    }
   }
 }

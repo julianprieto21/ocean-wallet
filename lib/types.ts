@@ -175,4 +175,8 @@ export interface FormDict {
   delete: string;
   cancel: string;
   create: string;
+  errorMessages: {
+    amountNotPositive: string;
+    initialBalanceNotPositive: string;
+  };
 }
