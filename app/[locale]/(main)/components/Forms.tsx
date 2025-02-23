@@ -12,12 +12,14 @@ import { useRouter } from "next/navigation";
 import { SubmitButton } from "./Buttons";
 import { Select, NumberInput, TextInput, Radio, Group } from "@mantine/core";
 import { useUserStore } from "@/lib/store/userStore";
-import { useForm } from "@mantine/form";
+import { isInRange, useForm } from "@mantine/form";
 import { PROVIDERS } from "@/lib/providers";
 import { CURRENCIES } from "@/lib/currencies";
 import { DateTimePicker } from "@mantine/dates";
 import { CATEGORIES } from "@/lib/categories";
 import { useEffect, useState } from "react";
+import { Calendar, DollarSign, SquarePen } from "lucide-react";
+import { formatFormData } from "@/lib/utils";
 
 type FormProps = {
   dict: Dict;
@@ -33,9 +35,18 @@ export function AccountForm({ dict }: FormProps) {
     initialValues: {
       name: "",
       type: "transactional",
-      provider: null,
+      provider: "",
       initial: "",
       currency_id: preferenceCurrency,
+    },
+    validate: {
+      initial: (value) => {
+        if (value === "") return null;
+        return isInRange(
+          { min: 0 },
+          dict.form.errorMessages.initialBalanceNotPositive
+        )(Number(value));
+      },
     },
   });
 
@@ -49,6 +60,7 @@ export function AccountForm({ dict }: FormProps) {
       setTimeout(() => {
         setModalOpen(false);
       }, 1000);
+      form.reset();
     }
   }
 
@@ -66,13 +78,16 @@ export function AccountForm({ dict }: FormProps) {
   return (
     <form
       className="flex flex-col gap-2 mt-4"
-      action={handleSubmit}
-      onSubmit={form.reset}
+      onSubmit={form.onSubmit((values) => {
+        const formData = formatFormData(values);
+        handleSubmit(formData);
+      })}
     >
       <TextInput
         name="name"
         label={dict.common_fields.name}
         placeholder={dict.common_fields.name}
+        rightSection={<SquarePen className="size-4 text-primary-300" />}
         {...form.getInputProps("name")}
         required
       />
@@ -102,11 +117,10 @@ export function AccountForm({ dict }: FormProps) {
       <NumberInput
         name="initial"
         label={dict.accounts.initial}
-        min={0}
-        prefix="$"
+        rightSection={<DollarSign className="size-4 mr-2 text-primary-300" />}
         thousandSeparator=","
+        key={form.key("initial")}
         {...form.getInputProps("initial")}
-        required
         placeholder={dict.accounts.initial}
       />
       <Select
@@ -117,7 +131,6 @@ export function AccountForm({ dict }: FormProps) {
         defaultValue={preferenceCurrency}
         checkIconPosition="right"
         {...form.getInputProps("currency_id")}
-        required
         // searchable
       />
       <SubmitButton
@@ -136,16 +149,19 @@ export function TransactionForm({ dict, accounts }: FormProps) {
   const form = useForm({
     mode: "controlled",
     initialValues: {
-      account_id: null,
+      account_id: "",
       type: "income",
       description: "",
-      category: null,
-      subcategory: null,
+      category: "",
+      subcategory: "",
       created_at: new Date(),
       amount: "",
       currency_id: preferenceCurrency,
       transfer_id: "",
       quota_id: "",
+    },
+    validate: {
+      amount: isInRange({ min: 0 }, dict.form.errorMessages.amountNotPositive),
     },
   });
 
@@ -184,8 +200,10 @@ export function TransactionForm({ dict, accounts }: FormProps) {
   return (
     <form
       className="flex flex-col gap-2 mt-4"
-      action={handleSubmit}
-      onSubmit={form.reset}
+      onSubmit={form.onSubmit((values) => {
+        const formData = formatFormData(values);
+        handleSubmit(formData);
+      })}
     >
       <Select
         name="account_id"
@@ -221,6 +239,7 @@ export function TransactionForm({ dict, accounts }: FormProps) {
       <TextInput
         name="description"
         label={dict.transactions.description}
+        rightSection={<SquarePen className="size-4 text-primary-300" />}
         placeholder={dict.transactions.description}
         {...form.getInputProps("description")}
         required
@@ -250,6 +269,7 @@ export function TransactionForm({ dict, accounts }: FormProps) {
       />
       <DateTimePicker
         name="created_at"
+        rightSection={<Calendar className="size-4 text-primary-300" />}
         label={dict.common_fields.created_at}
         {...form.getInputProps("created_at")}
         required
@@ -258,9 +278,9 @@ export function TransactionForm({ dict, accounts }: FormProps) {
       <NumberInput
         name="amount"
         label={dict.common_fields.amount}
-        min={0}
-        prefix="$"
+        rightSection={<DollarSign className="size-4 mr-2 text-primary-300" />}
         thousandSeparator=","
+        key={form.key("amount")}
         placeholder={dict.common_fields.amount}
         {...form.getInputProps("amount")}
         required
@@ -309,11 +329,14 @@ export function TransferForm({ dict, accounts }: FormProps) {
   const form = useForm({
     mode: "controlled",
     initialValues: {
-      from_account_id: null,
-      to_account_id: null,
+      from_account_id: "",
+      to_account_id: "",
       created_at: new Date(),
       amount: "",
       currency_id: preferenceCurrency,
+    },
+    validate: {
+      amount: isInRange({ min: 0 }, dict.form.errorMessages.amountNotPositive),
     },
   });
 
@@ -354,8 +377,10 @@ export function TransferForm({ dict, accounts }: FormProps) {
   return (
     <form
       className="flex flex-col gap-2 mt-4"
-      action={handleSubmit}
-      onSubmit={form.reset}
+      onSubmit={form.onSubmit((values) => {
+        const formData = formatFormData(values);
+        handleSubmit(formData);
+      })}
     >
       <Select
         name="from_account_id"
@@ -384,6 +409,7 @@ export function TransferForm({ dict, accounts }: FormProps) {
       <DateTimePicker
         name="created_at"
         label={dict.common_fields.created_at}
+        rightSection={<Calendar className="size-4 text-primary-300" />}
         {...form.getInputProps("created_at")}
         required
         placeholder={dict.common_fields.created_at}
@@ -391,8 +417,8 @@ export function TransferForm({ dict, accounts }: FormProps) {
       <NumberInput
         name="amount"
         label={dict.common_fields.amount}
-        min={0}
-        prefix="$"
+        key={form.key("amount")}
+        rightSection={<DollarSign className="size-4 mr-2 text-primary-300" />}
         thousandSeparator=","
         placeholder={dict.common_fields.amount}
         {...form.getInputProps("amount")}

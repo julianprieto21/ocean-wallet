@@ -11,8 +11,8 @@ export const accountSchema = z.object({
   name: z.string(),
   type: z.string(),
   provider: z.string(),
-  initial: z.union([z.string(), z.undefined()]),
-  currency_id: z.union([z.string(), z.undefined()]),
+  initial: z.string(),
+  currency_id: z.string(),
 });
 
 export const transactionSchema = z.object({
@@ -20,7 +20,7 @@ export const transactionSchema = z.object({
   description: z.string(),
   type: z.string(),
   category: z.string(),
-  subcategory: z.union([z.string(), z.undefined()]),
+  subcategory: z.string(),
   amount: z.string(),
   created_at: z.string(),
   currency_id: z.string(),

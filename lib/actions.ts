@@ -52,8 +52,8 @@ export async function createAccount(formData: FormData) {
       `INSERT INTO accounts (user_id, name, type, provider) VALUES ($1, $2, $3, $4) RETURNING *;`,
       [user.id, name, type, provider]
     );
-    if (!initial) return rows[0];
-    const formatInitial = initial.slice(1).replace(/\,/g, "");
+    if (initial.length === 0) return rows[0];
+    const formatInitial = initial.replace(/\,/g, "");
 
     await pool.query(
       `INSERT INTO transactions (account_id, description, type, category, amount, currency_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`,
@@ -88,7 +88,9 @@ export async function createTransaction(formData: FormData) {
       amount,
       currency_id,
     } = transactionSchema.parse(Object.fromEntries(formData));
-    const formatAmount = amount.slice(1).replace(/\,/g, "");
+    const formatAmount = amount.replace(/\,/g, "");
+    const UTCDate = new Date(created_at);
+
     const { rows } = await pool.query(
       `INSERT INTO transactions (account_id, description, type, category, subcategory, amount, created_at, currency_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`,
       [
@@ -96,9 +98,9 @@ export async function createTransaction(formData: FormData) {
         description,
         type,
         category,
-        subcategory ?? "",
+        subcategory.length > 0 ? subcategory : null,
         type === "income" ? formatAmount : -formatAmount,
-        created_at,
+        UTCDate,
         currency_id,
       ]
     );
@@ -116,7 +118,8 @@ export async function createTransfer(formData: FormData) {
   try {
     const { from_account_id, to_account_id, created_at, amount, currency_id } =
       transferSchema.parse(Object.fromEntries(formData));
-    const formatAmount = amount.slice(1).replace(/\,/g, "");
+    const formatAmount = amount.replace(/\,/g, "");
+    const UTCDate = new Date(created_at);
 
     const { rows: source } = await pool.query(
       `INSERT INTO transactions (account_id, description, type, category, subcategory, amount, created_at, currency_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`,
@@ -127,7 +130,7 @@ export async function createTransfer(formData: FormData) {
         "transfer",
         "",
         -formatAmount,
-        created_at,
+        UTCDate,
         currency_id,
       ]
     );
@@ -141,7 +144,7 @@ export async function createTransfer(formData: FormData) {
         "transfer",
         "",
         formatAmount,
-        created_at,
+        UTCDate,
         currency_id,
       ]
     );
@@ -150,7 +153,7 @@ export async function createTransfer(formData: FormData) {
     const to_transaction_id = target[0].transaction_id;
     const { rows } = await pool.query(
       `INSERT INTO transfers (created_at, source_transaction_id, target_transaction_id) VALUES ($1, $2, $3) RETURNING *;`,
-      [created_at, from_transaction_id, to_transaction_id]
+      [UTCDate, from_transaction_id, to_transaction_id]
     );
 
     const tranfer_id = rows[0].transfer_id;

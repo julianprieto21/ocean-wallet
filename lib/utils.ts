@@ -132,3 +132,11 @@ export function getGrowPercentage(dailyBalances: number[]) {
   }
   return ((lastBalance - firstBalance) / firstBalance) * 100;
 }
+
+export function formatFormData(values: Record<string, string | Date>) {
+  const formData = new FormData();
+  Object.entries(values).forEach(([key, value]) => {
+    formData.append(key, value as string);
+  });
+  return formData;
+}
