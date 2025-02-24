@@ -132,5 +132,13 @@
       "amountNotPositive": "Amount must be positive",
       "initialBalanceNotPositive": "Initial balance must be positive"
     }
+  },
+  "login": {
+    "title": "Welcome to Ocean Wallet,",
+    "subtitle": "Login to continue.",
+    "google": "Continue with Google",
+    "github": "Continue with Github",
+    "sign_in": "Sign In",
+    "sign_out": "Sign Out"
   }
 }

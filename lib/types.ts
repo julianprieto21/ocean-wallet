@@ -50,6 +50,7 @@ export interface Dict {
   actions: ActionsDict;
   modalMessages: ModalMessages;
   form: FormDict;
+  login: LoginForm;
 }
 
 export interface NavigationDict {
@@ -179,4 +180,13 @@ export interface FormDict {
     amountNotPositive: string;
     initialBalanceNotPositive: string;
   };
+}
+
+export interface LoginForm {
+  title: string;
+  subtitle: string;
+  google: string;
+  github: string;
+  sign_in: string;
+  sign_out: string;
 }
