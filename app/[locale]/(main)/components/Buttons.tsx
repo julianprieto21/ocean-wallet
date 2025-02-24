@@ -4,7 +4,6 @@ import { useModalStore } from "@/lib/store/modalStore";
 import { ActionsDict } from "@/lib/types";
 import { SegmentedControl } from "@mantine/core";
 import { ArrowUpDown, Plus, User, X } from "lucide-react";
-import { useState } from "react";
 import { useFormStatus } from "react-dom";
 
 export function Avatar({ image_url }: { image_url: string }) {
