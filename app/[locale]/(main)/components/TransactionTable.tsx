@@ -49,9 +49,10 @@ export function TransactionTable({
             .map((transaction: TransactionTableProps["transactions"][0]) => {
               const tx = formatCurrency({
                 amount: transaction.amount,
-                currency: transaction.currency_id,
+                currency: "usd",
                 currencyDisplay: "code",
                 locale: locale,
+                fractionDigits: 8,
               });
               const date = formatDate({
                 date: new Date(transaction.created_at),
@@ -82,7 +83,7 @@ export function TransactionTable({
                     {tx.integer}
                     {tx.decimal}
                     <span className="text-sm text-primary-300">
-                      {tx.prefix}
+                      {" " + transaction.currency_id.toUpperCase()}
                     </span>
                   </td>
                 </tr>
