@@ -15,6 +15,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user, account, profile }) {
+      const { rows } = await pool.query(
+        `SELECT * FROM users WHERE email = $1`,
+        [user.email]
+      );
+      if (rows) return true;
+
       const { username, email, image_url, preference_currency } =
         userSchema.parse({
           username: user.name,
