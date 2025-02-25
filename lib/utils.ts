@@ -94,7 +94,7 @@ export function fillMissingDailyBalances({
 }: FillMissingDailyBalancesProps) {
   const result: { date: string; balance: number }[] = [];
   if (data.length === 0) return result;
-  const lastDate = data[data.length - 1].date;
+  const lastDate = new Date(); //data[data.length - 1].date;
   const firstDate = new Date(lastDate.getTime() - offset * 24 * 60 * 60 * 1000);
   const balanceMap = new Map(
     data.map((item) => [item.date.toDateString(), item.balance])
@@ -116,11 +116,12 @@ export function fillMissingDailyBalances({
     if (balance === undefined) {
       const prevDateBalance =
         result.length > 0 ? result[result.length - 1].balance : prevBalance;
-      result.push({ date, balance: prevDateBalance });
+      result.push({ date, balance: Number(prevDateBalance) });
     } else {
       result.push({ date, balance: Number(balance) });
     }
   }
+  console.log(result);
   return result;
 }
 
