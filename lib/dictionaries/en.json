@@ -139,6 +139,8 @@
     "google": "Continue with Google",
     "github": "Continue with Github",
     "sign_in": "Sign In",
-    "sign_out": "Sign Out"
+    "sign_out": "Sign Out",
+    "signing_out": "Signing Out...",
+    "signing_in": "Signing In..."
   }
 }

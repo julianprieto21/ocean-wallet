@@ -55,7 +55,7 @@ export function Modal({ dict, accounts }: ModalProps) {
       <CloseModal handleOnClick={setModalOpen.bind(null, false)} />
       <UserForm dict={dict} />
       <div className="border-t border-primary-300 w-full my-2"></div>
-      <SignOutForm />
+      <SignOutForm dict={dict} />
     </Card>
   );
 

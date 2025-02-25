@@ -189,4 +189,6 @@ export interface LoginForm {
   github: string;
   sign_in: string;
   sign_out: string;
+  signing_out: string;
+  signing_in: string;
 }

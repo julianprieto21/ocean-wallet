@@ -18,7 +18,7 @@ import { CURRENCIES } from "@/lib/currencies";
 import { DateTimePicker } from "@mantine/dates";
 import { CATEGORIES } from "@/lib/categories";
 import { useEffect, useState } from "react";
-import { Calendar, DollarSign, SquarePen } from "lucide-react";
+import { AtSign, Calendar, DollarSign, SquarePen, User } from "lucide-react";
 import { formatFormData } from "@/lib/utils";
 
 type FormProps = {
@@ -470,6 +470,7 @@ export function UserForm({ dict }: { dict: FormProps["dict"] }) {
         defaultValue={username}
         label={dict.users.username}
         placeholder={dict.users.username}
+        rightSection={<User className="size-4 text-primary-300" />}
         // required
         disabled
       />
@@ -478,6 +479,7 @@ export function UserForm({ dict }: { dict: FormProps["dict"] }) {
         defaultValue={email}
         label={dict.users.email}
         placeholder={dict.users.email}
+        rightSection={<AtSign className="size-4 text-primary-300" />}
         // required
         disabled
       />
@@ -512,10 +514,13 @@ export function UserForm({ dict }: { dict: FormProps["dict"] }) {
   );
 }
 
-export function SignOutForm() {
+export function SignOutForm({ dict }: { dict: FormProps["dict"] }) {
   return (
     <form className="flex flex-col gap-4 w-full" action={signOut}>
-      <SubmitButton main="Sign Out" loading="Signing Out" />
+      <SubmitButton
+        main={dict.login.sign_out}
+        loading={dict.login.signing_out}
+      />
     </form>
   );
 }
