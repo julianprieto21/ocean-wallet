@@ -28,10 +28,10 @@ export function TransactionTable({
               {dict.transactions.description.toUpperCase()}
             </td>
             <td className="text-center py-3 px-2 border-b border-primary-200 text-primary-300 w-[25%]">
-              {dict.common_fields.created_at.toUpperCase()}
+              {dict.transactions.category.toUpperCase()}
             </td>
             <td className="text-center py-3 px-2 border-b border-primary-200 text-primary-300 w-[25%]">
-              {dict.transactions.category.toUpperCase()}
+              {dict.common_fields.created_at.toUpperCase()}
             </td>
             <td className="text-center py-3 px-2 border-b border-primary-200 text-primary-300">
               {dict.common_fields.amount.toUpperCase()}
@@ -50,12 +50,13 @@ export function TransactionTable({
               const tx = formatCurrency({
                 amount: transaction.amount,
                 currency: "usd",
-                currencyDisplay: "code",
+                signDisplay: "exceptZero",
                 locale: locale,
                 fractionDigits: 8,
               });
               const date = formatDate({
                 date: new Date(transaction.created_at),
+                dateStyle: "short",
               });
 
               return (
@@ -74,14 +75,27 @@ export function TransactionTable({
                     </div>
                   </td>
                   <td className="text-center py-3 px-2 border-b border-primary-200">
-                    {date}
+                    <span
+                      id={transaction.category}
+                      className="p-1 rounded-full px-2 uppercase text-xs font-medium"
+                    >
+                      {dict.categories[transaction.category as Category]}
+                    </span>
                   </td>
                   <td className="text-center py-3 px-2 border-b border-primary-200">
-                    {dict.categories[transaction.category as Category]}
+                    {date}
                   </td>
                   <td className="text-right py-3 px-2 border-b border-primary-200">
-                    {tx.integer}
-                    {tx.decimal}
+                    <span
+                      className={`${
+                        transaction.type === "expense"
+                          ? "text-red-500"
+                          : "text-green-500"
+                      }`}
+                    >
+                      {tx.integer}
+                      {tx.decimal}
+                    </span>
                     <span className="text-sm text-primary-300">
                       {" " + transaction.currency_id.toUpperCase()}
                     </span>

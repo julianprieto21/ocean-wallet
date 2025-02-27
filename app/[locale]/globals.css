@@ -10,12 +10,36 @@
   --primary-100: #f4f4f6;
   --primary-200: #e6e6e9;
   --primary-250: #d2d2d4;
-  --primary-300: #9999a1;
+  --primary-300: #9999a1; /* #4A4A4A; */
   --primary-400: #66666e;
   --primary-500: #000000;
 
   --primary-red: #ef4444;
-  --primary-green: #22c55e;
+  --primary-green: #56ca00;
+
+  --house-category-color: #ff3b3b;
+  --house-category-bg: rgba(255, 59, 59, 0.25);
+
+  --transport-category-color: #ff9500;
+  --transport-category-bg: rgba(255, 149, 0, 0.25);
+
+  --food-category-color: #009688;
+  --food-category-bg: rgba(0, 150, 136, 0.25);
+
+  --health-beauty-category-color: #28a745;
+  --health-beauty-category-bg: rgba(40, 167, 69, 0.25);
+
+  --entertainment-leisure-category-color: #007bff;
+  --entertainment-leisure-category-bg: rgba(0, 123, 255, 0.25);
+
+  --savings-investments-category-color: #6f42c1;
+  --savings-investments-category-bg: rgba(111, 66, 193, 0.25);
+
+  --initial-balance-category-color: #e83e8c;
+  --initial-balance-category-bg: rgba(232, 62, 140, 0.25);
+
+  --transfer-category-color: #17a2b8;
+  --transfer-category-bg: rgba(23, 162, 184, 0.25);
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -45,7 +69,7 @@ body {
   padding-bottom: 20px;
   margin: 0;
   height: 100%;
-  width: 70%;
+  /* width: 70%; */
   line-height: 1;
 }
 
@@ -59,4 +83,37 @@ body {
 }
 #account-bar-chart > div:only-child {
   border-radius: calc(infinity * 1px);
+}
+
+#house {
+  color: var(--house-category-color);
+  background-color: var(--house-category-bg);
+}
+#transport {
+  color: var(--transport-category-color);
+  background-color: var(--transport-category-bg);
+}
+#food {
+  color: var(--food-category-color);
+  background-color: var(--food-category-bg);
+}
+#health_beauty {
+  color: var(--health-beauty-category-color);
+  background-color: var(--health-beauty-category-bg);
+}
+#entertainment_leisure {
+  color: var(--entertainment-leisure-category-color);
+  background-color: var(--entertainment-leisure-category-bg);
+}
+#savings_investments {
+  color: var(--savings-investments-category-color);
+  background-color: var(--savings-investments-category-bg);
+}
+#initial_balance {
+  color: var(--initial-balance-category-color);
+  background-color: var(--initial-balance-category-bg);
+}
+#transfer {
+  color: var(--transfer-category-color);
+  background-color: var(--transfer-category-bg);
 }
