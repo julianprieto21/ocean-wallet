@@ -73,7 +73,7 @@ export function Modal({ dict, accounts }: ModalProps) {
       <CloseModal handleOnClick={setModalOpen.bind(null, false)} />
       <TransactionForm dict={dict} accounts={accounts} />
       <ChevronRight
-        className="size-8 cursor-pointer absolute top-1/2 -translate-y-1/2 -right-10 text-primary-300 hover:text-primary-200 hover:translate-x-2 transition-all duration-100"
+        className="size-10 md:size-8 cursor-pointer absolute top-1/2 -translate-y-1/2 -right-9 md:-right-10 text-primary-300 hover:text-primary-200 hover:translate-x-2 transition-all duration-100"
         onClick={setModalActive.bind(null, "create-transfer")}
       />
     </Card>
@@ -85,7 +85,7 @@ export function Modal({ dict, accounts }: ModalProps) {
       <CloseModal handleOnClick={setModalOpen.bind(null, false)} />
       <TransferForm dict={dict} accounts={accounts} />
       <ChevronLeft
-        className="size-8 cursor-pointer absolute top-1/2 -translate-y-1/2 -left-10 text-primary-300 hover:text-primary-200 hover:-translate-x-2 transition-all duration-100"
+        className="size-10 md:size-8 cursor-pointer absolute top-1/2 -translate-y-1/2 -left-9 md:-left-10 text-primary-300 hover:text-primary-200 hover:-translate-x-2 transition-all duration-100"
         onClick={setModalActive.bind(null, "create-transaction")}
       />
     </Card>
@@ -95,7 +95,7 @@ export function Modal({ dict, accounts }: ModalProps) {
     <div
       className={` ${
         modalOpen ? "block" : "hidden"
-      } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-full max-h-full bg-black/50 backdrop-blur-md`}
+      } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-full max-h-full bg-black/50 backdrop-blur-md px-10 md:px-0`}
     >
       {modalActive === "no-account" && <NoAccount />}
       {modalActive === "create-account" && <CreateAccount />}

@@ -40,7 +40,7 @@ export function CreateAccount({ dict }: { dict: ActionsDict }) {
   return (
     <button
       type="button"
-      className="flex flex-row items-center gap-2 text-xl text-primary-300 p-3 rounded-2xl mx-4 hover:bg-primary-250 hover:text-primary-400 transition-colors duration-75"
+      className="flex flex-row items-center gap-2 text-xl text-primary-300 p-3 rounded-2xl hover:bg-primary-250 hover:text-primary-400 transition-colors duration-75"
       onClick={handleOnClick}
     >
       <Plus className="size-7 flex-shrink-0" />

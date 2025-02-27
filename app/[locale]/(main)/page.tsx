@@ -19,6 +19,7 @@ import {
 import { Card } from "./components/Card";
 import { BalanceWidget } from "./components/widgets";
 import { Locale } from "@/i18n/routing";
+import { ToolsBar } from "./components/ToolsBar";
 
 export default async function Home({
   params,
@@ -35,7 +36,7 @@ export default async function Home({
   return (
     <main className="flex flex-col gap-2 justify-start items-center size-full">
       <Greetings locale={locale} dict={dict.greetings} />
-      <Card className="flex flex-col justify-between">
+      <Card className="flex flex-col justify-between h-fit md:h-[380px]">
         <div className="flex flex-col w-full flex-shrink-0 px-4">
           <BalanceWidget
             title={dict.balance}
@@ -61,7 +62,7 @@ export default async function Home({
           />
         </div>
       </Card>
-      <Card className="mt-6 flex flex-col justify-end px-6">
+      <Card className="mt-6 hidden md:flex flex-col justify-end px-6 h-[380px]">
         <AccountBalanceChart data={accountBalances} />
         <div className="flex justify-between">
           <div className="flex items-center">
@@ -74,6 +75,7 @@ export default async function Home({
         </div>
         <TransactionTable dict={dict} transactions={transactions} limit={5} />
       </Card>
+      <ToolsBar dict={dict} />
     </main>
   );
 }

@@ -26,7 +26,7 @@ export function DailyBalanceChart({ dailyBalances }: DailyBalanceChartProps) {
   }, [dailyBalances, offset]);
   return (
     <Sparkline
-      h={300}
+      className="h-[150px] md:h-[300px]"
       data={data.map((d) => d.balance)}
       curveType="linear" // "bump"
       color="var(--primary-300)"

@@ -42,7 +42,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} {...mantineHtmlProps}>
       <body
-        className={`${kanit.className} antialiased bg-background text-foreground`}
+        className={`${kanit.className} antialiased bg-background text-foreground w-full lg:w-[70%]`}
       >
         <NextIntlClientProvider locale={locale}>
           <Provider>

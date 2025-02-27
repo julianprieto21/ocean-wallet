@@ -20,7 +20,7 @@ export default async function Sidebar({ locale }: { locale: Locale }) {
 
   const image = session?.user.image;
   return (
-    <div className="w-[35%] flex-shrink-0 flex flex-col h-full gap-4">
+    <div className="w-[35%] flex-shrink-0 flex-col h-full gap-4 hidden lg:flex">
       <div className="flex justify-between items-center w-full">
         <h1 className="text-6xl text-primary-500 pl-4">OCEAN</h1>
         <Avatar image_url={image ?? ""} />
@@ -31,9 +31,9 @@ export default async function Sidebar({ locale }: { locale: Locale }) {
           <NavLinks dict={dict.navigation} />
         </div>
       </div>
-      <div className="flex h-full overflow-auto flex-col mt-6">
+      <div className="flex h-full overflow-auto flex-col mt-6 ml-4">
         <div className="flex flex-col gap-2 w-full">
-          <h2 className="text-3xl pl-4 pt-2 text-primary-300">
+          <h2 className="text-3xl pt-2 text-primary-300">
             {dict.navigation.details}
           </h2>
           <CreateAccount dict={dict.actions} />
