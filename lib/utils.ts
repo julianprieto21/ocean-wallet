@@ -121,7 +121,6 @@ export function fillMissingDailyBalances({
       result.push({ date, balance: Number(balance) });
     }
   }
-  console.log(result);
   return result;
 }
 
