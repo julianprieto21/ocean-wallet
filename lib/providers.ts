@@ -208,4 +208,10 @@ export const PROVIDERS = [
     color: "#6d37d5",
     type: "investment",
   },
+  {
+    vakue: "buenbit",
+    label: "Buenbit",
+    color: "#ffabea",
+    type: "investment",
+  },
 ];
