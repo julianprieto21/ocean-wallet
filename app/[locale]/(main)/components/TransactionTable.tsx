@@ -89,8 +89,8 @@ export function TransactionTable({
                     <span
                       className={`${
                         transaction.type === "expense"
-                          ? "text-red-500"
-                          : "text-green-500"
+                          ? "text-primary-red"
+                          : "text-primary-green"
                       }`}
                     >
                       {tx.integer}
