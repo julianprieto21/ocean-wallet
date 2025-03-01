@@ -209,7 +209,7 @@ export const PROVIDERS = [
     type: "investment",
   },
   {
-    vakue: "buenbit",
+    value: "buenbit",
     label: "Buenbit",
     color: "#ffabea",
     type: "investment",
