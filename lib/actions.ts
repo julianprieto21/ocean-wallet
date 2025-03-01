@@ -61,7 +61,7 @@ export async function createAccount(formData: FormData) {
         rows[0].account_id,
         "-",
         "income",
-        "initial-balance",
+        "initial_balance",
         formatInitial,
         currency_id,
       ]
