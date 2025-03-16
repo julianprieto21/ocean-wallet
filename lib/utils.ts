@@ -99,12 +99,8 @@ export function fillMissingDailyBalances({
   const balanceMap = new Map(
     data.map((item) => [item.date.toDateString(), item.balance])
   );
-  const prevBalance = data.reduce((acc, curr) => {
-    if (curr.date < firstDate) {
-      return acc + curr.balance;
-    }
-    return acc;
-  }, 0);
+  const prevBalance =
+    data.filter((curr) => curr.date < firstDate).at(-1)?.balance ?? 0;
   const dates = [];
   const currentDate = new Date(firstDate);
   while (currentDate <= lastDate) {
