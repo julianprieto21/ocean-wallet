@@ -1,9 +1,9 @@
+import "@mantine/core/styles.layer.css";
+import "@mantine/dates/styles.layer.css";
+import "@mantine/charts/styles.layer.css";
+import "../globals.css";
 import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
-import "../globals.css";
-import "@mantine/core/styles.css";
-import "@mantine/charts/styles.css";
-import "@mantine/dates/styles.css";
 import Sidebar from "@/components/Sidebar";
 import Provider from "@/components/Provider";
 import Menu from "@/components/Menu";
