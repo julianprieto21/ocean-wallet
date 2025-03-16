@@ -9,20 +9,20 @@ dependencies:
     specifier: ^0.6.0
     version: 0.6.0
   '@mantine/charts':
-    specifier: ^7.17.0
-    version: 7.17.0(@mantine/core@7.17.0)(@mantine/hooks@7.17.0)(react-dom@19.0.0)(react@19.0.0)(recharts@2.15.1)
+    specifier: ^7.17.2
+    version: 7.17.2(@mantine/core@7.17.2)(@mantine/hooks@7.17.2)(react-dom@19.0.0)(react@19.0.0)(recharts@2.15.1)
   '@mantine/core':
-    specifier: ^7.17.0
-    version: 7.17.0(@mantine/hooks@7.17.0)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0)
+    specifier: ^7.17.2
+    version: 7.17.2(@mantine/hooks@7.17.2)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0)
   '@mantine/dates':
-    specifier: ^7.17.0
-    version: 7.17.0(@mantine/core@7.17.0)(@mantine/hooks@7.17.0)(dayjs@1.11.13)(react-dom@19.0.0)(react@19.0.0)
+    specifier: ^7.17.2
+    version: 7.17.2(@mantine/core@7.17.2)(@mantine/hooks@7.17.2)(dayjs@1.11.13)(react-dom@19.0.0)(react@19.0.0)
   '@mantine/form':
-    specifier: ^7.17.0
-    version: 7.17.0(react@19.0.0)
+    specifier: ^7.17.2
+    version: 7.17.2(react@19.0.0)
   '@mantine/hooks':
-    specifier: ^7.17.0
-    version: 7.17.0(react@19.0.0)
+    specifier: ^7.17.2
+    version: 7.17.2(react@19.0.0)
   '@neondatabase/serverless':
     specifier: ^0.10.4
     version: 0.10.4
@@ -553,31 +553,31 @@ packages:
       '@jridgewell/sourcemap-codec': 1.5.0
     dev: true
 
-  /@mantine/charts@7.17.0(@mantine/core@7.17.0)(@mantine/hooks@7.17.0)(react-dom@19.0.0)(react@19.0.0)(recharts@2.15.1):
-    resolution: {integrity: sha512-nel/xKTrWBaMP6dTHHgUFSk/YYZa9/WKG/Rz0jfQRzuPpZhMtIFzbr5H3olPgip2/nfhkdK+bfZxxdJjc7W4rg==}
+  /@mantine/charts@7.17.2(@mantine/core@7.17.2)(@mantine/hooks@7.17.2)(react-dom@19.0.0)(react@19.0.0)(recharts@2.15.1):
+    resolution: {integrity: sha512-ckB23pIqRjzysUz2EiWZD9AVyf7t0r7o7zfJbl01nzOezFgYq5RGeRoxvpcsfBC+YoSbB/43rjNcXtYhtA7QzA==}
     peerDependencies:
-      '@mantine/core': 7.17.0
-      '@mantine/hooks': 7.17.0
+      '@mantine/core': 7.17.2
+      '@mantine/hooks': 7.17.2
       react: ^18.x || ^19.x
       react-dom: ^18.x || ^19.x
       recharts: ^2.13.3
     dependencies:
-      '@mantine/core': 7.17.0(@mantine/hooks@7.17.0)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0)
-      '@mantine/hooks': 7.17.0(react@19.0.0)
+      '@mantine/core': 7.17.2(@mantine/hooks@7.17.2)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0)
+      '@mantine/hooks': 7.17.2(react@19.0.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       recharts: 2.15.1(react-dom@19.0.0)(react@19.0.0)
     dev: false
 
-  /@mantine/core@7.17.0(@mantine/hooks@7.17.0)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-AU5UFewUNzBCUXIq5Jk6q402TEri7atZW61qHW6P0GufJ2W/JxGHRvgmHOVHTVIcuWQRCt9SBSqZoZ/vHs9LhA==}
+  /@mantine/core@7.17.2(@mantine/hooks@7.17.2)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-R6MYhitJ0JEgrhadd31Nw9FhRaQwDHjXUs5YIlitKH/fTOz9gKSxKjzmNng3bEBQCcbEDOkZj3FRcBgTUh/F0Q==}
     peerDependencies:
-      '@mantine/hooks': 7.17.0
+      '@mantine/hooks': 7.17.2
       react: ^18.x || ^19.x
       react-dom: ^18.x || ^19.x
     dependencies:
       '@floating-ui/react': 0.26.28(react-dom@19.0.0)(react@19.0.0)
-      '@mantine/hooks': 7.17.0(react@19.0.0)
+      '@mantine/hooks': 7.17.2(react@19.0.0)
       clsx: 2.1.1
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
@@ -589,25 +589,25 @@ packages:
       - '@types/react'
     dev: false
 
-  /@mantine/dates@7.17.0(@mantine/core@7.17.0)(@mantine/hooks@7.17.0)(dayjs@1.11.13)(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-I+WVqkT8jxRQV+gi0MLiG0JYRQf+aL0aQN5Kp6xknAiYVp01D52Vg19QC6urkxQZ9Khwu0GHlFDeAkx5APVO+w==}
+  /@mantine/dates@7.17.2(@mantine/core@7.17.2)(@mantine/hooks@7.17.2)(dayjs@1.11.13)(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-7bB992j8f+uEi280jab0/8i5yfsN/3oSrMDFwatZ+7XSDUwiP0YFib/FVX0pNSSqdFpbXhUmsZEECX71QtHw+Q==}
     peerDependencies:
-      '@mantine/core': 7.17.0
-      '@mantine/hooks': 7.17.0
+      '@mantine/core': 7.17.2
+      '@mantine/hooks': 7.17.2
       dayjs: '>=1.0.0'
       react: ^18.x || ^19.x
       react-dom: ^18.x || ^19.x
     dependencies:
-      '@mantine/core': 7.17.0(@mantine/hooks@7.17.0)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0)
-      '@mantine/hooks': 7.17.0(react@19.0.0)
+      '@mantine/core': 7.17.2(@mantine/hooks@7.17.2)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0)
+      '@mantine/hooks': 7.17.2(react@19.0.0)
       clsx: 2.1.1
       dayjs: 1.11.13
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
     dev: false
 
-  /@mantine/form@7.17.0(react@19.0.0):
-    resolution: {integrity: sha512-LONdeb+wL8h9fvyQ339ZFLxqrvYff+b+H+kginZhnr45OBTZDLXNVAt/YoKVFEkynF9WDJjdBVrXKcOZvPgmrA==}
+  /@mantine/form@7.17.2(react@19.0.0):
+    resolution: {integrity: sha512-MxZPKXXhaZ7M1ZJOpS2wifhh186DMvNjcXa2bP04Tp9TdvTlbLAJZxKjZkQnGGgt8Atsf6/3gdeJMfG704Km6g==}
     peerDependencies:
       react: ^18.x || ^19.x
     dependencies:
@@ -616,8 +616,8 @@ packages:
       react: 19.0.0
     dev: false
 
-  /@mantine/hooks@7.17.0(react@19.0.0):
-    resolution: {integrity: sha512-vo3K49mLy1nJ8LQNb5KDbJgnX0xwt3Y8JOF3ythjB5LEFMptdLSSgulu64zj+QHtzvffFCsMb05DbTLLpVP/JQ==}
+  /@mantine/hooks@7.17.2(react@19.0.0):
+    resolution: {integrity: sha512-tbErVcGZu0E4dSmE6N0k6Tv1y9R3SQmmQgwqorcc+guEgKMdamc36lucZGlJnSGUmGj+WLUgELkEQ0asdfYBDA==}
     peerDependencies:
       react: ^18.x || ^19.x
     dependencies:
