@@ -62,18 +62,20 @@ export default async function Home({
           />
         </div>
       </Card>
-      <Card className="mt-6 hidden md:flex flex-col justify-end px-6 h-[380px]">
+      <Card className="mt-6 hidden md:flex flex-col justify-evenly px-6 h-[380px]">
         <AccountBalanceChart data={accountBalances} />
-        <div className="flex justify-between">
-          <div className="flex items-center">
-            <TransactionTypeSwitcher />
+        <div>
+          <div className="flex justify-between">
+            <div className="flex items-center">
+              <TransactionTypeSwitcher />
+            </div>
+            <div className="flex flex-row justify-end gap-1">
+              <CreateTransaction />
+              <CreateTransfer />
+            </div>
           </div>
-          <div className="flex flex-row justify-end gap-1">
-            <CreateTransaction />
-            <CreateTransfer />
-          </div>
+          <TransactionTable dict={dict} transactions={transactions} limit={5} />
         </div>
-        <TransactionTable dict={dict} transactions={transactions} limit={5} />
       </Card>
       <ToolsBar dict={dict} />
     </main>

@@ -28,8 +28,8 @@ export function DailyBalanceChart({ dailyBalances }: DailyBalanceChartProps) {
     <Sparkline
       className="h-[150px] md:h-[300px]"
       data={data.map((d) => d.balance)}
-      curveType="linear" // "bump"
-      color="var(--primary-300)"
+      curveType="bump"
+      trendColors={{ positive: "teal.6", negative: "red.6", neutral: "gray.5" }}
     />
   );
 }
@@ -62,7 +62,7 @@ export function AccountBalanceChart({ data }: AccountBalanceChartProps) {
       <div className="mt-2 flex flex-row gap-2">
         {data.map((acc) => {
           return (
-            <span key={acc.name} className="flex gap-1">
+            <span key={acc.name} className="flex gap-1 items-center">
               <img
                 src={`/icons/wallet/${acc.provider}.svg`}
                 alt=""

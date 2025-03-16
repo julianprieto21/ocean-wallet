@@ -20,20 +20,20 @@ export function TransactionTable({
   const locale = useLocale();
   const { transactionType } = useUISettingsStore((state) => state);
   return (
-    <div className="w-full overflow-auto h-3/4 flex-shrink-0">
+    <div className="w-full overflow-auto flex-shrink-0">
       <table className="w-full table-fixed bg-primary-50 border-collapse">
         <thead className="bg-primary-200 sticky top-0">
           <tr>
-            <td className="text-left py-3 px-2 border-b border-primary-200 text-primary-300 w-[30%]">
+            <td className="text-left py-2 px-2 border-b border-primary-200 text-primary-300 w-[30%]">
               {dict.transactions.description.toUpperCase()}
             </td>
-            <td className="text-center py-3 px-2 border-b border-primary-200 text-primary-300 w-[25%]">
+            <td className="text-center py-2 px-2 border-b border-primary-200 text-primary-300 w-[25%]">
               {dict.transactions.category.toUpperCase()}
             </td>
-            <td className="text-center py-3 px-2 border-b border-primary-200 text-primary-300 w-[25%]">
+            <td className="text-center py-2 px-2 border-b border-primary-200 text-primary-300 w-[25%]">
               {dict.common_fields.created_at.toUpperCase()}
             </td>
-            <td className="text-center py-3 px-2 border-b border-primary-200 text-primary-300">
+            <td className="text-center py-2 px-2 border-b border-primary-200 text-primary-300">
               {dict.common_fields.amount.toUpperCase()}
             </td>
           </tr>
@@ -64,7 +64,7 @@ export function TransactionTable({
                   key={transaction.transaction_id}
                   className="hover:bg-gray-50"
                 >
-                  <td className="text-left py-3 px-2 truncate border-b border-primary-200 align-middle">
+                  <td className="text-left py-2 px-2 truncate border-b border-primary-200 align-middle">
                     <div className="flex items-center gap-2">
                       <img
                         src={`/icons/wallet/${transaction.provider}.svg`}
@@ -74,7 +74,7 @@ export function TransactionTable({
                       {transaction.description}
                     </div>
                   </td>
-                  <td className="text-center py-3 px-2 border-b border-primary-200">
+                  <td className="text-center py-2 px-2 border-b border-primary-200">
                     <span
                       id={transaction.category}
                       className="p-1 rounded-full px-2 uppercase text-xs font-medium"
@@ -82,10 +82,10 @@ export function TransactionTable({
                       {dict.categories[transaction.category as Category]}
                     </span>
                   </td>
-                  <td className="text-center py-3 px-2 border-b border-primary-200">
+                  <td className="text-center py-2 px-2 border-b border-primary-200">
                     {date}
                   </td>
-                  <td className="text-right py-3 px-2 border-b border-primary-200">
+                  <td className="text-right py-2 px-2 border-b border-primary-200">
                     <span
                       className={`${
                         transaction.type === "expense"
