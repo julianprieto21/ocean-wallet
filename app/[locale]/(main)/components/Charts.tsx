@@ -2,7 +2,7 @@
 
 import { PROVIDERS } from "@/lib/providers";
 import React, { useEffect } from "react";
-import { Sparkline } from "@mantine/charts";
+import { AreaChart, Sparkline } from "@mantine/charts";
 import { fillMissingDailyBalances } from "@/lib/utils";
 
 type DailyBalanceChartProps = {
@@ -24,13 +24,27 @@ export function DailyBalanceChart({ dailyBalances }: DailyBalanceChartProps) {
       })
     );
   }, [dailyBalances, offset]);
+  console.log(data);
   return (
-    <Sparkline
-      className="h-[150px] md:h-[300px]"
-      data={data.map((d) => d.balance)}
+    <AreaChart
+      h={300}
+      data={data}
+      dataKey="date"
+      unit="$"
+      series={[{ name: "balance", color: "steal.6" }]}
       curveType="bump"
-      trendColors={{ positive: "teal.6", negative: "red.6", neutral: "gray.5" }}
+      withXAxis={false}
+      withYAxis={false}
+      withGradient
+      withTooltip
+      gridAxis="none"
     />
+    // <Sparkline
+    //   className="h-[150px] md:h-[300px]"
+    //   data={data.map((d) => d.balance)}
+    //   curveType="bump"
+    //   trendColors={{ positive: "teal.6", negative: "red.6", neutral: "gray.5" }}
+    // />
   );
 }
 
