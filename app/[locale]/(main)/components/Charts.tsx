@@ -2,7 +2,7 @@
 
 import { PROVIDERS } from "@/lib/providers";
 import React, { useEffect } from "react";
-import { AreaChart, Sparkline } from "@mantine/charts";
+import { AreaChart } from "@mantine/charts";
 import { fillMissingDailyBalances } from "@/lib/utils";
 
 type DailyBalanceChartProps = {
