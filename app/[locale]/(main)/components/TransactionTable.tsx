@@ -1,4 +1,5 @@
 "use client";
+import { CURRENCIES } from "@/lib/currencies";
 import { useUISettingsStore } from "@/lib/store/uiSettingsStore";
 import { Category, Dict, Transaction } from "@/lib/types";
 import { formatCurrency, formatDate } from "@/lib/utils";
@@ -25,7 +26,9 @@ export function TransactionTable({
         <thead className="bg-primary-200 sticky top-0">
           <tr>
             <td className="text-left py-2 px-2 border-b border-primary-200 text-primary-300 w-[30%]">
-              {dict.transactions.description.toUpperCase()}
+              {transactionType === "transactional"
+                ? dict.transactions.description.toUpperCase()
+                : dict.common_fields.currency.toUpperCase()}
             </td>
             <td className="text-center py-2 px-2 border-b border-primary-200 text-primary-300 w-[25%]">
               {dict.transactions.category.toUpperCase()}
@@ -65,14 +68,29 @@ export function TransactionTable({
                   className="hover:bg-gray-50"
                 >
                   <td className="text-left py-2 px-2 truncate border-b border-primary-200 align-middle">
-                    <div className="flex items-center gap-2">
-                      <img
-                        src={`/icons/wallet/${transaction.provider}.svg`}
-                        alt=""
-                        className="size-5 rounded-full"
-                      />
-                      {transaction.description}
-                    </div>
+                    {transactionType === "transactional" ? (
+                      <div className="flex items-center gap-2">
+                        <img
+                          src={`/icons/wallet/${transaction.provider}.svg`}
+                          alt=""
+                          className="size-5 rounded-full"
+                        />
+                        {transaction.description}
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <img
+                          src={`/icons/crypto/${transaction.currency_id}.svg`}
+                          alt=""
+                          className="size-5 rounded-full"
+                        />
+                        {
+                          CURRENCIES.find(
+                            (curr) => curr.value === transaction.currency_id
+                          )?.name
+                        }
+                      </div>
+                    )}
                   </td>
                   <td className="text-center py-2 px-2 border-b border-primary-200">
                     <span
