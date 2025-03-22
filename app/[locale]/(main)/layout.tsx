@@ -1,4 +1,4 @@
-import "@mantine/core/styles.layer.css";
+import "@mantine/core/styles.css";
 import "@mantine/dates/styles.layer.css";
 import "@mantine/charts/styles.layer.css";
 import "../globals.css";
