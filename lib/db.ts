@@ -192,11 +192,12 @@ export async function getQuotaDetails() {
       qu.amount orig, 
       (qu.amount * ex.exchange_rate) conv
     FROM quotas AS qu
+    JOIN accounts AS ac ON ac.account_id = qu.account_id
     JOIN currency_exchange_rates AS ex ON 
       ex.from_curr = qu.currency_id 
       AND ex.to_curr = (SELECT preference_currency FROM users WHERE user_id = $1)
     WHERE 
-      qu.user_id = $1
+      ac.user_id = $1
       AND qu.status IN ('active', 'paused')
     ORDER BY qu.created_at`,
     [user.id]
