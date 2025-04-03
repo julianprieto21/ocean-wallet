@@ -15,7 +15,7 @@ export default function NavLinks({ dict }: { dict: NavigationDict }) {
       name: dict.transactions,
       href: "/transactions",
       icon: Layers,
-      disabled: true,
+      disabled: false,
     },
     {
       name: dict.accounts,
