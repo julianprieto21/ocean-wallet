@@ -222,7 +222,7 @@ export async function getBalancePerAccount() {
     SELECT 
       ac.name, 
       ac.provider, 
-      SUM((tx.amount * ex.exchange_rate) / total.total * 100)::float AS percent
+      COALESCE(SUM((tx.amount * ex.exchange_rate) / NULLIF(total.total, 0) * 100), 0)::float AS percent
     FROM accounts AS ac
     LEFT JOIN transactions AS tx ON tx.account_id = ac.account_id
     LEFT JOIN currency_exchange_rates AS ex ON ex.from_curr = tx.currency_id 

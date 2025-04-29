@@ -12,6 +12,7 @@ import {
 import { Dict } from "@/lib/types";
 import { TransactionTable } from "./components/TransactionTable";
 import {
+  // CreateQuota,
   CreateTransaction,
   CreateTransfer,
   TransactionTypeSwitcher,
@@ -62,7 +63,7 @@ export default async function Home({
           />
         </div>
       </Card>
-      <Card className="mt-6 hidden md:flex flex-col justify-evenly px-6 h-[380px]">
+      <Card className="mt-6 hidden md:flex flex-col justify-start px-6 h-[380px]">
         <AccountBalanceChart data={accountBalances} />
         <div>
           <div className="flex justify-between">
@@ -72,6 +73,7 @@ export default async function Home({
             <div className="flex flex-row justify-end gap-1">
               <CreateTransaction />
               <CreateTransfer />
+              {/* <CreateQuota /> */}
             </div>
           </div>
           <TransactionTable dict={dict} transactions={transactions} limit={5} />
