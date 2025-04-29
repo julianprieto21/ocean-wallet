@@ -19,7 +19,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         `SELECT * FROM users WHERE email = $1`,
         [user.email]
       );
-      if (rows) return true;
+      if (rows.length != 0) return true;
 
       const { username, email, image_url, preference_currency } =
         userSchema.parse({
