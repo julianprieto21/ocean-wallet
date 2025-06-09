@@ -17,12 +17,12 @@ export default function NavLinks({ dict }: { dict: NavigationDict }) {
       icon: Layers,
       disabled: false,
     },
-    {
-      name: dict.accounts,
-      href: "/accounts",
-      icon: CreditCard,
-      disabled: true,
-    },
+    // {
+    //   name: dict.accounts,
+    //   href: "/accounts",
+    //   icon: CreditCard,
+    //   disabled: true,
+    // },
   ];
   const pathname = usePathname();
   return (

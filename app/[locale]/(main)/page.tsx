@@ -47,7 +47,7 @@ export default async function Home({
             size="large"
           />
         </div>
-        <DailyBalanceChart dailyBalances={dailyBalances} />
+        {/* <DailyBalanceChart dailyBalances={dailyBalances} /> */}
         <div className="flex flex-row justify-between items-start w-full gap-8 flex-shrink-0 px-4">
           <BalanceWidget
             title={dict.incomes}
@@ -63,7 +63,7 @@ export default async function Home({
           />
         </div>
       </Card>
-      <Card className="mt-6 hidden md:flex flex-col justify-start px-6 h-[380px]">
+      <Card className="mt-6 hidden md:flex flex-col justify-start h-[380px]">
         <AccountBalanceChart data={accountBalances} />
         <div>
           <div className="flex justify-between">
@@ -76,7 +76,7 @@ export default async function Home({
               {/* <CreateQuota /> */}
             </div>
           </div>
-          <TransactionTable dict={dict} transactions={transactions} limit={5} />
+          <TransactionTable dict={dict} transactions={transactions} limit={6} />
         </div>
       </Card>
       <ToolsBar dict={dict} />

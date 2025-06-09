@@ -1,9 +1,9 @@
 "use client";
 
 import { PROVIDERS } from "@/lib/providers";
-import React, { useEffect } from "react";
+import React from "react";
 import { Sparkline } from "@mantine/charts";
-import { fillMissingDailyBalances } from "@/lib/utils";
+// import { fillMissingDailyBalances } from "@/lib/utils";
 
 type DailyBalanceChartProps = {
   dailyBalances: {
@@ -13,17 +13,9 @@ type DailyBalanceChartProps = {
 };
 export function DailyBalanceChart({ dailyBalances }: DailyBalanceChartProps) {
   const [offset] = React.useState(7);
-  const [data, setData] = React.useState<{ date: string; balance: number }[]>(
-    []
-  );
-  useEffect(() => {
-    setData(
-      fillMissingDailyBalances({
-        data: dailyBalances,
-        offset: offset,
-      })
-    );
-  }, [dailyBalances, offset]);
+  const [data, setData] =
+    React.useState<{ date: Date; balance: number }[]>(dailyBalances);
+
   return (
     <Sparkline
       className="h-[150px] md:h-[300px]"

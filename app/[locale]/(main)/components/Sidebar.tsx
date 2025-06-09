@@ -40,8 +40,8 @@ export default async function Sidebar({ locale }: { locale: Locale }) {
           <Details type="transactional" details={walletAccounts} dict={dict} />
           <Details type="crypto" details={cryptoAccounts} dict={dict} />
         </div>
-        <span className="border-t border-primary-300 border-dashed mx-4 my-2"></span>
-        <Details type="quota" details={quotas} dict={dict} />
+        {/* <span className="border-t border-primary-300 border-dashed mx-4 my-2"></span> */}
+        {/* <Details type="quota" details={quotas} dict={dict} /> */}
       </div>
     </div>
   );
