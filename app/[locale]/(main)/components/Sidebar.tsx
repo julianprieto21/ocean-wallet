@@ -4,11 +4,7 @@ import { Details } from "./Details";
 import { Avatar, CreateAccount } from "./Buttons";
 import { auth } from "@/auth";
 import { getDictionary } from "@/lib/dictionaries";
-import {
-  getWalletAccountDetails,
-  getInvestmentAccountDetails,
-  getQuotaDetails,
-} from "@/lib/db";
+import { getWalletAccountDetails, getInvestmentAccountDetails } from "@/lib/db";
 import type { Locale } from "@/i18n/routing";
 
 export default async function Sidebar({ locale }: { locale: Locale }) {
