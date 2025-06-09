@@ -9,20 +9,20 @@ dependencies:
     specifier: ^0.6.0
     version: 0.6.0
   '@mantine/charts':
-    specifier: ^7.17.2
-    version: 7.17.2(@mantine/core@7.17.2)(@mantine/hooks@7.17.2)(react-dom@19.0.0)(react@19.0.0)(recharts@2.15.1)
+    specifier: ^8.1.0
+    version: 8.1.0(@mantine/core@8.1.0)(@mantine/hooks@8.1.0)(react-dom@19.0.0)(react@19.0.0)(recharts@2.15.1)
   '@mantine/core':
-    specifier: ^7.17.2
-    version: 7.17.2(@mantine/hooks@7.17.2)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0)
+    specifier: ^8.1.0
+    version: 8.1.0(@mantine/hooks@8.1.0)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0)
   '@mantine/dates':
-    specifier: ^7.17.2
-    version: 7.17.2(@mantine/core@7.17.2)(@mantine/hooks@7.17.2)(dayjs@1.11.13)(react-dom@19.0.0)(react@19.0.0)
+    specifier: ^8.1.0
+    version: 8.1.0(@mantine/core@8.1.0)(@mantine/hooks@8.1.0)(dayjs@1.11.13)(react-dom@19.0.0)(react@19.0.0)
   '@mantine/form':
-    specifier: ^7.17.2
-    version: 7.17.2(react@19.0.0)
+    specifier: ^8.1.0
+    version: 8.1.0(react@19.0.0)
   '@mantine/hooks':
-    specifier: ^7.17.2
-    version: 7.17.2(react@19.0.0)
+    specifier: ^8.1.0
+    version: 8.1.0(react@19.0.0)
   '@neondatabase/serverless':
     specifier: ^0.10.4
     version: 0.10.4
@@ -553,61 +553,61 @@ packages:
       '@jridgewell/sourcemap-codec': 1.5.0
     dev: true
 
-  /@mantine/charts@7.17.2(@mantine/core@7.17.2)(@mantine/hooks@7.17.2)(react-dom@19.0.0)(react@19.0.0)(recharts@2.15.1):
-    resolution: {integrity: sha512-ckB23pIqRjzysUz2EiWZD9AVyf7t0r7o7zfJbl01nzOezFgYq5RGeRoxvpcsfBC+YoSbB/43rjNcXtYhtA7QzA==}
+  /@mantine/charts@8.1.0(@mantine/core@8.1.0)(@mantine/hooks@8.1.0)(react-dom@19.0.0)(react@19.0.0)(recharts@2.15.1):
+    resolution: {integrity: sha512-mPRSZusNppsQEaLfIdlpZbVGfHFxN65BOL7hzoR1AlSS77DkPj35TOY3Ofs3NZVI/Ujpr4v5Jh5YcYN4CHwEYQ==}
     peerDependencies:
-      '@mantine/core': 7.17.2
-      '@mantine/hooks': 7.17.2
+      '@mantine/core': 8.1.0
+      '@mantine/hooks': 8.1.0
       react: ^18.x || ^19.x
       react-dom: ^18.x || ^19.x
       recharts: ^2.13.3
     dependencies:
-      '@mantine/core': 7.17.2(@mantine/hooks@7.17.2)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0)
-      '@mantine/hooks': 7.17.2(react@19.0.0)
+      '@mantine/core': 8.1.0(@mantine/hooks@8.1.0)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0)
+      '@mantine/hooks': 8.1.0(react@19.0.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       recharts: 2.15.1(react-dom@19.0.0)(react@19.0.0)
     dev: false
 
-  /@mantine/core@7.17.2(@mantine/hooks@7.17.2)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-R6MYhitJ0JEgrhadd31Nw9FhRaQwDHjXUs5YIlitKH/fTOz9gKSxKjzmNng3bEBQCcbEDOkZj3FRcBgTUh/F0Q==}
+  /@mantine/core@8.1.0(@mantine/hooks@8.1.0)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-wouPEE6nNjN52+taw23uca6OFsxXF7Slw4G5GT3CGCathDsN563fxuPNrc2uifvNsl/3bbiMFAAGAkVF07lc1A==}
     peerDependencies:
-      '@mantine/hooks': 7.17.2
+      '@mantine/hooks': 8.1.0
       react: ^18.x || ^19.x
       react-dom: ^18.x || ^19.x
     dependencies:
       '@floating-ui/react': 0.26.28(react-dom@19.0.0)(react@19.0.0)
-      '@mantine/hooks': 7.17.2(react@19.0.0)
+      '@mantine/hooks': 8.1.0(react@19.0.0)
       clsx: 2.1.1
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       react-number-format: 5.4.3(react-dom@19.0.0)(react@19.0.0)
       react-remove-scroll: 2.6.3(@types/react@19.0.9)(react@19.0.0)
-      react-textarea-autosize: 8.5.6(@types/react@19.0.9)(react@19.0.0)
+      react-textarea-autosize: 8.5.9(@types/react@19.0.9)(react@19.0.0)
       type-fest: 4.34.1
     transitivePeerDependencies:
       - '@types/react'
     dev: false
 
-  /@mantine/dates@7.17.2(@mantine/core@7.17.2)(@mantine/hooks@7.17.2)(dayjs@1.11.13)(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-7bB992j8f+uEi280jab0/8i5yfsN/3oSrMDFwatZ+7XSDUwiP0YFib/FVX0pNSSqdFpbXhUmsZEECX71QtHw+Q==}
+  /@mantine/dates@8.1.0(@mantine/core@8.1.0)(@mantine/hooks@8.1.0)(dayjs@1.11.13)(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-vEprJTMPxTD6fzzQGPUdR4pgVfv6YnjFzqD53SCkOGckxidFaUiXQRhRjh8k/sojT8PrlDef/a7Rt/XWzjrksg==}
     peerDependencies:
-      '@mantine/core': 7.17.2
-      '@mantine/hooks': 7.17.2
+      '@mantine/core': 8.1.0
+      '@mantine/hooks': 8.1.0
       dayjs: '>=1.0.0'
       react: ^18.x || ^19.x
       react-dom: ^18.x || ^19.x
     dependencies:
-      '@mantine/core': 7.17.2(@mantine/hooks@7.17.2)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0)
-      '@mantine/hooks': 7.17.2(react@19.0.0)
+      '@mantine/core': 8.1.0(@mantine/hooks@8.1.0)(@types/react@19.0.9)(react-dom@19.0.0)(react@19.0.0)
+      '@mantine/hooks': 8.1.0(react@19.0.0)
       clsx: 2.1.1
       dayjs: 1.11.13
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
     dev: false
 
-  /@mantine/form@7.17.2(react@19.0.0):
-    resolution: {integrity: sha512-MxZPKXXhaZ7M1ZJOpS2wifhh186DMvNjcXa2bP04Tp9TdvTlbLAJZxKjZkQnGGgt8Atsf6/3gdeJMfG704Km6g==}
+  /@mantine/form@8.1.0(react@19.0.0):
+    resolution: {integrity: sha512-bCLdeWRbuYfG7l5b7nSKYEdWEWLOl55g/dyifRjFEr9pOK9ZNCj7oCOtXp0Lk1QJGqopZoaKxb5mvajEwDFXoQ==}
     peerDependencies:
       react: ^18.x || ^19.x
     dependencies:
@@ -616,8 +616,8 @@ packages:
       react: 19.0.0
     dev: false
 
-  /@mantine/hooks@7.17.2(react@19.0.0):
-    resolution: {integrity: sha512-tbErVcGZu0E4dSmE6N0k6Tv1y9R3SQmmQgwqorcc+guEgKMdamc36lucZGlJnSGUmGj+WLUgELkEQ0asdfYBDA==}
+  /@mantine/hooks@8.1.0(react@19.0.0):
+    resolution: {integrity: sha512-Ycg8g11zRFfG0ZOp3lIogZh8O1Y5+Jiteu1Ja0BeIeTPVLLXufUhhgyorNr7F4QTD18xKzB1nX8wZzKFD6czPQ==}
     peerDependencies:
       react: ^18.x || ^19.x
     dependencies:
@@ -3353,8 +3353,8 @@ packages:
       tslib: 2.8.1
     dev: false
 
-  /react-textarea-autosize@8.5.6(@types/react@19.0.9)(react@19.0.0):
-    resolution: {integrity: sha512-aT3ioKXMa8f6zHYGebhbdMD2L00tKeRX1zuVuDx9YQK/JLLRSaSxq3ugECEmUB9z2kvk6bFSIoRHLkkUv0RJiw==}
+  /react-textarea-autosize@8.5.9(@types/react@19.0.9)(react@19.0.0):
+    resolution: {integrity: sha512-U1DGlIQN5AwgjTyOEnI1oCcMuEr1pv1qOtklB2l4nyMGbHzWrI0eFsYK0zos2YWqAolJyG0IWJaqWmWj5ETh0A==}
     engines: {node: '>=10'}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
