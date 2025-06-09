@@ -1,6 +1,6 @@
 import Greetings from "@/components/Greetings";
 import { getGrowPercentage } from "@/lib/utils";
-import { DailyBalanceChart } from "@/components/Charts";
+// import { DailyBalanceChart } from "@/components/Charts";
 import { AccountBalanceChart } from "@/components/Charts";
 import { getDictionary } from "@/lib/dictionaries";
 import {

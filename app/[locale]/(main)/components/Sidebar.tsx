@@ -16,7 +16,7 @@ export default async function Sidebar({ locale }: { locale: Locale }) {
   const dict = await getDictionary(locale);
   const walletAccounts = await getWalletAccountDetails();
   const cryptoAccounts = await getInvestmentAccountDetails();
-  const quotas = await getQuotaDetails();
+  // const quotas = await getQuotaDetails();
 
   const image = session?.user.image;
   return (

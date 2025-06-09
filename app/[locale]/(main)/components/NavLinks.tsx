@@ -1,5 +1,5 @@
 "use client";
-import { Layers, CreditCard, Home } from "lucide-react";
+import { Layers, Home } from "lucide-react";
 import { usePathname, Link } from "@/i18n/routing";
 import { NavigationDict } from "@/lib/types";
 

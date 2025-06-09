@@ -12,8 +12,8 @@ type DailyBalanceChartProps = {
   }[];
 };
 export function DailyBalanceChart({ dailyBalances }: DailyBalanceChartProps) {
-  const [offset] = React.useState(7);
-  const [data, setData] =
+  // const [offset] = React.useState(7);
+  const [data] =
     React.useState<{ date: Date; balance: number }[]>(dailyBalances);
 
   return (
